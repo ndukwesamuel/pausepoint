@@ -28,6 +28,9 @@ import Commingsoon from "../../screens/SharedScreen/Commingsoon";
 import UserClans from "../../screens/Customerinterface/Clan/UserClans";
 import CreateForum from "../../screens/Customerinterface/Forum/CreateForum";
 import ForumDetails from "../../screens/Customerinterface/Forum/ForumDetails";
+import EditPersonalInformation from "../../screens/Customerinterface/Account/EditPersonalInformation";
+import CreateGuests from "../../screens/Customerinterface/Guest/CreateGuests";
+import GuestsDetail from "../../screens/Customerinterface/Guest/GuestsDetail";
 
 const Stack = createNativeStackNavigator();
 
@@ -87,6 +90,25 @@ export const Usernaviagetion = () => {
       component: ForumDetails,
       title: "",
     },
+
+    {
+      name: "PersonalInfo",
+      component: EditPersonalInformation,
+      title: "",
+    },
+
+    {
+      name: "inviteguest",
+      component: CreateGuests,
+      title: "Invite Guest",
+    },
+
+    {
+      name: "guestsdetail",
+      component: GuestsDetail,
+      title: " Guest Details",
+    },
+
     // Add more screens as needed
   ];
   return (

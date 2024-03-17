@@ -68,20 +68,27 @@ export const Get_My_Clan_Forum_Fun = createAsyncThunk(
         thunkAPI.getState()?.UserProfileSlice?.get_user_profile_data
           ?.currentClanMeeting?._id;
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token_Data}`,
-        },
-      };
+      if (clan_id) {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token_Data}`,
+          },
+        };
 
-      const response = await axios.get(
-        `${API_BASEURL}forum/${clan_id}`,
-        config
-      );
+        const response = await axios.get(
+          `${API_BASEURL}forum/${clan_id}`,
+          config
+        );
 
-      return response.data;
+        return response.data;
+      } else {
+        Toast.show({
+          type: "error",
+          text1: `Not in a clan yet`,
+        });
+      }
     } catch (error) {
       Toast.show({
         type: "error",

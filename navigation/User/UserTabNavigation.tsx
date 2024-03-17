@@ -5,13 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import About from '../../screens/Customerinterface/About';
 import { AntDesign } from "@expo/vector-icons";
 import { CustomTabButton, Tabcomponent } from '../../components/shared/naviagetion';
-import Guests from '../../screens/Customerinterface/Guests';
 import Emergency from '../../screens/Customerinterface/Emergency/Emergency';
 import Account from '../../screens/Customerinterface/Account/Account';
-import History from '../../screens/Customerinterface/History';
-import EmergencyNavigation from '../EmergencyNavigation';
+import History from '../../screens/Customerinterface/Guest/History';
 import Home from '../../screens/Customerinterface/Home';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Guests from '../../screens/Customerinterface/Guest/Guests';
+import Myclan from '../../screens/Customerinterface/Clan/Myclan';
 
 
 
@@ -86,7 +86,7 @@ const UserTabNavigation = () => {
 
                 <Tab.Screen
                     options={{
-                        title: "History",
+                        title: "Clan",
                         tabBarActiveTintColor: "#005091",
                         headerShown: false,
                         tabBarIcon: ({ focused }) => {
@@ -95,7 +95,7 @@ const UserTabNavigation = () => {
                                     focused={focused}
                                     iconFocused={require('../../assets/images/history.png')}
                                     iconUnfocused={require('../../assets/images/historyhistory2.png')}
-                                    label="History"
+                                    label="Clan"
                                     containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
                                     texttStyle={{ color: "#000000" }}
                                 />
@@ -105,7 +105,7 @@ const UserTabNavigation = () => {
                         },
                     }}
 
-                    name="History" component={History} />
+                    name="History" component={Myclan} />
                 <Tab.Screen name="Home" component={Home}
 
 

@@ -12,6 +12,7 @@ import UserProfileSlice from "./UserSide/UserProfileSlice";
 import  ForumSlice  from "./UserSide/ForumSlice";
 import EmergencySlice from "./Admin/EmergencySlice";
 import AdminForumSlice from "./Admin/AdminForumSlice";
+import GuestSlice from "./UserSide/GuestSlice";
 
 // import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
@@ -25,7 +26,8 @@ const reducers = combineReducers({
   UserProfileSlice: UserProfileSlice,
   ForumSlice:ForumSlice,
   EmergencySlice:EmergencySlice,
-  AdminForumSlice:AdminForumSlice
+  AdminForumSlice:AdminForumSlice,
+  GuestSlice:GuestSlice
  
 });
 

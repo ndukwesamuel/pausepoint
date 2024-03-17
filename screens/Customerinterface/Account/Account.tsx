@@ -31,8 +31,8 @@ const data: GeneralData[] = [
         icon: 'user',
         label: 'Edit Personal Info',
         icon_type: 'AntDesign',
-        // link: 'PersonalInfo',
-        link: "comming"
+        link: 'PersonalInfo',
+        // link: "comming"
 
     },
     {

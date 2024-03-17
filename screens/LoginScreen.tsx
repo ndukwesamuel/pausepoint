@@ -184,7 +184,7 @@ const LoginScreen = ({ }: {}) => {
                         buttonStyle={{ borderWidth: 1, borderColor: '#04973C', paddingVertical: 14, alignItems: 'center', borderRadius: 5, flexDirection: "row", justifyContent: "center", gap: 10 }}
                         textStyle={{ color: '#454343', fontWeight: "500", fontSize: 14, fontFamily: "RobotoSlab-Medium" }}
                         data='Sign Up'
-                        icon={<AntDesign name="google" size={22} color="black" />}
+                        // icon={<AntDesign name="google" size={22} color="black" />}
                         onPress={() => console.log("this is google")
                         }
 

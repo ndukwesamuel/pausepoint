@@ -57,6 +57,10 @@ export default function AdminHome() {
   const dispatch = useDispatch();
 
   const { userProfile_data } = useSelector((state) => state.ProfileSlice);
+  const ffff = useSelector((state) => state?.AuthSlice);
+  console.log({
+    ffff,
+  });
 
   const {
     get_user_clan_data,
@@ -117,40 +121,41 @@ export default function AdminHome() {
         // ...style,
       }}
     >
-      <View
-        style={{
-          justifyContent: "flex-start",
-          padding: 15,
-        }}
-      >
-        <Image
-          source={{
-            uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          }}
-          style={{ width: 68, height: 68, borderRadius: 50 }}
-        />
-
-        <Text
+      <View style={{ flex: 1, backgroundColor: "white" }}>
+        <View
           style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            // color: "white",
-            marginTop: 20,
+            justifyContent: "flex-start",
+            padding: 15,
           }}
         >
-          {userProfile_data?.user?.name}
-        </Text>
-        <RegularFontText
-          data=" Lekki County Homes"
-          textstyle={{ fontSize: 14, fontWeight: "400" }}
-        />
+          <Image
+            source={{
+              uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            }}
+            style={{ width: 68, height: 68, borderRadius: 50 }}
+          />
 
-        <View style={{ flexGrow: 1, marginTop: 50 }}>
-          {
-            // Tab Bar Buttons....
-          }
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              // color: "white",
+              marginTop: 20,
+            }}
+          >
+            {userProfile_data?.user?.name}
+          </Text>
+          <RegularFontText
+            data=" Lekki County Homes"
+            textstyle={{ fontSize: 14, fontWeight: "400" }}
+          />
 
-          {/* {TabButton(
+          <View style={{ flexGrow: 1, marginTop: 50 }}>
+            {
+              // Tab Bar Buttons....
+            }
+
+            {/* {TabButton(
             currentTab,
             setCurrentTab,
             "Clan",
@@ -158,231 +163,159 @@ export default function AdminHome() {
             "AdminEmergencies"
           )} */}
 
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "My Clans",
-            clan,
-            "AdminMyclan"
-          )}
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "My Clans",
+              clan,
+              "AdminMyclan"
+            )}
 
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Emergencies",
-            emergencies_icon,
-            "AdminEmergencies"
-          )}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Calender",
-            search,
-            "icecontact"
-          )}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Announcement",
-            color_swatch,
-            "AdminAnnouncement"
-          )}
-          {TabButton(currentTab, setCurrentTab, "Complaints", Calendar_light)}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Guests",
-            savepost,
-            "Neigborhood"
-          )}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Saved Posts",
-            bookmark,
-            "SavedPosts"
-          )}
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Emergencies",
+              emergencies_icon,
+              "AdminEmergencies"
+            )}
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Calender",
+              search,
+              "icecontact"
+            )}
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Announcement",
+              color_swatch,
+              "AdminAnnouncement"
+            )}
+            {TabButton(currentTab, setCurrentTab, "Complaints", Calendar_light)}
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Guests",
+              savepost,
+              "Neigborhood"
+            )}
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Saved Posts",
+              bookmark,
+              "SavedPosts"
+            )}
+          </View>
+
+          <View>{TabButton(currentTab, setCurrentTab, "LogOut", logout)}</View>
         </View>
 
-        <View>{TabButton(currentTab, setCurrentTab, "LogOut", logout)}</View>
-      </View>
-
-      {
-        // Over lay View...
-      }
-
-      <Animated.View
-        style={{
-          flexGrow: 1,
-          backgroundColor: "white",
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          paddingHorizontal: 15,
-          paddingVertical: 20,
-          borderRadius: showMenu ? 15 : 0,
-          // Transforming View...
-          transform: [{ scale: scaleValue }, { translateX: offsetValue }],
-        }}
-      >
         {
-          // Menu Button...
+          // Over lay View...
         }
 
         <Animated.View
           style={{
-            transform: [
-              {
-                translateY: closeButtonOffset,
-              },
-            ],
+            flexGrow: 1,
+            backgroundColor: "white",
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            paddingHorizontal: 15,
+            paddingVertical: 20,
+            borderRadius: showMenu ? 15 : 0,
+            // Transforming View...
+            transform: [{ scale: scaleValue }, { translateX: offsetValue }],
           }}
         >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              // marginTop: 40,
+          {
+            // Menu Button...
+          }
 
-              // borderWidth: 3,
-              // borderColor: "red",
+          <Animated.View
+            style={{
+              transform: [
+                {
+                  translateY: closeButtonOffset,
+                },
+              ],
             }}
           >
-            <TouchableOpacity
-              onPress={() => {
-                // Do Actions Here....
-                // Scaling the view...
-                Animated.timing(scaleValue, {
-                  toValue: showMenu ? 1 : 0.88,
-                  duration: 300,
-                  useNativeDriver: true,
-                }).start();
-
-                Animated.timing(offsetValue, {
-                  // YOur Random Value...
-                  toValue: showMenu ? 0 : 230,
-                  duration: 300,
-                  useNativeDriver: true,
-                }).start();
-
-                Animated.timing(closeButtonOffset, {
-                  // YOur Random Value...
-                  toValue: !showMenu ? -30 : 0,
-                  duration: 300,
-                  useNativeDriver: true,
-                }).start();
-
-                setShowMenu(!showMenu);
-              }}
-            >
-              <Image
-                source={showMenu ? close : menu}
-                style={{
-                  width: 20,
-                  height: 20,
-                  tintColor: "black",
-                }}
-              ></Image>
-            </TouchableOpacity>
-
-            <View style={{ flexDirection: "row", gap: 20 }}>
-              <AntDesign name="search1" size={24} color="black" />
-
-              <TouchableOpacity>
-                <Ionicons
-                  name="notifications-outline"
-                  size={24}
-                  color="black"
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <MediumFontText
-            data="Dashboard"
-            textstyle={{ fontSize: 20, fontWeight: "500", marginVertical: 10 }}
-          />
-
-          <View style={{}}>
             <View
               style={{
-                borderWidth: 1,
-                borderColor: "black",
-                borderRadius: 10,
                 flexDirection: "row",
+                justifyContent: "space-between",
                 alignItems: "center",
-                gap: 10,
-                width: "100%",
-                paddingHorizontal: 5,
-                paddingVertical: 5,
+                // marginTop: 40,
+
+                // borderWidth: 3,
+                // borderColor: "red",
               }}
             >
-              <View
-                style={{
-                  backgroundColor: "#EEFDF4",
-                  padding: 2,
+              <TouchableOpacity
+                onPress={() => {
+                  // Do Actions Here....
+                  // Scaling the view...
+                  Animated.timing(scaleValue, {
+                    toValue: showMenu ? 1 : 0.88,
+                    duration: 300,
+                    useNativeDriver: true,
+                  }).start();
+
+                  Animated.timing(offsetValue, {
+                    // YOur Random Value...
+                    toValue: showMenu ? 0 : 230,
+                    duration: 300,
+                    useNativeDriver: true,
+                  }).start();
+
+                  Animated.timing(closeButtonOffset, {
+                    // YOur Random Value...
+                    toValue: !showMenu ? -30 : 0,
+                    duration: 300,
+                    useNativeDriver: true,
+                  }).start();
+
+                  setShowMenu(!showMenu);
                 }}
               >
                 <Image
-                  source={require("../../assets/images/guest2.png")}
-                  style={{ width: 30, height: 30 }}
-                />
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  gap: 10,
-                  justifyContent: "space-between",
-                  flex: 1,
-                  alignItems: "center",
-                }}
-              >
-                <View>
-                  <MediumFontText data="ACTIVE USERS" />
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <SemiBoldFontText
-                      data={approvedCount}
-                      textstyle={{ fontSize: 28 }}
-                    />
-                    <RegularFontText
-                      data={`${approvedPercentage}% `}
-                      textstyle={{ color: "#04973C" }}
-                    />
-                  </View>
-                </View>
+                  source={showMenu ? close : menu}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    tintColor: "black",
+                  }}
+                ></Image>
+              </TouchableOpacity>
 
-                <View>
-                  <TouchableOpacity
-                    style={{
-                      flexDirection: "row",
-                      backgroundColor: "#F3FFF3",
-                      borderRadius: 10,
-                      padding: 7,
-                    }}
-                  >
-                    <MediumFontText
-                      data="Details"
-                      textstyle={{ fontSize: 10, color: "#04973C" }}
-                    />
-                    <Image
-                      source={require("../../assets/images/shareVector.png")}
-                    />
-                  </TouchableOpacity>
-                </View>
+              <View style={{ flexDirection: "row", gap: 20 }}>
+                <AntDesign name="search1" size={24} color="black" />
+
+                <TouchableOpacity>
+                  <Ionicons
+                    name="notifications-outline"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
               </View>
             </View>
 
-            <View
-              style={{
-                flexDirection: "row",
-                gap: 5,
-                justifyContent: "space-between",
-                marginTop: 10,
+            <MediumFontText
+              data="Dashboard"
+              textstyle={{
+                fontSize: 20,
+                fontWeight: "500",
+                marginVertical: 10,
               }}
-            >
+            />
+
+            <View style={{}}>
               <View
                 style={{
                   borderWidth: 1,
@@ -391,19 +324,19 @@ export default function AdminHome() {
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 10,
-                  width: "45%",
+                  width: "100%",
                   paddingHorizontal: 5,
                   paddingVertical: 5,
                 }}
               >
                 <View
                   style={{
-                    backgroundColor: "#FFF1E7",
+                    backgroundColor: "#EEFDF4",
                     padding: 2,
                   }}
                 >
                   <Image
-                    source={require("../../assets/images/Account3.png")}
+                    source={require("../../assets/images/guest2.png")}
                     style={{ width: 30, height: 30 }}
                   />
                 </View>
@@ -417,144 +350,223 @@ export default function AdminHome() {
                   }}
                 >
                   <View>
-                    <MediumFontText data="Suspended USERS" />
+                    <MediumFontText data="ACTIVE USERS" />
                     <View
                       style={{ flexDirection: "row", alignItems: "center" }}
                     >
                       <SemiBoldFontText
-                        data={suspendCount}
+                        data={approvedCount}
                         textstyle={{ fontSize: 28 }}
                       />
                       <RegularFontText
-                        data={`${suspendPercentage}% `}
+                        data={`${approvedPercentage}% `}
                         textstyle={{ color: "#04973C" }}
                       />
                     </View>
                   </View>
+
+                  <View>
+                    <TouchableOpacity
+                      style={{
+                        flexDirection: "row",
+                        backgroundColor: "#F3FFF3",
+                        borderRadius: 10,
+                        padding: 7,
+                      }}
+                    >
+                      <MediumFontText
+                        data="Details"
+                        textstyle={{ fontSize: 10, color: "#04973C" }}
+                      />
+                      <Image
+                        source={require("../../assets/images/shareVector.png")}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
 
               <View
                 style={{
-                  borderWidth: 1,
-                  borderColor: "black",
-                  borderRadius: 10,
                   flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10,
-                  width: "45%",
-                  paddingHorizontal: 5,
-                  paddingVertical: 5,
+                  gap: 5,
+                  justifyContent: "space-between",
+                  marginTop: 10,
                 }}
               >
                 <View
                   style={{
-                    backgroundColor: "#FDF2F3",
-                    padding: 2,
+                    borderWidth: 1,
+                    borderColor: "black",
+                    borderRadius: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10,
+                    width: "45%",
+                    paddingHorizontal: 5,
+                    paddingVertical: 5,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/images/profile-delete.png")}
-                    style={{ width: 30, height: 30 }}
-                  />
+                  <View
+                    style={{
+                      backgroundColor: "#FFF1E7",
+                      padding: 2,
+                    }}
+                  >
+                    <Image
+                      source={require("../../assets/images/Account3.png")}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 10,
+                      justifyContent: "space-between",
+                      flex: 1,
+                      alignItems: "center",
+                    }}
+                  >
+                    <View>
+                      <MediumFontText data="Suspended USERS" />
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <SemiBoldFontText
+                          data={suspendCount}
+                          textstyle={{ fontSize: 28 }}
+                        />
+                        <RegularFontText
+                          data={`${suspendPercentage}% `}
+                          textstyle={{ color: "#04973C" }}
+                        />
+                      </View>
+                    </View>
+                  </View>
                 </View>
+
                 <View
                   style={{
+                    borderWidth: 1,
+                    borderColor: "black",
+                    borderRadius: 10,
                     flexDirection: "row",
-                    gap: 10,
-                    justifyContent: "space-between",
-                    flex: 1,
                     alignItems: "center",
+                    gap: 10,
+                    width: "45%",
+                    paddingHorizontal: 5,
+                    paddingVertical: 5,
                   }}
                 >
-                  <View>
-                    <MediumFontText data="PENDING USERS" />
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <SemiBoldFontText
-                        data={pendingCount}
-                        textstyle={{ fontSize: 28 }}
-                      />
-                      <RegularFontText
-                        data={`${pendingPercentage}% `}
-                        textstyle={{ color: "#F34357" }}
-                      />
+                  <View
+                    style={{
+                      backgroundColor: "#FDF2F3",
+                      padding: 2,
+                    }}
+                  >
+                    <Image
+                      source={require("../../assets/images/profile-delete.png")}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 10,
+                      justifyContent: "space-between",
+                      flex: 1,
+                      alignItems: "center",
+                    }}
+                  >
+                    <View>
+                      <MediumFontText data="PENDING USERS" />
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <SemiBoldFontText
+                          data={pendingCount}
+                          textstyle={{ fontSize: 28 }}
+                        />
+                        <RegularFontText
+                          data={`${pendingPercentage}% `}
+                          textstyle={{ color: "#F34357" }}
+                        />
+                      </View>
                     </View>
                   </View>
                 </View>
               </View>
             </View>
-          </View>
-          <ScrollView
-            style={{
-              height: "65%",
-            }}
-          >
-            <View style={{ flex: 1 }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginVertical: 10,
-                }}
-              >
-                {/* <MediumFontText  */}
-
-                <MediumFontText
-                  data="Announcements"
-                  textstyle={{ fontSize: 18 }}
-                />
-
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("AdminAnnouncement")}
+            <ScrollView
+              style={{
+                height: "65%",
+              }}
+            >
+              <View style={{ flex: 1 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginVertical: 10,
+                  }}
                 >
-                  <RegularFontText
-                    data="See Alls"
-                    textstyle={{
-                      fontSize: 12,
-                      color: "#04973C",
-                      textDecorationLine: "underline",
-                    }}
-                  />
-                </TouchableOpacity>
-              </View>
-              <StaticForum />
-            </View>
+                  {/* <MediumFontText  */}
 
-            <View style={{ flex: 1 }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginVertical: 10,
-                }}
-              >
-                {/* <MediumFontText  */}
-
-                <MediumFontText
-                  data="Announcements"
-                  textstyle={{ fontSize: 18 }}
-                />
-                <TouchableOpacity>
-                  <RegularFontText
-                    data="See All"
-                    textstyle={{
-                      fontSize: 12,
-                      color: "#04973C",
-                      textDecorationLine: "underline",
-                    }}
+                  <MediumFontText
+                    data="Announcements"
+                    textstyle={{ fontSize: 18 }}
                   />
-                </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("AdminAnnouncement")}
+                  >
+                    <RegularFontText
+                      data="See Alls"
+                      textstyle={{
+                        fontSize: 12,
+                        color: "#04973C",
+                        textDecorationLine: "underline",
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <StaticForum />
               </View>
-              {/* <StaticForum /> */}
-              <Announcement />
-            </View>
-          </ScrollView>
+
+              <View style={{ flex: 1 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginVertical: 10,
+                  }}
+                >
+                  {/* <MediumFontText  */}
+
+                  <MediumFontText
+                    data="Announcements"
+                    textstyle={{ fontSize: 18 }}
+                  />
+                  <TouchableOpacity>
+                    <RegularFontText
+                      data="See All"
+                      textstyle={{
+                        fontSize: 12,
+                        color: "#04973C",
+                        textDecorationLine: "underline",
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                {/* <StaticForum /> */}
+                <Announcement />
+              </View>
+            </ScrollView>
+          </Animated.View>
         </Animated.View>
-      </Animated.View>
+      </View>
     </SafeAreaView>
   );
 }

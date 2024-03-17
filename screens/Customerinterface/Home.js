@@ -15,6 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import clan from "../../assets/clan.png";
+
 import bookmark from "../../assets/bookmark.png";
 import Calendar_light from "../../assets/Calendar_light.png";
 
@@ -154,6 +155,14 @@ export default function App({ navigation }) {
             currentTab,
             setCurrentTab,
             "QR Code",
+            qrcode,
+            // "Neigborhood"
+            "comming"
+          )}
+          {TabButton(
+            currentTab,
+            setCurrentTab,
+            "Service",
             qrcode,
             // "Neigborhood"
             "comming"
