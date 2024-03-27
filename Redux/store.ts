@@ -13,6 +13,8 @@ import  ForumSlice  from "./UserSide/ForumSlice";
 import EmergencySlice from "./Admin/EmergencySlice";
 import AdminForumSlice from "./Admin/AdminForumSlice";
 import GuestSlice from "./UserSide/GuestSlice";
+import PollSlice from "./UserSide/PollSlice";
+import AdminGuestSlice from "./Admin/AdminGuestSlice";
 
 // import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
@@ -27,7 +29,9 @@ const reducers = combineReducers({
   ForumSlice:ForumSlice,
   EmergencySlice:EmergencySlice,
   AdminForumSlice:AdminForumSlice,
-  GuestSlice:GuestSlice
+  GuestSlice:GuestSlice,
+  PollSlice:PollSlice,
+  AdminGuestSlice:AdminGuestSlice
  
 });
 

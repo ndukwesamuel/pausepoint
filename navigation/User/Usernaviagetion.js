@@ -31,6 +31,9 @@ import ForumDetails from "../../screens/Customerinterface/Forum/ForumDetails";
 import EditPersonalInformation from "../../screens/Customerinterface/Account/EditPersonalInformation";
 import CreateGuests from "../../screens/Customerinterface/Guest/CreateGuests";
 import GuestsDetail from "../../screens/Customerinterface/Guest/GuestsDetail";
+import UserPolls from "../../screens/Customerinterface/Poll/UserPolls";
+import UserPollDetails from "../../screens/Customerinterface/Poll/UserPollDetails";
+import Service from "../../screens/Customerinterface/Service";
 
 const Stack = createNativeStackNavigator();
 
@@ -107,6 +110,24 @@ export const Usernaviagetion = () => {
       name: "guestsdetail",
       component: GuestsDetail,
       title: " Guest Details",
+    },
+
+    {
+      name: "userpolls",
+      component: UserPolls,
+      title: "Estate Polls",
+    },
+
+    {
+      name: "estatepollsdetail",
+      component: UserPollDetails,
+      title: "Estate Polls Details",
+    },
+
+    {
+      name: "service",
+      component: Service,
+      title: "Service",
     },
 
     // Add more screens as needed

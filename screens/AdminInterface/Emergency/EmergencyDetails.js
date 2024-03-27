@@ -32,7 +32,10 @@ import { userFile } from "../../../utils/fakedata";
 import { useRoute } from "@react-navigation/native";
 import { HalfScreenModal } from "../../../components/shared/ReuseableModal";
 import { useDispatch, useSelector } from "react-redux";
-import { Admin_Get_Single_Emergency_Report_Fun } from "../../../Redux/Admin/EmergencySlice";
+import {
+  Admin_Get_ALl_Emergency_Report_Fun,
+  Admin_Get_Single_Emergency_Report_Fun,
+} from "../../../Redux/Admin/EmergencySlice";
 import { formatDateandTime } from "../../../utils/DateTime";
 import { useMutation } from "react-query";
 import { API_BASEURL } from "@env";
@@ -105,7 +108,7 @@ export default function EmergencyDetails({ navigation }) {
   };
 
   function capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    return str?.charAt(0).toUpperCase() + str?.slice(1);
   }
 
   const Stattus_fuc = () => {
@@ -162,6 +165,7 @@ export default function EmergencyDetails({ navigation }) {
           text1: " successfully ",
         });
         dispatch(Admin_Get_Single_Emergency_Report_Fun(item));
+        dispatch(Admin_Get_ALl_Emergency_Report_Fun());
 
         // setTurnmodal(false);
       },

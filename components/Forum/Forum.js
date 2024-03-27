@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -35,10 +36,24 @@ const data = [
 
 const Forum = () => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const dispatch = useDispatch();
+
   const animation = useRef(null);
   const navigation = useNavigation();
+  const [refreshing, setRefreshing] = useState(false);
 
-  const dispatch = useDispatch();
+  const onRefresh = () => {
+    // Set the refreshing state to true
+    setRefreshing(true);
+    dispatch(Get_My_Clan_Forum_Fun());
+
+    // Wait for 2 seconds
+    setRefreshing(false);
+  };
+
+  console.log({
+    eee: get_my_clan_forum_data,
+  });
 
   const Like_Mutation = useMutation(
     (data_info) => {
@@ -140,14 +155,29 @@ const Forum = () => {
         data={get_my_clan_forum_data?.forums}
         keyExtractor={(item) => item._id}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         renderItem={({ item }) => (
-          <View>
+          <View
+            style={{
+              flex: 1,
+
+              borderWidth: 1,
+              borderColor: "#CFCDCD",
+              borderRadius: 6,
+              padding: 10,
+              marginBottom: 10,
+            }}
+          >
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
                 marginVertical: 20,
+
+                // paddingBottom: 20,
               }}
             >
               <View
@@ -179,7 +209,9 @@ const Forum = () => {
                   />
                 </View>
               </View>
-              <TouchableOpacity
+
+              {/* uncmment later */}
+              {/* <TouchableOpacity
                 style={{
                   paddingHorizontal: 12,
                   paddingVertical: 2,
@@ -188,7 +220,7 @@ const Forum = () => {
                 onPress={toggleModal}
               >
                 <Entypo name="dots-three-vertical" size={24} color="black" />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
 
             <View style={{ paddingHorizontal: 20 }}>
@@ -209,6 +241,8 @@ const Forum = () => {
                 marginVertical: 10,
               }}
             />
+
+            {/* oncomment t latter */}
 
             <View
               style={{
@@ -235,7 +269,7 @@ const Forum = () => {
                 <AntDesign name="hearto" size={24} color="black" />
                 <Text>{item?.likes?.length} Likes </Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -257,7 +291,7 @@ const Forum = () => {
               >
                 <AntDesign name="sharealt" size={24} color="black" />
                 <Text>Share</Text>
-              </View>
+              </View> */}
             </View>
           </View>
         )}

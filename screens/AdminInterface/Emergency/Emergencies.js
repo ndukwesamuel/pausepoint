@@ -9,6 +9,7 @@ import {
   Platform,
   Modal,
   TouchableWithoutFeedback,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { emergencydata } from "../../../components/Emergency/emdata";
@@ -41,11 +42,14 @@ export default function Emergencies({ navigation }) {
     (state) => state.EmergencySlice
   );
 
+  const { user_data } = useSelector((state) => state.AuthSlice);
+
   const [activeButton, setActiveButton] = useState("pending"); // Initialize with 'Social' as the active button
 
   const pendingReports = Admin_Get_ALl_Emergency_Report?.reports?.filter(
     (report) => report.status === "pending"
   );
+
   const resolvedReports = Admin_Get_ALl_Emergency_Report?.reports.filter(
     (report) => report.status === "resolved"
   );
@@ -56,13 +60,23 @@ export default function Emergencies({ navigation }) {
 
   const route = useRoute();
   // const { item } = route.params as { item: any };
+  const [refreshing, setRefreshing] = useState(false);
 
   let item = {};
 
   useEffect(() => {
     dispatch(Admin_Get_ALl_Emergency_Report_Fun());
     return () => {};
-  }, []);
+  }, [dispatch]);
+
+  const onRefresh = () => {
+    // Set the refreshing state to true
+    setRefreshing(true);
+    dispatch(Admin_Get_ALl_Emergency_Report_Fun());
+
+    // Wait for 2 seconds
+    setRefreshing(false);
+  };
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalformVisible, setModalFormVisible] = useState(false);
@@ -258,13 +272,15 @@ export default function Emergencies({ navigation }) {
       <View style={{ flex: 1, paddingHorizontal: 20 }}>
         {activeButton === "pending" && (
           <View style={{ flex: 1 }}>
-            <SemiBoldFontText
-              data="Pennding Emergencies"
-              textstyle={{ fontSize: 18, textAlign: "center" }}
-            />
             {pendingReports && pendingReports?.length > 0 ? (
               <View>
                 <FlatList
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />
+                  }
                   data={pendingReports}
                   renderItem={({ item }) => <RenderItem item={item} />}
                 />
@@ -293,11 +309,6 @@ export default function Emergencies({ navigation }) {
 
         {activeButton === "resolved" && (
           <View style={{ flex: 1 }}>
-            <SemiBoldFontText
-              data="Resolved Emergencies"
-              textstyle={{ fontSize: 18, textAlign: "center" }}
-            />
-
             {resolvedReports && resolvedReports?.length > 0 ? (
               <View>
                 <FlatList

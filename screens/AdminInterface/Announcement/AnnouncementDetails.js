@@ -41,7 +41,9 @@ import { StaticForum } from "../../../components/Forum/Forum";
 import { Admin_Get_My_Clan_Announcement_Fun } from "../../../Redux/Admin/AdminForumSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
 
-export default function Announcement({ navigation }) {
+export default function AnnouncementDetails({ navigation }) {
+  const { item } = useRoute()?.params;
+
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -60,8 +62,6 @@ export default function Announcement({ navigation }) {
 
   const route = useRoute();
   // const { item } = route.params as { item: any };
-
-  let item = {};
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalformVisible, setModalFormVisible] = useState(false);
@@ -104,68 +104,11 @@ export default function Announcement({ navigation }) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  let fakedata = [];
-  let fakedataResolve = [
-    {
-      name: "Fire Emergency",
-      day: "Monday",
-      time: "10:30 AM",
-      sender: "Fire Department",
-    },
-    {
-      name: "Medical Emergency",
-      day: "Wednesday",
-      time: "2:45 PM",
-      sender: "911 Operator",
-    },
-    {
-      name: "Police Emergency",
-      day: "Saturday",
-      time: "8:15 PM",
-      sender: "Police Department",
-    },
-
-    {
-      name: "Police Emergency",
-      day: "Saturday",
-      time: "8:15 PM",
-      sender: "Police Department",
-    },
-
-    {
-      name: "Police Emergency",
-      day: "Saturday",
-      time: "8:15 PM",
-      sender: "Police Department",
-    },
-  ];
-
   const animation = useRef(null);
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
       <View style={{ flex: 1, paddingHorizontal: 20 }}>
-        <TouchableOpacity
-          style={{
-            width: "60%",
-            borderWidth: 1,
-            borderColor: "#04973C",
-            borderRadius: 6,
-            paddingVertical: 10,
-            paddingHorizontal: 10,
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 5,
-          }}
-          onPress={() => navigation.navigate("AdmincreateAnnouncement")}
-        >
-          <AntDesign name="plus" size={24} color="#04973C" />
-
-          <MediumFontText
-            data="Create Announcement"
-            textstyle={{ fontSize: 12, color: "#04973C" }}
-          />
-        </TouchableOpacity>
         <View style={{ flex: 1, marginTop: 10 }}>
           <View style={{ flex: 1 }}>
             {/* <Forum /> */}
@@ -189,69 +132,59 @@ export default function Announcement({ navigation }) {
                 />
               </View>
             )}
-            {Admin_get_my_clan_Announcement_data?.forums?.length > 0 && (
-              <FlatList
-                data={Admin_get_my_clan_Announcement_data?.forums}
-                keyExtractor={(item) => item._id}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={{
-                      flex: 1,
 
-                      borderWidth: 1,
-                      borderColor: "#CFCDCD",
-                      borderRadius: 6,
-                      padding: 10,
-                      marginBottom: 10,
+            <View
+              style={{
+                flex: 1,
+
+                borderWidth: 1,
+                borderColor: "#CFCDCD",
+                borderRadius: 6,
+                padding: 10,
+                marginBottom: 10,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginVertical: 20,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  <Image
+                    source={{
+                      uri:
+                        item?.user?.photo ||
+                        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                     }}
-                    onPress={() => {
-                      navigation.navigate("AnnouncementDetails", {
-                        item: item,
-                      });
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginVertical: 20,
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 10,
-                        }}
-                      >
-                        <Image
-                          source={{
-                            uri:
-                              item?.user?.photo ||
-                              "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                          }}
-                          style={{ width: 40, height: 40, borderRadius: 50 }}
-                        />
+                    style={{ width: 40, height: 40, borderRadius: 50 }}
+                  />
 
-                        <View>
-                          <MediumFontText
-                            data={item?.user?.name}
-                            textstyle={{ fontSize: 16, fontWeight: "500" }}
-                          />
+                  <View>
+                    <MediumFontText
+                      data={item?.user?.name}
+                      textstyle={{ fontSize: 16, fontWeight: "500" }}
+                    />
 
-                          <LightFontText
-                            data={formatDateandTime(item?.createdAt)}
-                            // "Jane Doe - 54 mins ago"
-                            textstyle={{ fontSize: 12, fontWeight: "300" }}
-                          />
-                        </View>
-                      </View>
+                    <LightFontText
+                      data={formatDateandTime(item?.createdAt)}
+                      // "Jane Doe - 54 mins ago"
+                      textstyle={{ fontSize: 12, fontWeight: "300" }}
+                    />
+                  </View>
+                </View>
 
-                      {/* pls oncoment this in the next versino */}
+                {/* pls oncoment this in the next versino */}
 
-                      {/* <TouchableOpacity
+                {/* <TouchableOpacity
                         style={{
                           paddingHorizontal: 12,
                           paddingVertical: 2,
@@ -265,29 +198,29 @@ export default function Announcement({ navigation }) {
                           color="black"
                         />
                       </TouchableOpacity> */}
-                    </View>
+              </View>
 
-                    <View style={{ paddingHorizontal: 20 }}>
-                      <RegularFontText
-                        data={item?.content}
-                        textstyle={{
-                          fontSize: 12,
-                          fontWeight: "400",
-                          textAlign: "justify",
-                        }}
-                      />
-                    </View>
+              <View style={{ paddingHorizontal: 20 }}>
+                <RegularFontText
+                  data={item?.content}
+                  textstyle={{
+                    fontSize: 12,
+                    fontWeight: "400",
+                    textAlign: "justify",
+                  }}
+                />
+              </View>
 
-                    <View
-                      style={{
-                        borderWidth: 1,
-                        borderColor: "#D9D9D9",
-                        marginVertical: 10,
-                      }}
-                    />
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: "#D9D9D9",
+                  marginVertical: 10,
+                }}
+              />
 
-                    {/* pls oncoment this in the next versino */}
-                    {/* <View
+              {/* pls oncoment this in the next versino */}
+              {/* <View
                       style={{
                         flexDirection: "row",
                         alignItems: "center",
@@ -336,10 +269,7 @@ export default function Announcement({ navigation }) {
                         <Text>Share</Text>
                       </View>
                     </View> */}
-                  </TouchableOpacity>
-                )}
-              />
-            )}
+            </View>
           </View>
         </View>
       </View>

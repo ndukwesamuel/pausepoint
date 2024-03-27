@@ -44,6 +44,7 @@ import Forum from "../../components/Forum/Forum";
 import { useNavigation } from "@react-navigation/native";
 import { UserProfile_data_Fun } from "../../Redux/ProfileSlice";
 import { Feather } from "@expo/vector-icons";
+import { LogoutModal } from "../../components/Account/Logout";
 
 export default function App({ navigation }) {
   // const navigation = useNavigation();
@@ -131,6 +132,29 @@ export default function App({ navigation }) {
           {TabButton(
             currentTab,
             setCurrentTab,
+            "Polls/Surveys",
+            color_swatch,
+            "userpolls"
+          )}
+          {TabButton(
+            currentTab,
+            setCurrentTab,
+            "Event",
+            Calendar_light,
+            "userevents"
+          )}
+
+          {TabButton(
+            currentTab,
+            setCurrentTab,
+            "Service",
+            qrcode,
+            // "Neigborhood"
+            "service"
+          )}
+          {TabButton(
+            currentTab,
+            setCurrentTab,
             "ICE Contacts",
             search,
             // "icecontact"
@@ -140,37 +164,16 @@ export default function App({ navigation }) {
           {TabButton(
             currentTab,
             setCurrentTab,
-            "Polls/Surveys",
-            color_swatch,
-            "comming"
-          )}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Event",
-            Calendar_light,
-            "userevents"
-          )}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
             "QR Code",
             qrcode,
             // "Neigborhood"
             "comming"
           )}
+
           {TabButton(
             currentTab,
             setCurrentTab,
-            "Service",
-            qrcode,
-            // "Neigborhood"
-            "comming"
-          )}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Neigbhorhood Directory",
+            " Directory",
             bookmark,
             // "Neigborhood"
             "comming"
@@ -205,7 +208,7 @@ export default function App({ navigation }) {
           )}
         </View>
 
-        <View>{TabButton(currentTab, setCurrentTab, "LogOut", logout)}</View>
+        {/* <View>{TabButton(currentTab, setCurrentTab, "LogOut", logout)}</View> */}
       </View>
 
       {
@@ -341,6 +344,7 @@ const TabButton = (currentTab, setCurrentTab, title, image, link) => {
       onPress={() => {
         if (title == "LogOut") {
           // Do your Stuff...
+          console.log("LogOut");
         } else {
           setCurrentTab(title);
           navigation.navigate(link);

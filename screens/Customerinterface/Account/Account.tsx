@@ -2,7 +2,7 @@
 
 
 import { FlatList, Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { emergencydata } from '../../../components/Emergency/emdata'
 import AppScreen from '../../../components/shared/AppScreen'
 import EmergencyModal, { EmergencyModalTwo } from '../../../components/Emergency/Modal'
@@ -15,6 +15,8 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../navigation/AppNavigation'
 
+import { useDispatch, useSelector } from "react-redux";
+import { UserProfile_data_Fun } from '../../../Redux/ProfileSlice'
 
 
 type GeneralData = {
@@ -74,6 +76,7 @@ const Account = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+    const { userProfile_data } = useSelector((state) => state?.ProfileSlice);
 
     const [modalVisible, setModalVisible] = useState(false);
     const [modalformVisible, setModalFormVisible] = useState(false);
@@ -100,40 +103,23 @@ const Account = () => {
         // You can update your app's theme or styles based on the isDarkMode state here.
     };
 
+    const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        dispatch(UserProfile_data_Fun());
+        return () => { };
+    }, [dispatch]);
 
 
 
 
+    console.log({
+        s: userProfile_data
+    });
 
 
 
-    const RenderItem = ({ item }: { item: any }) => {
-
-
-        return (
-            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#CFCDCD', borderRadius: 6, paddingHorizontal: 10, gap: 10, paddingVertical: 20, marginBottom: 20 }}
-
-                onPress={() => setModalVisible(true)
-                }
-            >
-
-                <View style={{ borderWidth: 1, borderColor: '#CFCDCD', borderRadius: 6, justifyContent: 'center', alignItems: 'center', }}>
-
-                    <Image source={item.image} style={{ width: 38, height: 40 }} />
-                </View>
-
-                <View style={{ width: '90%' }}>
-                    <Text style={{ fontWeight: '500', fontSize: 14, fontFamily: 'RobotoSlab-Medium', marginBottom: 10 }}>{item.name}</Text>
-
-                    <Text>{item.description}</Text>
-
-
-
-                </View>
-
-            </TouchableOpacity>
-        )
-    }
 
 
     return (
@@ -151,12 +137,17 @@ const Account = () => {
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                        <Image source={{ uri: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }} style={{ width: 68, height: 68, borderRadius: 50 }} />
+                        <Image source={{
+                            uri: userProfile_data?.photo
+
+
+
+                        }} style={{ width: 68, height: 68, borderRadius: 50 }} />
 
                         <View>
 
-                            <MediumFontText data="John Doe" textstyle={{ fontSize: 18, fontWeight: '500' }} />
-                            <RegularFontText data="8975464" textstyle={{ fontSize: 14, fontWeight: '400' }} />
+                            <MediumFontText data={userProfile_data?.user?.name} textstyle={{ fontSize: 18, fontWeight: '500' }} />
+                            <RegularFontText data={userProfile_data?.phoneNumber} textstyle={{ fontSize: 14, fontWeight: '400' }} />
 
                         </View>
                     </View>
@@ -184,7 +175,7 @@ const Account = () => {
 
 
 
-
+                    {/* 
                     <View>
                         <TouchableOpacity
                             // onPress={() => navigation.navigate('DeleteAccount')}
@@ -197,7 +188,7 @@ const Account = () => {
                             <RegularFontText data="Delete Account" textstyle={{ fontSize: 14, fontWeight: '400', color: 'red', textDecorationColor: 'red', textDecorationLine: 'underline' }} />
 
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
 
 

@@ -10,6 +10,7 @@ import {
   View,
   FlatList,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import profile from "../../assets/profile.png";
 // Tab ICons...
@@ -57,10 +58,6 @@ export default function AdminHome() {
   const dispatch = useDispatch();
 
   const { userProfile_data } = useSelector((state) => state.ProfileSlice);
-  const ffff = useSelector((state) => state?.AuthSlice);
-  console.log({
-    ffff,
-  });
 
   const {
     get_user_clan_data,
@@ -91,6 +88,10 @@ export default function AdminHome() {
     get_Single_clan_data?.data?.members,
     "pending"
   );
+
+  const screenHeight = Dimensions.get("window").height;
+  const dpi = 160;
+  const screeninchis = screenHeight / dpi;
 
   const approvedPercentage = (approvedCount / totalUsers) * 100;
   const suspendPercentage = (suspendCount / totalUsers) * 100;
@@ -150,7 +151,14 @@ export default function AdminHome() {
             textstyle={{ fontSize: 14, fontWeight: "400" }}
           />
 
-          <View style={{ flexGrow: 1, marginTop: 50 }}>
+          <View
+            style={{
+              flexGrow: 1,
+              // screeninchis < 5 ? 5 : screeninchis
+              // marginTop:  50,
+              marginTop: screeninchis >= 5 ? 50 : 0,
+            }}
+          >
             {
               // Tab Bar Buttons....
             }
@@ -178,13 +186,13 @@ export default function AdminHome() {
               emergencies_icon,
               "AdminEmergencies"
             )}
-            {TabButton(
+            {/* {TabButton(
               currentTab,
               setCurrentTab,
               "Calender",
               search,
               "icecontact"
-            )}
+            )} */}
             {TabButton(
               currentTab,
               setCurrentTab,
@@ -192,20 +200,21 @@ export default function AdminHome() {
               color_swatch,
               "AdminAnnouncement"
             )}
-            {TabButton(currentTab, setCurrentTab, "Complaints", Calendar_light)}
+            {/* {TabButton(currentTab, setCurrentTab, "Complaints", Calendar_light)} */}
             {TabButton(
               currentTab,
               setCurrentTab,
               "Guests",
               savepost,
-              "Neigborhood"
+              "AdminGuest"
             )}
             {TabButton(
               currentTab,
               setCurrentTab,
-              "Saved Posts",
+              "User Polls",
+
               bookmark,
-              "SavedPosts"
+              "AdminUserPolls"
             )}
           </View>
 
@@ -574,7 +583,9 @@ export default function AdminHome() {
 // For multiple Buttons...
 const TabButton = (currentTab, setCurrentTab, title, image, link) => {
   const navigation = useNavigation();
-
+  const screenHeight = Dimensions.get("window").height;
+  const dpi = 160;
+  const screeninchis = screenHeight / dpi;
   return (
     <TouchableOpacity
       onPress={() => {
@@ -590,12 +601,15 @@ const TabButton = (currentTab, setCurrentTab, title, image, link) => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          paddingVertical: 4,
+          paddingVertical: screeninchis >= 5 ? 4 : 8,
+
+          // paddingVertical: 4,
           backgroundColor: currentTab == title ? "white" : "transparent",
           paddingLeft: 13,
           paddingRight: 35,
           borderRadius: 8,
-          marginTop: 15,
+          // marginTop: 15,
+          marginTop: screeninchis >= 5 ? 15 : 0,
         }}
       >
         <Image

@@ -9,7 +9,6 @@ import Guests from '../../screens/Customerinterface/Guest/Guests';
 import Emergency from '../../screens/Customerinterface/Emergency/Emergency';
 import Account from '../../screens/Customerinterface/Account/Account';
 import History from '../../screens/Customerinterface/Guest/History';
-import EmergencyNavigation from '../EmergencyNavigation';
 import Home from '../../screens/Customerinterface/Home';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AdminHome from '../../screens/AdminInterface/AdminHome';
@@ -28,163 +27,162 @@ const Tab = createBottomTabNavigator();
 
 const AdminTabNavigation = () => {
     return (
-        <>
 
-            {/* <Text>UserTabNavigation</Text> */}
-            <Tab.Navigator
+        <Tab.Navigator
 
-                screenOptions={{
-                    tabBarShowLabel: false,
+            screenOptions={{
+                tabBarShowLabel: false,
 
-                    tabBarStyle: {
-                        backgroundColor: 'white',
-                        // position: 'absolute',
-                        // bottom: 25,
-                        // left: 20,
-                        // right: 20,
-                        // borderRadius: 15,
-                        // borderTopEndRadius: 50,
-                        // borderTopLeftRadius: 50,
-                        // alignItems: 'center',
-                        height: 65,
-                        // justifyContent: 'center',
-                        ...styles.shadow,
-                        // paddingVertical: 20
-                        // Set the background color of the tab bar
+                tabBarStyle: {
+                    backgroundColor: 'white',
+                    // position: 'absolute',
+                    // bottom: 25,
+                    // left: 20,
+                    // right: 20,
+                    // borderRadius: 15,
+                    // borderTopEndRadius: 50,
+                    // borderTopLeftRadius: 50,
+                    // alignItems: 'center',
+                    height: 65,
+                    // justifyContent: 'center',
+                    ...styles.shadow,
+                    // paddingVertical: 20
+                    // Set the background color of the tab bar
+                },
+                tabBarLabelStyle: {
+
+                    color: 'white', // Set the text color of the tab labels
+                },
+                // You can add more styling options as needed
+            }}
+        >
+
+
+
+
+            <Tab.Screen
+                options={{
+                    title: "AdminHome",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Tabcomponent
+                                focused={focused}
+                                iconFocused={require('../../assets/images/home.png')}
+                                iconUnfocused={require('../../assets/images/home-2.png')}
+                                label="Home"
+                                containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
+                                texttStyle={{ color: "#000000" }}
+                            />
+
+
+                        );
                     },
-                    tabBarLabelStyle: {
-
-                        color: 'white', // Set the text color of the tab labels
-                    },
-                    // You can add more styling options as needed
                 }}
-            >
+
+                name="AdminHome" component={AdminHome} />
+
+            <Tab.Screen
+                options={{
+                    title: "Chats",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Tabcomponent
+                                focused={focused}
+                                iconFocused={require('../../assets/images/history.png')}
+                                iconUnfocused={require('../../assets/images/historyhistory2.png')}
+                                label="Chats"
+                                containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
+                                texttStyle={{ color: "#000000" }}
+                            />
+
+
+                        );
+                    },
+                }}
+
+                name="History" component={History} />
+
+
+            {/* <Tab.Screen name="Home" component={Home}
+
+                options={{
+
+                    title: "Home",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <AntDesign name="plus" size={24} color="white" style={{
+                                width: 25,
+                                height: 25,
+                            }} />
+
+                        );
+                    },
+                    tabBarButton: (props: any,) => {
+                        return (
+                            <CustomTabButton {...props} />
+
+                        );
+                    }
+                }}
+
+            /> */}
+
+
+            <Tab.Screen
+                options={{
+                    title: "Users",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Tabcomponent
+                                focused={focused}
+                                iconFocused={require('../../assets/images/guest2.png')}
+                                iconUnfocused={require('../../assets/images/guest.png')}
+                                label="Users"
+                                containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
+                                texttStyle={{ color: "#000000" }}
+                            />
+
+
+                        );
+                    },
+                }}
+
+                name="AllUsers" component={AllUsers} />
 
 
 
-
-                <Tab.Screen
-                    options={{
-                        title: "AdminHome",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <Tabcomponent
-                                    focused={focused}
-                                    iconFocused={require('../../assets/images/home.png')}
-                                    iconUnfocused={require('../../assets/images/home-2.png')}
-                                    label="Home"
-                                    containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
-                                    texttStyle={{ color: "#000000" }}
-                                />
-
-
-                            );
-                        },
-                    }}
-
-                    name="AdminHome" component={AdminHome} />
-
-                <Tab.Screen
-                    options={{
-                        title: "Chats",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <Tabcomponent
-                                    focused={focused}
-                                    iconFocused={require('../../assets/images/history.png')}
-                                    iconUnfocused={require('../../assets/images/historyhistory2.png')}
-                                    label="Chats"
-                                    containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
-                                    texttStyle={{ color: "#000000" }}
-                                />
+            <Tab.Screen
+                options={{
+                    title: "Account",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Tabcomponent
+                                focused={focused}
+                                iconFocused={require('../../assets/images/Account2.png')}
+                                iconUnfocused={require('../../assets/images/Account.png')}
+                                label="Account"
+                                containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
+                                texttStyle={{ color: "#000000" }}
+                            />
 
 
-                            );
-                        },
-                    }}
+                        );
+                    },
+                }}
 
-                    name="History" component={History} />
-                <Tab.Screen name="Home" component={Home}
+                name="Account" component={Account} />
+        </Tab.Navigator >
 
-
-
-                    options={{
-
-                        title: "Home",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <AntDesign name="plus" size={24} color="white" style={{
-                                    width: 25,
-                                    height: 25,
-                                }} />
-
-                            );
-                        },
-                        tabBarButton: (props: any,) => {
-                            return (
-                                <CustomTabButton {...props} />
-
-                            );
-                        }
-                    }}
-
-                />
-
-
-                <Tab.Screen
-                    options={{
-                        title: "Users",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <Tabcomponent
-                                    focused={focused}
-                                    iconFocused={require('../../assets/images/guest2.png')}
-                                    iconUnfocused={require('../../assets/images/guest.png')}
-                                    label="Users"
-                                    containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
-                                    texttStyle={{ color: "#000000" }}
-                                />
-
-
-                            );
-                        },
-                    }}
-
-                    name="AllUsers" component={AllUsers} />
-
-                <Tab.Screen
-                    options={{
-                        title: "Account",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <Tabcomponent
-                                    focused={focused}
-                                    iconFocused={require('../../assets/images/Account2.png')}
-                                    iconUnfocused={require('../../assets/images/Account.png')}
-                                    label="Account"
-                                    containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
-                                    texttStyle={{ color: "#000000" }}
-                                />
-
-
-                            );
-                        },
-                    }}
-
-                    name="Account" component={Account} />
-            </Tab.Navigator >
-
-        </>
 
     )
 }

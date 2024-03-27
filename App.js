@@ -102,9 +102,6 @@ export const MainScreen = ({}) => {
 
   const { userProfile_data } = useSelector((state) => state.ProfileSlice);
   const datasss = useSelector((state) => state.UserProfileSlice);
-  // console.log({
-  //   datasss: datasss,
-  // });
   const isAdmin = user_data?.user?.roles?.includes("admin");
 
   Notifications.setNotificationHandler({

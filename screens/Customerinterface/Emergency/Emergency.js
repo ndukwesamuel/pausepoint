@@ -104,12 +104,6 @@ const Emergency = () => {
           text1: "Request To Join Estate successfully ",
         });
 
-        // dispatch(Get_User_Clans_Fun());
-        // dispatch(Get_User_Profle_Fun());
-        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
-        // dispatch(reset_login());
-        // dispatch(reset_isOnboarding());
-
         closeFormModal();
       },
 
@@ -120,13 +114,7 @@ const Emergency = () => {
         Toast.show({
           type: "error",
           text1: `${error?.response?.data?.message} `,
-          //   text2: ` ${error?.response?.data?.errorMsg} `,
         });
-
-        //   onClose();
-        // dispatch(Get_User_Clans_Fun());
-        // dispatch(Get_User_Profle_Fun());
-        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
       },
     }
   );

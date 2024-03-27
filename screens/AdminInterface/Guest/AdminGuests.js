@@ -11,6 +11,7 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
@@ -34,6 +35,7 @@ import {
 import { Get_All_User_Guest_Fun } from "../../../Redux/UserSide/GuestSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
 import { UserProfile_data_Fun } from "../../../Redux/ProfileSlice";
+import { Admin_Get_All_User_Guest_Fun } from "../../../Redux/Admin/AdminGuestSlice";
 
 const historydata = [
   {
@@ -108,23 +110,42 @@ const historydata = [
   // Add more objects here if needed
 ];
 
-const Guests = () => {
+const AdminGuests = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const animation = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { get_all_user_guest_data } = useSelector((state) => state?.GuestSlice);
+  const { Admin_get_all_user_guest_data } = useSelector(
+    (state) => state?.AdminGuestSlice
+  );
 
+  console.log({
+    ww: Admin_get_all_user_guest_data,
+  });
   useEffect(() => {
-    dispatch(Get_All_User_Guest_Fun());
+    dispatch(Admin_Get_All_User_Guest_Fun());
+
     dispatch(UserProfile_data_Fun());
 
     return () => {};
   }, [dispatch]);
 
-  const filteredData = get_all_user_guest_data?.userInvites?.filter((item) =>
-    item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
+  const filteredData = Admin_get_all_user_guest_data?.clanInvites?.filter(
+    (item) =>
+      item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    // Set the refreshing state to true
+    setRefreshing(true);
+    dispatch(Admin_Get_All_User_Guest_Fun());
+
+    dispatch(UserProfile_data_Fun());
+    // Wait for 2 seconds
+    setRefreshing(false);
+  };
 
   const HistoryItem = ({ itemdata }) => {
     return (
@@ -139,7 +160,7 @@ const Guests = () => {
           borderRadius: 9,
         }}
         onPress={() => {
-          navigation.navigate("guestsdetail", { itemdata });
+          navigation.navigate("AdminGuestsDetail", { itemdata });
         }}
       >
         <View>
@@ -265,26 +286,6 @@ const Guests = () => {
           onChangeText={(text) => setSearchQuery(text)}
         />
 
-        <View style={{ position: "absolute", right: 20, top: 320, zIndex: 1 }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "green",
-              // paddingHorizontal: 20,
-              // paddingVertical: 10,
-              borderRadius: "50%",
-              width: 50,
-              height: 50,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            // navigation.navigate("guestsdetail", { itemdata });
-
-            onPress={() => navigation.navigate("inviteguest")}
-          >
-            <MaterialIcons name="mode-edit" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
-
         {filteredData?.length === 0 ? (
           <View
             style={{
@@ -309,6 +310,9 @@ const Guests = () => {
           <FlatList
             data={filteredData}
             renderItem={({ item }) => <HistoryItem itemdata={item} />}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         )}
       </View>
@@ -316,6 +320,6 @@ const Guests = () => {
   );
 };
 
-export default Guests;
+export default AdminGuests;
 
 const styles = StyleSheet.create({});

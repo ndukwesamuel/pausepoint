@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import UserTabNavigation from './AdminTabNavigation';
 import Neigborhood from '../../screens/Customerinterface/Neigborhood';
 import { AntDesign } from '@expo/vector-icons';
 import Chats from '../../screens/Customerinterface/Chats';
@@ -28,6 +26,12 @@ import CreateAnnouncement from '../../screens/AdminInterface/Announcement/Create
 import CommentScreen from '../../screens/SharedScreen/CommentScreen';
 
 import UserClans from '../../screens/AdminInterface/Estate_Admin_Clan/UserClans';
+import AdminUserPolls from '../../screens/AdminInterface/Poll/AdminUserPolls';
+import CreatePoll from '../../screens/AdminInterface/Poll/CreatePoll';
+import AdminUserPollDetail from '../../screens/AdminInterface/Poll/AdminUserPollDetail';
+import AdminGuests from '../../screens/AdminInterface/Guest/AdminGuests';
+import AdminGuestsDetail from '../../screens/AdminInterface/Guest/AdminGuestsDetail';
+import AnnouncementDetails from '../../screens/AdminInterface/Announcement/AnnouncementDetails';
 
 const Stack = createStackNavigator();
 
@@ -64,12 +68,20 @@ const Adminnaviagetion = () => {
         <Stack.Navigator initialRouteName="AdminTabNavigation">
 
             <Stack.Screen {...SingleScreenWithBackButton('AdminMyclan', UserClans, 'Admin My Clans')} />
+            <Stack.Screen {...SingleScreenWithBackButton('AdminUserPolls', AdminUserPolls, 'User Polls')} />
+            <Stack.Screen {...SingleScreenWithBackButton('createpoll', CreatePoll, 'Create Poll')} />
+            <Stack.Screen {...SingleScreenWithBackButton('admin-user-poll-detail', AdminUserPollDetail, 'Detail Poll')} />
+
             <Stack.Screen {...SingleScreenWithBackButton('adminUserDetails', UserDetails, 'User Details')} />
             <Stack.Screen {...SingleScreenWithBackButton('AdminEmergencies', Emergencies, 'Emergencies')} />
             <Stack.Screen {...SingleScreenWithBackButton('EmergencyDetails', EmergencyDetails, '')} />
             <Stack.Screen {...SingleScreenWithBackButton('Adminnotification', Notification, 'Notification')} />
             <Stack.Screen {...SingleScreenWithBackButton('AdminAnnouncement', Announcement, 'Announcement')} />
+            <Stack.Screen {...SingleScreenWithBackButton('AnnouncementDetails', AnnouncementDetails, ' Announcement Details')} />
             <Stack.Screen {...SingleScreenWithBackButton('AdmincreateAnnouncement', CreateAnnouncement, 'Create Announcement')} />
+
+            <Stack.Screen {...SingleScreenWithBackButton('AdminGuest', AdminGuests, 'Guest')} />
+            <Stack.Screen {...SingleScreenWithBackButton('AdminGuestsDetail', AdminGuestsDetail, 'Guest Details')} />
 
 
 

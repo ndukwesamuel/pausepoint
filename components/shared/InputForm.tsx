@@ -103,6 +103,7 @@ export const CustomTextArea: React.FC<CustomTextAreaProps> = ({
                     value={value}
                     onChangeText={onChangeText}
                     style={inputStyle}
+                    onSubmitEditing={Keyboard.dismiss}
                 />
             </View>
         </TouchableWithoutFeedback>

@@ -9,18 +9,16 @@ export const emergencydata = [
   {
     id: 1,
     name: "Fire Alarm",
-    description:
-      "Lörem ipsum peda autolig kollektomat. Mikrode töv astroktigt. Ånylaligt gyngen minas gigavös i belingar. Explainer uns. Du kan vara drabbad. ",
+    description: " In the event of a fire alarm emergency",
     image: fireImage,
-
     type: "fire",
   },
 
   {
     id: 2,
     name: "Health Alarm",
-    description:
-      "Lörem ipsum peda autolig kollektomat. Mikrode töv astroktigt. Ånylaligt gyngen minas gigavös i belingar. Explainer uns. Du kan vara drabbad. ",
+    description: " In the event of a Health  emergency",
+
     image: healthImage,
     type: "health",
   },
@@ -28,8 +26,8 @@ export const emergencydata = [
   {
     id: 3,
     name: "Theft Alarm",
-    description:
-      "Lörem ipsum peda autolig kollektomat. Mikrode töv astroktigt. Ånylaligt gyngen minas gigavös i belingar. Explainer uns. Du kan vara drabbad. ",
+    description: " In the event of a Theft",
+
     image: Alarm,
     type: "theft",
   },
@@ -37,8 +35,9 @@ export const emergencydata = [
   {
     id: 4,
     name: "Burglary Alarm",
-    description:
-      "Lörem ipsum peda autolig kollektomat. Mikrode töv astroktigt. Ånylaligt gyngen minas gigavös i belingar. Explainer uns. Du kan vara drabbad. ",
+
+    description: " In the event of a Burglary  emergency",
+
     image: Burglary,
 
     type: "burglary",
@@ -47,8 +46,7 @@ export const emergencydata = [
   {
     id: 5,
     name: "Kidnap Alarm",
-    description:
-      "Lörem ipsum peda autolig kollektomat. Mikrode töv astroktigt. Ånylaligt gyngen minas gigavös i belingar. Explainer uns. Du kan vara drabbad. ",
+    description: " In the event of a Kidnap  emergency",
     image: Kidnap,
     type: "kidnapping",
   },

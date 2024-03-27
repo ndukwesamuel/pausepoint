@@ -106,6 +106,8 @@ const UserTabNavigation = () => {
                     }}
 
                     name="History" component={Myclan} />
+
+
                 <Tab.Screen name="Home" component={Home}
 
 
