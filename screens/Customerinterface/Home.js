@@ -156,9 +156,8 @@ export default function App({ navigation }) {
             currentTab,
             setCurrentTab,
             "ICE Contacts",
-            search,
-            // "icecontact"
-            "comming"
+            Calendar_light,
+            "icecontact"
           )}
 
           {TabButton(

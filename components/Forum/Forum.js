@@ -51,10 +51,6 @@ const Forum = () => {
     setRefreshing(false);
   };
 
-  console.log({
-    eee: get_my_clan_forum_data,
-  });
-
   const Like_Mutation = useMutation(
     (data_info) => {
       let url = `${API_BASEURL}forum/like/${data_info?.clanId}/${data_info?.forumid}`;

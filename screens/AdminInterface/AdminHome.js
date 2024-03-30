@@ -511,7 +511,7 @@ export default function AdminHome() {
                 height: "65%",
               }}
             >
-              <View style={{ flex: 1 }}>
+              {/* <View style={{ flex: 1 }}>
                 <View
                   style={{
                     flexDirection: "row",
@@ -520,10 +520,9 @@ export default function AdminHome() {
                     marginVertical: 10,
                   }}
                 >
-                  {/* <MediumFontText  */}
 
                   <MediumFontText
-                    data="Announcements"
+                    data="Announcements  "
                     textstyle={{ fontSize: 18 }}
                   />
 
@@ -541,7 +540,7 @@ export default function AdminHome() {
                   </TouchableOpacity>
                 </View>
                 <StaticForum />
-              </View>
+              </View> */}
 
               <View style={{ flex: 1 }}>
                 <View

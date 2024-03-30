@@ -130,6 +130,12 @@ export const Usernaviagetion = () => {
       title: "Service",
     },
 
+    {
+      title: "ICE Contact",
+      component: ICEcontact,
+      name: "icecontact",
+    },
+
     // Add more screens as needed
   ];
   return (
@@ -357,27 +363,6 @@ export const Usernaviagetion = () => {
         })}
         name="joinclan"
         component={Joinclan}
-      />
-
-      <Stack.Screen
-        options={({ navigation }) => ({
-          title: "ICE Contact",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              <AntDesign name="arrowleft" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-        })}
-        name="icecontact"
-        component={ICEcontact}
       />
 
       <Stack.Screen
