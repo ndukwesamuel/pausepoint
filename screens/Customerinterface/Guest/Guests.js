@@ -49,6 +49,10 @@ const Guests = () => {
     return () => {};
   }, [dispatch]);
 
+  console.log({
+    ttt: get_all_user_guest_data,
+  });
+
   const filteredData = get_all_user_guest_data?.userInvites?.filter((item) =>
     item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
@@ -198,7 +202,7 @@ const Guests = () => {
               backgroundColor: "green",
               // paddingHorizontal: 20,
               // paddingVertical: 10,
-              borderRadius: "50%",
+              borderRadius: 50,
               width: 50,
               height: 50,
               justifyContent: "center",

@@ -101,7 +101,7 @@ const Emergency = () => {
         });
         Toast.show({
           type: "success",
-          text1: "Request To Join Estate successfully ",
+          text1: "Emergency Report successfully send",
         });
 
         closeFormModal();

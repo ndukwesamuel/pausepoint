@@ -1,7 +1,7 @@
 
 
 
-import { FlatList, Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Platform, Linking } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Platform, Linking, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { emergencydata } from '../../../components/Emergency/emdata'
 import AppScreen from '../../../components/shared/AppScreen'
@@ -78,47 +78,49 @@ const UserPolicy = () => {
 
     return (
 
-        <AppScreen>
+        <ScrollView style={{ flex: 1, padding: 20 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>User Policy</Text>
 
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={{ flex: 1 }}>
+            <Text style={{ marginBottom: 20 }}>
+                1. Welcome to the Pausepoint App Gated Community; before engaging, please review and understand our user policy.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                2. Users must adhere to applicable laws and regulations and refrain from engaging in unlawful, harmful, or objectionable behavior.
+            </Text>
 
-                <View style={{ flex: 1, paddingHorizontal: 20 }}>
-                    <RegularFontText data="Lörem ipsum bodolingar biläfaliga lesongen mysokyfån på lar. Kroligen plasa. Trengen får, även om multis, i nodorade och saheten. Frimester vinde por. 
-Pseudossa hyporen, sade. Nedir åde att påsäras, terrastik. Denes ol, bikygisk. Vafålingar runera lasm rer. Toska nipp kakyngen. Dobel säpojogg treskapet atina: kameratelefon eftersom diledes. Trin semitode. Vaskap tidade men der. 
-Lesahet össa, neren. Anadade dektig pon spen, ösm degt. Rede förlåtandeintervall realing osade. Makrott euronde. 
-Säbel telengen der killgissa i paltkoma i tiling. Hyponade beskap sod. Polytinok homovis inte fårutiktiga. Presam olig, kasas. 
-Decis speda fonotion eftersom nihyrade personlig ana. Gensax monogyn olingar kang och povis emedan kvasin. Bäledes did guldsot när dovis bonol. Tresal hemiret. 
-Makronas. Heteroitet oliga även om hynat. Neligt bios säreskade. Sal sonorat krona. 
-Farade viligt benotisk, tills ultravagt förutom flygskam i monol. Intrajeliga usade och don, den etnotologi. Jongar or i kolig, liksom nes som kost, doskapet. Våck singen passivhus ifall svennekoloni. Tikyd koligen inklusive rebel i vårelogi att sekyna. Diktiga teled sasade blingbling. Tiska sev. Poren eurobossa jugon i Ter dengar prel ojelingar: grönt körfält. Megan egonening i kakyv. Pad lävåhet bett. Prertad plajofågisk prekynymir EU-migrant, i das ser. 
-" textstyle={{ fontSize: 14 }} />
+            <Text style={{ marginBottom: 20 }}>
+                3. We value your privacy and handle your personal information according to our Privacy Policy, to which you consent by using the app.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                4. Users are accountable for their actions, including content creation, sharing, and compliance with community guidelines.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                5. Our community guidelines foster a positive and inclusive environment, outlining expected behavior, content standards, and engagement rules.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                6. Respect intellectual property rights and refrain from infringing upon the rights of others.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                7. We reserve the right to moderate user-generated content to maintain compliance with our policies and guidelines.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                8. Users are encouraged to report policy violations for prompt investigation and appropriate action.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                9. Disputes should be resolved through open communication and may involve contacting support for assistance.
+            </Text>
 
-
-
-
-
-
-
-
-
-
-                </View>
-
-
-
-
-
-            </KeyboardAvoidingView>
-
-        </AppScreen>
+            <Text style={{ marginBottom: 20 }}>
+                10. Policy updates will be communicated to users, who agree to continued adherence by using the app.
+            </Text>
+        </ScrollView>
     )
 }
 

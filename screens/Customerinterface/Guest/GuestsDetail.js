@@ -38,8 +38,11 @@ import {
   Get__User_Guest_detail_Fun,
 } from "../../../Redux/UserSide/GuestSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
+import * as Sharing from "expo-sharing";
 
 import QRCode from "react-native-qrcode-svg";
+import ViewShot from "react-native-view-shot";
+// import Share from "react-nat
 import { CenterReuseModals } from "../../../components/shared/ReuseModals";
 
 const GuestsDetail = () => {
@@ -120,6 +123,25 @@ const GuestsDetail = () => {
   );
 
   const [qrCodeValue, setQRCodeValue] = useState("");
+  const viewShotRef = useRef();
+  const captureAndShare = async () => {
+    try {
+      const uri = await captureQRCodeAsImage();
+      await Sharing.shareAsync(uri);
+    } catch (error) {
+      console.error("Error sharing QR code: ", error.message);
+    }
+  };
+
+  const captureQRCodeAsImage = async () => {
+    try {
+      const uri = await viewShotRef.current.capture();
+      return uri;
+    } catch (error) {
+      throw new Error("Error capturing QR code as image: ", error);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -287,6 +309,8 @@ const GuestsDetail = () => {
             <View
               style={{
                 marginTop: 20,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               {console.log({
@@ -300,6 +324,28 @@ const GuestsDetail = () => {
               />
             </View>
           )}
+
+          {/* <TouchableOpacity
+            onPress={captureAndShare}
+            style={{
+              marginTop: 20,
+              backgroundColor: "#007AFF",
+              padding: 10,
+              borderRadius: 5,
+              alignSelf: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Share QR Code
+            </Text>
+          </TouchableOpacity> */}
         </View>
       </CenterReuseModals>
     </View>

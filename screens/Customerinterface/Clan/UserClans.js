@@ -65,7 +65,10 @@ const UserClans = () => {
   useEffect(() => {
     dispatch(Get_User_Clans_Fun());
     dispatch(Get_User_Profle_Fun());
-    dispatch(Get_all_clan_User_Is_adminIN_Fun());
+
+    if (get_user_profile_data?.AdmincurrentClanMeeting) {
+      dispatch(Get_all_clan_User_Is_adminIN_Fun());
+    }
 
     return () => {};
   }, []);
@@ -196,9 +199,7 @@ const UserClans = () => {
         <Text>Creator: {item?.creator._id}</Text>
         <Text>Status: {item?.status}</Text>
         <Text>Status: {item?._id}</Text>
-        {console.log({
-          aja: item?._id,
-        })}
+
         <Text>Status: {get_user_profile_data?.currentClanMeeting?._id}</Text>
       </View>
 

@@ -1,12 +1,9 @@
 import React from "react";
 import { View, Text, Button, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import UserTabNavigation from "./UserTabNavigation";
 import Neigborhood from "../../screens/Customerinterface/Neigborhood";
 import { AntDesign } from "@expo/vector-icons";
 import Chats from "../../screens/Customerinterface/Chats";
-import Myclan from "../../screens/Customerinterface/Clan/Myclan";
 import Createclan from "../../screens/Customerinterface/Clan/Createclan.js";
 import Joinclan from "../../screens/Customerinterface/Clan/Joinclan";
 import ICEcontact from "../../screens/Customerinterface/ICEcontact";
@@ -18,31 +15,38 @@ import FAQ from "../../screens/Customerinterface/Help/FAQ";
 import TermsConditions from "../../screens/Customerinterface/Help/TermsConditions";
 import PrivacyPolicy from "../../screens/Customerinterface/Help/PrivacyPolicy";
 import Share from "../../screens/Customerinterface/Help/Share";
+import AdminTabNavigation from "./AdminTabNavigation";
+import UserDetails from "../../screens/AdminInterface/UserDetails";
+import Emergencies from "../../screens/AdminInterface/Emergency/Emergencies";
+import EmergencyDetails from "../../screens/AdminInterface/Emergency/EmergencyDetails";
+import NotificatioSettings from "../../screens/Customerinterface/Account/NotificatioSettings";
+import Notification from "../../screens/Customerinterface/Account/Notification";
+import Announcement from "../../screens/AdminInterface/Announcement/Announcement";
+import CreateAnnouncement from "../../screens/AdminInterface/Announcement/CreateAnnouncement";
 import CommentScreen from "../../screens/SharedScreen/CommentScreen";
-import Events from "../../screens/Customerinterface/Events/Events";
-import EventDetals from "../../screens/Customerinterface/Events/EventDetals";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CreatePrivateEvent from "../../screens/Customerinterface/Events/CreatePrivateEvent";
-import CreatePublicEvent from "../../screens/Customerinterface/Events/CreatePublicEvent";
-import Commingsoon from "../../screens/SharedScreen/Commingsoon";
-import UserClans from "../../screens/Customerinterface/Clan/UserClans";
-import CreateForum from "../../screens/Customerinterface/Forum/CreateForum";
-import ForumDetails from "../../screens/Customerinterface/Forum/ForumDetails";
-import EditPersonalInformation from "../../screens/Customerinterface/Account/EditPersonalInformation";
-import CreateGuests from "../../screens/Customerinterface/Guest/CreateGuests";
-import GuestsDetail from "../../screens/Customerinterface/Guest/GuestsDetail";
-import UserPolls from "../../screens/Customerinterface/Poll/UserPolls";
-import UserPollDetails from "../../screens/Customerinterface/Poll/UserPollDetails";
-import Service from "../../screens/Customerinterface/Service";
-import AboutUS from "../../screens/Customerinterface/About.tsx";
-import ViewProfile from "../../screens/Customerinterface/Account/ViewProfile";
-const Stack = createNativeStackNavigator();
 
-const SingleScreenWithBackButton = (screenName, component, title) => {
+import UserClans from "../../screens/AdminInterface/Estate_Admin_Clan/UserClans";
+import AdminUserPolls from "../../screens/AdminInterface/Poll/AdminUserPolls";
+import CreatePoll from "../../screens/AdminInterface/Poll/CreatePoll";
+import AdminUserPollDetail from "../../screens/AdminInterface/Poll/AdminUserPollDetail";
+import AdminGuests from "../../screens/AdminInterface/Guest/AdminGuests";
+import AdminGuestsDetail from "../../screens/AdminInterface/Guest/AdminGuestsDetail";
+import AnnouncementDetails from "../../screens/AdminInterface/Announcement/AnnouncementDetails";
+import EditPersonalInformation from "../../screens/Customerinterface/Account/EditPersonalInformation";
+import QRScanner from "../../screens/AdminInterface/QRScanner";
+import TheScan from "../../screens/AdminInterface/TheScan";
+
+const Stack = createStackNavigator();
+
+const SingleScreenWithBackButton = (
+  screenName: any,
+  component: any,
+  title: any
+) => {
   return {
     name: screenName,
     component: component,
-    options: ({ navigation }) => ({
+    options: ({ navigation }: { navigation: any }) => ({
       title: title,
       headerStyle: {
         backgroundColor: "white",
@@ -61,197 +65,126 @@ const SingleScreenWithBackButton = (screenName, component, title) => {
   };
 };
 
-const createScreen = (name, component, title) => {
+const Adminnaviagetion = () => {
+  // const ShareScreen = SingleScreenWithBackButton('adminUserDetails', UserDetails, 'User Details');
+
   return (
-    <Stack.Screen
-      key={name}
-      {...SingleScreenWithBackButton(name, component, title)}
-    />
-  );
-};
-export const Usernaviagetion = () => {
-  const screens = [
-    {
-      name: "CreatePrivateEvent",
-      component: CreatePrivateEvent,
-      title: "Create Private Event",
-    },
+    <Stack.Navigator initialRouteName="AdminTabNavigation">
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "AdminMyclan",
+          UserClans,
+          "Admin My Clans"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "AdminUserPolls",
+          AdminUserPolls,
+          "User Polls"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton("createpoll", CreatePoll, "Create Poll")}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "admin-user-poll-detail",
+          AdminUserPollDetail,
+          "Detail Poll"
+        )}
+      />
 
-    {
-      name: "CreatePublicEvent",
-      component: CreatePublicEvent,
-      title: "Create Public Event",
-    },
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "adminUserDetails",
+          UserDetails,
+          "User Details"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "AdminEmergencies",
+          Emergencies,
+          "Emergencies"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "EmergencyDetails",
+          EmergencyDetails,
+          ""
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "Adminnotification",
+          Notification,
+          "Notification"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "AdminAnnouncement",
+          Announcement,
+          "Announcement"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "AnnouncementDetails",
+          AnnouncementDetails,
+          " Announcement Details"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "AdmincreateAnnouncement",
+          CreateAnnouncement,
+          "Create Announcement"
+        )}
+      />
 
-    {
-      name: "createforum",
-      component: CreateForum,
-      title: "Write Message",
-    },
+      <Stack.Screen
+        {...SingleScreenWithBackButton("AdminGuest", AdminGuests, "Guest")}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "AdminGuestsDetail",
+          AdminGuestsDetail,
+          "Guest Details"
+        )}
+      />
 
-    {
-      name: "forumdetail",
-      component: ForumDetails,
-      title: "",
-    },
+      <Stack.Screen
+        {...SingleScreenWithBackButton("scanner", TheScan, "Qrcode Scanner")}
+      />
 
-    {
-      name: "PersonalInfo",
-      // component: EditPersonalInformation,
-      component: ViewProfile,
-      title: "",
-    },
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "PersonalInfo",
+          EditPersonalInformation,
+          "Profile"
+        )}
+      />
 
-    {
-      name: "editPersonalInfo",
-      component: EditPersonalInformation,
-      title: "",
-    },
-
-    {
-      name: "inviteguest",
-      component: CreateGuests,
-      title: "Invite Guest",
-    },
-
-    {
-      name: "guestsdetail",
-      component: GuestsDetail,
-      title: " Guest Details",
-    },
-
-    {
-      name: "userpolls",
-      component: UserPolls,
-      title: "Estate Polls",
-    },
-
-    {
-      name: "estatepollsdetail",
-      component: UserPollDetails,
-      title: "Estate Polls Details",
-    },
-
-    {
-      name: "service",
-      component: Service,
-      title: "Service",
-    },
-
-    {
-      title: "ICE Contact",
-      component: ICEcontact,
-      name: "icecontact",
-    },
-
-    {
-      title: "Help Support",
-      component: HelpSupport,
-      name: "HelpSupport",
-    },
-
-    {
-      title: "About Us",
-      component: AboutUS,
-      name: "aboutus",
-    },
-
-    // Add more screens as needed
-  ];
-  return (
-    <Stack.Navigator initialRouteName="UserTabNavigation">
+      {/* <Stack.Screen name="Welcome" component={Onboarding} />
+                <Stack.Screen name="Registraion" component={Registraion} />
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Forgotten" component={ForgottenPasswod} />
+                <Stack.Screen name="OTP" component={OTP} />
+                <Stack.Screen name="CreatePassword" component={CreatePassword} /> */}
+      {/* <Stack.Screen name="usertab" component={UserTabNavigation} />
+                <Stack.Screen name="PersonalInfo" component={EditPersonalInformation} />
+                <Stack.Screen name="notificationsettings" component={NotificatioSettings} />
+                <Stack.Screen name="ChangePassowrd" component={ChangePassowrd} />
+                <Stack.Screen name="DeleteAccount" component={DeleteAccount} /> */}
       <Stack.Screen
         options={{
           headerShown: false,
         }}
-        name="UserTabNavigation"
-        component={UserTabNavigation}
-      />
-
-      <Stack.Screen
-        options={({ navigation }) => ({
-          title: "Events",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerLeft: () => (
-            // <Button
-            //     onPress={() => navigation.navigate('Home')}
-            //     title="Back"
-            // />
-
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              <AntDesign name="arrowleft" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-        })}
-        name="userevents"
-        component={Events}
-      />
-
-      <Stack.Screen
-        options={({ navigation }) => ({
-          title: "Comming Soon",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerLeft: () => (
-            // <Button
-            //     onPress={() => navigation.navigate('Home')}
-            //     title="Back"
-            // />
-
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              <AntDesign name="arrowleft" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-        })}
-        name="comming"
-        component={Commingsoon}
-      />
-
-      {/* <Stack.Screen
-        options={({ navigation }) => ({
-          title: "Create Private Event ",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerLeft: () => (
-    
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              <AntDesign name="arrowleft" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-        })}
-        name="CreatePrivateEvent"
-        component={CreatePrivateEvent}
-      /> */}
-
-      {screens.map((screen) =>
-        createScreen(screen.name, screen.component, screen.title)
-      )}
-
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="eventdetails"
-        component={EventDetals}
+        name="AdminTabNavigation"
+        component={AdminTabNavigation}
       />
 
       <Stack.Screen
@@ -301,26 +234,28 @@ export const Usernaviagetion = () => {
         component={Chats}
       />
 
-      <Stack.Screen
-        options={({ navigation }) => ({
-          title: "Myclan",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              <AntDesign name="arrowleft" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-        })}
-        name="myclan"
-        component={Myclan}
-      />
+      {/* 
+            <Stack.Screen
+                options={({ navigation }) => ({
+                    title: 'Myclan',
+                    headerStyle: {
+                        backgroundColor: 'white',
+                    },
+                    headerLeft: () => (
+
+
+                        <TouchableOpacity onPress={() => navigation.goBack()}
+                            style={{
+                                marginLeft: 10
+                            }}
+                        >
+
+                            <AntDesign name="arrowleft" size={24} color="black" />
+                        </TouchableOpacity>
+                    ),
+                })}
+
+                name="myclan" component={Myclan} /> */}
 
       <Stack.Screen
         options={({ navigation }) => ({
@@ -345,27 +280,6 @@ export const Usernaviagetion = () => {
 
       <Stack.Screen
         options={({ navigation }) => ({
-          title: "All User Clan",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              <AntDesign name="arrowleft" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-        })}
-        name="alluserclan"
-        component={UserClans}
-      />
-
-      <Stack.Screen
-        options={({ navigation }) => ({
           title: "Join Clan",
           headerStyle: {
             backgroundColor: "white",
@@ -383,6 +297,48 @@ export const Usernaviagetion = () => {
         })}
         name="joinclan"
         component={Joinclan}
+      />
+
+      <Stack.Screen
+        options={({ navigation }) => ({
+          title: "ICE Contact",
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{
+                marginLeft: 10,
+              }}
+            >
+              <AntDesign name="arrowleft" size={24} color="black" />
+            </TouchableOpacity>
+          ),
+        })}
+        name="icecontact"
+        component={ICEcontact}
+      />
+
+      <Stack.Screen
+        options={({ navigation }) => ({
+          title: "Help Support",
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{
+                marginLeft: 10,
+              }}
+            >
+              <AntDesign name="arrowleft" size={24} color="black" />
+            </TouchableOpacity>
+          ),
+        })}
+        name="HelpSupport"
+        component={HelpSupport}
       />
 
       <Stack.Screen
@@ -532,15 +488,31 @@ export const Usernaviagetion = () => {
         component={Share}
       />
 
-      <Stack.Screen
-        {...SingleScreenWithBackButton(
-          "CommentScreen",
-          CommentScreen,
-          "csdsdkjsdkj "
-        )}
-      />
+      {/* <Stack.Screen
+                options={({ navigation }) => ({
+                    title: 'Share this app with friends',
+                    headerStyle: {
+                        backgroundColor: 'white',
+                    },
+                    headerLeft: () => (
+
+
+                        <TouchableOpacity onPress={() => navigation.goBack()}
+                            style={{
+                                marginLeft: 10
+                            }}
+                        >
+
+                            <AntDesign name="arrowleft" size={24} color="black" />
+                        </TouchableOpacity>
+                    ),
+                })}
+
+                name="adminUserDetails" component={UserDetails} /> */}
 
       {/* <Stack.Screen name="Details" component={DetailsScreen} /> */}
     </Stack.Navigator>
   );
 };
+
+export default Adminnaviagetion;

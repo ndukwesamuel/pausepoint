@@ -12,34 +12,31 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { emergencydata } from "../../components/Emergency/emdata";
-import AppScreen from "../../components/shared/AppScreen";
-import EmergencyModal, {
-  EmergencyModalTwo,
-} from "../../components/Emergency/Modal";
+
 import {
   MediumFontText,
   RegularFontText,
   SemiBoldFontText,
-} from "../../components/shared/Paragrahp";
-
+} from "../../../components/shared/Paragrahp";
 import { AntDesign } from "@expo/vector-icons";
-import { Formbutton, Forminput_Icon } from "../../components/shared/InputForm";
-import { userFile } from "../../utils/fakedata";
+
 import { useRoute } from "@react-navigation/native";
-import { HalfScreenModal } from "../../components/shared/ReuseableModal";
-import { Admin_Get_Single_User_Fun } from "../../Redux/Admin/UserSlice";
+// import { HalfScreenModal } from "../../components/shared/ReuseableModal";
+// import { Admin_Get_Single_User_Fun } from "../../Redux/Admin/UserSlice";
 import { useMutation } from "react-query";
 import { API_BASEURL } from "@env";
 import { useDispatch, useSelector } from "react-redux";
-
 import axios from "axios";
 import Toast from "react-native-toast-message";
-import {
-  Admin_Get_Single_Clan_Memeber_Fun,
-  Get_Single_clan,
-} from "../../Redux/UserSide/ClanSlice";
-export default function UserDetails({ navigation }) {
+// import { Get_Single_clan } from "../../Redux/UserSide/ClanSlice";
+import AppScreen from "../../../components/shared/AppScreen";
+import { Formbutton } from "../../../components/shared/InputForm";
+import { userFile } from "../../../utils/fakedata";
+import { Admin_Get_Single_User_Fun } from "../../../Redux/Admin/UserSlice";
+import { HalfScreenModal } from "../../../components/shared/ReuseableModal";
+import { Get_Single_clan } from "../../../Redux/UserSide/ClanSlice";
+import QRCode from "react-native-qrcode-svg";
+export default function ViewProfile({ navigation }) {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -47,40 +44,23 @@ export default function UserDetails({ navigation }) {
     setIsModalVisible(!isModalVisible);
   };
 
-  const route = useRoute();
-  console.log({
-    ttt: route,
-  });
+  let item = {};
+
+  const { userProfile_data } = useSelector((state) => state?.ProfileSlice);
+  //   console.log(userProfile_data);
+  //   const route = useRoute();
   // const { item } = route.params as { item: any };
 
-  const { item } = route.params;
-  console.log({
-    item: item,
-  });
+  //   const { item } = route.params;
 
   const { get_user_profile_data } = useSelector(
     (state) => state?.UserProfileSlice
   );
 
-  const { admin_get_single_clan_memeber_data } = useSelector(
-    (state) => state?.ClanSlice
-  );
-
-  const { Singleuser_data } = useSelector((state) => state?.UserSlice);
-
   useEffect(() => {
-    dispatch(Admin_Get_Single_User_Fun(item));
-    dispatch(Admin_Get_Single_Clan_Memeber_Fun(item?.user?._id));
-
+    // dispatch(Admin_Get_Single_User_Fun(item));
     return () => {};
   }, []);
-
-  console.log({
-    ooo: admin_get_single_clan_memeber_data?.data?.member,
-  });
-  console.log({
-    qqqoo: admin_get_single_clan_memeber_data?.data?.userProfile,
-  });
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalformVisible, setModalFormVisible] = useState(false);
@@ -125,82 +105,6 @@ export default function UserDetails({ navigation }) {
     setFormData({ ...formData, [inputName]: text });
   };
 
-  const RenderItem = ({ item }) => {
-    let statusColor = "#3DCF3A";
-    let statusBackColor = "#F3FFF3";
-    if (item?.status === "Banned") {
-      statusColor = "#F34357"; // Red color for 'Banned' status
-      statusBackColor = "#FDF2F3";
-    } else if (item?.status === "Pending") {
-      statusColor = "#F27F2D"; // Yellow color for 'Pending' status
-      statusBackColor = "#FFF1E7";
-    }
-
-    return (
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          borderWidth: 1,
-          borderColor: "#CFCDCD",
-          borderRadius: 6,
-          paddingHorizontal: 10,
-          gap: 10,
-          paddingVertical: 20,
-          marginBottom: 20,
-        }}
-        onPress={() =>
-          navigation.navigate("adminUserDetails", { data: "this" })
-        }
-      >
-        <View
-          style={{
-            borderRadius: 6,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            source={{
-              uri: "https://img.bleacherreport.net/img/images/photos/003/701/847/hi-res-c834ba050d9e72e90eca37c6b08b6fc5_crop_north.jpg?1508166325&w=3072&h=2048",
-            }}
-            style={{ width: 50, height: 50, borderRadius: 50 }}
-          />
-        </View>
-
-        <View
-          style={{
-            width: "90%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            flex: 1,
-            alignItems: "center",
-          }}
-        >
-          <View style={{}}>
-            <Text
-              style={{
-                fontWeight: "500",
-                fontSize: 14,
-                fontFamily: "RobotoSlab-Medium",
-              }}
-            >
-              {item?.user?.name}
-            </Text>
-
-            <Text>{item?.user?.email}</Text>
-          </View>
-
-          <View
-            style={{ backgroundColor: statusBackColor, paddingHorizontal: 10 }}
-          >
-            <Text style={{ color: statusColor }}>{item?.status}</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -217,6 +121,11 @@ export default function UserDetails({ navigation }) {
           Authorization: `Bearer ${user_data?.token}`,
         },
       };
+
+      console.log({
+        data_info,
+        url,
+      });
 
       return axios.post(url, data_info, config);
     },
@@ -248,33 +157,7 @@ export default function UserDetails({ navigation }) {
     }
   );
 
-  const Stattus_fuc = () => {
-    let statusColor = "#3DCF3A";
-    let statusBackColor = "#F3FFF3";
-    if (admin_get_single_clan_memeber_data?.data?.member?.status === "Banned") {
-      statusColor = "#F34357"; // Red color for 'Banned' status
-      statusBackColor = "#FDF2F3";
-    } else if (
-      admin_get_single_clan_memeber_data?.data?.member?.status === "Pending"
-    ) {
-      statusColor = "#F27F2D"; // Yellow color for 'Pending' status
-      statusBackColor = "#FFF1E7";
-    }
-
-    return (
-      <View
-        style={{
-          backgroundColor: statusBackColor,
-          paddingHorizontal: 10,
-          borderRadius: 5,
-        }}
-      >
-        <Text style={{ color: statusColor, textAlign: "center" }}>
-          {admin_get_single_clan_memeber_data?.data?.member?.status}
-        </Text>
-      </View>
-    );
-  };
+  const jsonString = JSON.stringify(userProfile_data);
 
   return (
     <ScrollView>
@@ -289,27 +172,23 @@ export default function UserDetails({ navigation }) {
         >
           <Image
             source={{
-              uri: admin_get_single_clan_memeber_data?.data?.userProfile?.photo,
+              uri: userProfile_data?.photo,
             }}
             style={{ width: 100, height: 100, borderRadius: 50 }}
           />
 
           <View style={{ flex: 1, gap: 5 }}>
             <SemiBoldFontText
-              data={
-                admin_get_single_clan_memeber_data?.data?.member?.user?.name
-              }
+              data={userProfile_data?.user?.name}
               textstyle={{ fontSize: 22 }}
             />
             <MediumFontText
-              data={
-                admin_get_single_clan_memeber_data?.data?.member?.user?.email
-              }
+              data={userProfile_data?.user?.email}
               textstyle={{ fontSize: 11 }}
             />
-            <View style={{ width: "40%" }}>
-              <Stattus_fuc />
-            </View>
+            {/* <View style={{ width: "40%" }}>
+            <Stattus_fuc />
+          </View> */}
           </View>
         </View>
 
@@ -335,12 +214,12 @@ export default function UserDetails({ navigation }) {
           </View>
 
           {/* <View style={{ marginBottom: 5, paddingBottom: 10 }}>
-            <RegularFontText
-              data="Resident ID"
-              textstyle={{ fontSize: 13, color: "#696969" }}
-            />
-            <MediumFontText data="2340OPL56" textstyle={{ fontSize: 19 }} />
-          </View> */}
+          <RegularFontText
+            data="Resident ID"
+            textstyle={{ fontSize: 13, color: "#696969" }}
+          />
+          <MediumFontText data="2340OPL56" textstyle={{ fontSize: 19 }} />
+        </View> */}
 
           <View style={{ marginBottom: 5, paddingBottom: 10 }}>
             <RegularFontText
@@ -348,7 +227,7 @@ export default function UserDetails({ navigation }) {
               textstyle={{ fontSize: 13, color: "#696969" }}
             />
             <MediumFontText
-              data={`${admin_get_single_clan_memeber_data?.data?.userProfile?.address?.street} ${admin_get_single_clan_memeber_data?.data?.userProfile?.address?.city} `}
+              data={`${userProfile_data?.address?.street}, ${userProfile_data?.address?.city} `}
               textstyle={{ fontSize: 19 }}
             />
           </View>
@@ -359,37 +238,77 @@ export default function UserDetails({ navigation }) {
               textstyle={{ fontSize: 13, color: "#696969" }}
             />
             <MediumFontText
-              data={
-                admin_get_single_clan_memeber_data?.data?.userProfile
-                  ?.phoneNumber
-              }
+              data={userProfile_data?.phoneNumber}
               textstyle={{ fontSize: 19 }}
             />
           </View>
         </View>
 
-        <Formbutton
-          buttonStyle={{
-            backgroundColor:
-              item?.status === "approved" ? "#FDF2F3" : "#04973C",
-
-            borderColor: item?.status === "approved" ? "#F34357" : "",
-            paddingVertical: 14,
-            alignItems: "center",
-            borderRadius: 5,
+        <View
+          style={{
             borderWidth: 1,
-            marginTop: 10,
+            borderRadius: 7,
+            borderColor: "#2632381F",
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            marginTop: 20,
           }}
-          textStyle={{
-            color: item?.status === "approved" ? "#F34357" : "white",
+        >
+          <View
+            style={{
+              marginBottom: 20,
+              borderBottomColor: "#CFCDCD",
+              borderBottomWidth: 1,
+              paddingBottom: 10,
+            }}
+          >
+            <SemiBoldFontText data="Qr Code" textstyle={{ fontSize: 18 }} />
+          </View>
 
-            fontWeight: "500",
-            fontSize: 14,
-            fontFamily: "RobotoSlab-Medium",
-          }}
-          data={item?.status === "approved" ? "Ban User" : "Reinstate User"}
-          onPress={() => setIsModalVisible(!isModalVisible)}
-        />
+          <View
+            style={{
+              marginBottom: 5,
+              paddingBottom: 10,
+              flexDirection: "row",
+              gap: 20,
+            }}
+          >
+            {/* <RegularFontText
+            data="Status History"
+            textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
+          />
+          <MediumFontText
+            data="2023-09-15 10:30 AM  "
+            textstyle={{ fontSize: 14 }}
+          /> */}
+
+            {jsonString !== "" && (
+              <View
+                style={{
+                  marginTop: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <QRCode
+                  value={jsonString}
+                  size={200}
+                  color="black"
+                  backgroundColor="white"
+                />
+              </View>
+            )}
+          </View>
+
+          <View
+            style={{
+              marginBottom: 5,
+              paddingBottom: 10,
+              flexDirection: "row",
+              gap: 20,
+            }}
+          ></View>
+        </View>
 
         {/* <EmergencyModal visible={modalVisible} onClose={closeModal} setModalFormVisible={setModalFormVisible} /> */}
 
@@ -413,8 +332,7 @@ export default function UserDetails({ navigation }) {
                 >
                   <MediumFontText
                     data={
-                      admin_get_single_clan_memeber_data?.data?.member
-                        ?.status === "approved"
+                      item?.status === "approved"
                         ? "Ban User "
                         : "Reinstate User"
                     }
@@ -428,9 +346,8 @@ export default function UserDetails({ navigation }) {
 
                 <RegularFontText
                   data={
-                    admin_get_single_clan_memeber_data?.data?.member?.status ===
-                    "approved"
-                      ? "Banning this user will suspend their account indefinitely, preventing further access to the system."
+                    item?.status === "approved"
+                      ? "BBanning this user will suspend their account indefinitely, preventing further access to the system."
                       : "Reinstating this user will reactivate their account, allowing them to access the system"
                   }
                   textstyle={{
@@ -439,8 +356,7 @@ export default function UserDetails({ navigation }) {
                     textAlign: "center",
                   }}
                 />
-                {admin_get_single_clan_memeber_data?.data?.member?.status ===
-                "approved" ? (
+                {item?.status === "approved" ? (
                   <View
                     style={{
                       flexDirection: "row",
@@ -537,9 +453,7 @@ export default function UserDetails({ navigation }) {
                         ApproveMember_Mutation.mutate({
                           clanId:
                             get_user_profile_data?.AdmincurrentClanMeeting,
-                          memberId:
-                            admin_get_single_clan_memeber_data?.data?.member
-                              ?.user?._id,
+                          memberId: item?.user?._id,
                           approvalStatus: "approved",
                         });
                       }}

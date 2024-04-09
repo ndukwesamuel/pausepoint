@@ -21,7 +21,10 @@ import { Forminput_Icon } from "../../components/shared/InputForm";
 import { userFile } from "../../utils/fakedata";
 import { useDispatch, useSelector } from "react-redux";
 import { Admin_Get_All_User_Fun } from "../../Redux/Admin/UserSlice";
-import { Get_Single_clan } from "../../Redux/UserSide/ClanSlice";
+import {
+  Admin_Get_All_Clan_Memeber_Fun,
+  Get_Single_clan,
+} from "../../Redux/UserSide/ClanSlice";
 
 export default function AllUsers({ navigation }) {
   const dispatch = useDispatch();
@@ -36,16 +39,16 @@ export default function AllUsers({ navigation }) {
     get_user_clan_data,
     get_all_clan_adminIN_data,
     get_Single_clan_data,
+    admin_get_all_clan_memeber_data,
   } = useSelector((state) => state?.ClanSlice);
 
   const { get_user_profile_data } = useSelector(
     (state) => state?.UserProfileSlice
   );
 
-  console.log({
-    game: get_user_profile_data?.AdmincurrentClanMeeting,
-  });
   useEffect(() => {
+    dispatch(Admin_Get_All_Clan_Memeber_Fun());
+
     dispatch(Get_Single_clan(get_user_profile_data?.AdmincurrentClanMeeting));
 
     return () => {};
@@ -150,11 +153,12 @@ export default function AllUsers({ navigation }) {
             alignItems: "center",
           }}
         >
+          {console.log({
+            e: item,
+          })}
           <Image
             source={{
-              uri:
-                item?.user?.photo ||
-                "https://img.bleacherreport.net/img/images/photos/003/701/847/hi-res-c834ba050d9e72e90eca37c6b08b6fc5_crop_north.jpg?1508166325&w=3072&h=2048",
+              uri: "https://static.vecteezy.com/system/resources/previews/019/776/467/non_2x/user-icon-fake-photo-sign-profile-button-simple-style-social-media-poster-background-symbol-user-brand-logo-design-element-user-t-shirt-printing-for-sticker-free-vector.jpg",
             }}
             style={{ width: 50, height: 50, borderRadius: 50 }}
           />

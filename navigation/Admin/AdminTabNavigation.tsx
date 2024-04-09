@@ -7,12 +7,14 @@ import { AntDesign } from "@expo/vector-icons";
 import { CustomTabButton, Tabcomponent } from '../../components/shared/naviagetion';
 import Guests from '../../screens/Customerinterface/Guest/Guests';
 import Emergency from '../../screens/Customerinterface/Emergency/Emergency';
-import Account from '../../screens/Customerinterface/Account/Account';
+import Account from '../../screens/AdminInterface/Account/Account';
 import History from '../../screens/Customerinterface/Guest/History';
 import Home from '../../screens/Customerinterface/Home';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AdminHome from '../../screens/AdminInterface/AdminHome';
 import AllUsers from '../../screens/AdminInterface/AllUsers';
+import AdminGuests from '../../screens/AdminInterface/Guest/AdminGuests';
+
 
 
 
@@ -85,7 +87,7 @@ const AdminTabNavigation = () => {
 
             <Tab.Screen
                 options={{
-                    title: "Chats",
+                    title: "Guest",
                     tabBarActiveTintColor: "#005091",
                     headerShown: false,
                     tabBarIcon: ({ focused }) => {
@@ -94,7 +96,7 @@ const AdminTabNavigation = () => {
                                 focused={focused}
                                 iconFocused={require('../../assets/images/history.png')}
                                 iconUnfocused={require('../../assets/images/historyhistory2.png')}
-                                label="Chats"
+                                label="Guest"
                                 containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
                                 texttStyle={{ color: "#000000" }}
                             />
@@ -104,34 +106,10 @@ const AdminTabNavigation = () => {
                     },
                 }}
 
-                name="History" component={History} />
+                name="adminguest" component={AdminGuests} />
 
 
-            {/* <Tab.Screen name="Home" component={Home}
 
-                options={{
-
-                    title: "Home",
-                    tabBarActiveTintColor: "#005091",
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <AntDesign name="plus" size={24} color="white" style={{
-                                width: 25,
-                                height: 25,
-                            }} />
-
-                        );
-                    },
-                    tabBarButton: (props: any,) => {
-                        return (
-                            <CustomTabButton {...props} />
-
-                        );
-                    }
-                }}
-
-            /> */}
 
 
             <Tab.Screen

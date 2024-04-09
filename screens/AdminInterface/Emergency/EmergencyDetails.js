@@ -10,6 +10,9 @@ import {
   Modal,
   TouchableWithoutFeedback,
   Linking,
+  ScrollView,
+  RefreshControl,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { emergencydata } from "../../../components/Emergency/emdata";
@@ -136,10 +139,24 @@ export default function EmergencyDetails({ navigation }) {
       </View>
     );
   };
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    // Set the refreshing state to true
+    setRefreshing(true);
+    dispatch(Admin_Get_Single_Emergency_Report_Fun(item));
+
+    // Wait for 2 seconds
+    setRefreshing(false);
+  };
 
   const makePhoneCall = () => {
+    // Alert.alert("Call Support", "Are you sure you want to call support?");
+    // Linking.openURL(
+    //   `${Admin_Get_Single_Emergency_Report?.userProfile?.phoneNumber} || 080`
+    // );
     Linking.openURL(
-      `${Admin_Get_Single_Emergency_Report?.userProfile?.phoneNumber} || 080`
+      `tel:${Admin_Get_Single_Emergency_Report?.userProfile?.phoneNumber}`
     );
   };
 
@@ -187,124 +204,129 @@ export default function EmergencyDetails({ navigation }) {
     }
   );
   return (
-    <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20 }}>
-      <View
-        style={{
-          borderWidth: 1,
-          borderRadius: 7,
-          borderColor: "#2632381F",
-          paddingHorizontal: 10,
-          paddingVertical: 10,
-          marginTop: 20,
-        }}
-      >
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20 }}>
         <View
           style={{
-            marginBottom: 20,
-            borderBottomColor: "#CFCDCD",
-            borderBottomWidth: 1,
-            paddingBottom: 10,
-            flexDirection: "row",
-            alignItems: "center",
+            borderWidth: 1,
+            borderRadius: 7,
+            borderColor: "#2632381F",
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            marginTop: 20,
           }}
         >
-          {/* import fireImage from "../../assets/images/fire.png"; */}
-          <Image
-            source={require("../../../assets/images/fire.png")}
-            style={{ width: 38, height: 40 }}
-          />
+          <View
+            style={{
+              marginBottom: 20,
+              borderBottomColor: "#CFCDCD",
+              borderBottomWidth: 1,
+              paddingBottom: 10,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            {/* import fireImage from "../../assets/images/fire.png"; */}
+            <Image
+              source={require("../../../assets/images/fire.png")}
+              style={{ width: 38, height: 40 }}
+            />
 
-          <SemiBoldFontText
-            data={`${item.type} Emergency`}
-            textstyle={{ fontSize: 18 }}
-          />
-        </View>
+            <SemiBoldFontText
+              data={`${item.type} Emergency`}
+              textstyle={{ fontSize: 18 }}
+            />
+          </View>
 
-        <View
-          style={{
-            marginBottom: 5,
-            paddingBottom: 10,
-            flexDirection: "row",
-            gap: 20,
-          }}
-        >
-          <RegularFontText
-            data="Reported by:"
-            textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
-          />
-          <MediumFontText
-            data={capitalizeFirstLetter(
-              Admin_Get_Single_Emergency_Report?.report?.member?.name
-            )}
-            textstyle={{ fontSize: 14 }}
-          />
-        </View>
+          <View
+            style={{
+              marginBottom: 5,
+              paddingBottom: 10,
+              flexDirection: "row",
+              gap: 20,
+            }}
+          >
+            <RegularFontText
+              data="Reported by:"
+              textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
+            />
+            <MediumFontText
+              data={capitalizeFirstLetter(
+                Admin_Get_Single_Emergency_Report?.report?.member?.name
+              )}
+              textstyle={{ fontSize: 14 }}
+            />
+          </View>
 
-        <View
-          style={{
-            marginBottom: 5,
-            paddingBottom: 10,
-            flexDirection: "row",
-            gap: 20,
-          }}
-        >
-          <RegularFontText
-            data="Date and Time:"
-            textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
-          />
-          <MediumFontText
-            data={formatDateandTime(
-              Admin_Get_Single_Emergency_Report?.report?.createdAt
-            )}
-            textstyle={{ fontSize: 14 }}
-          />
-        </View>
+          <View
+            style={{
+              marginBottom: 5,
+              paddingBottom: 10,
+              flexDirection: "row",
+              gap: 20,
+            }}
+          >
+            <RegularFontText
+              data="Date and Time:"
+              textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
+            />
+            <MediumFontText
+              data={formatDateandTime(
+                Admin_Get_Single_Emergency_Report?.report?.createdAt
+              )}
+              textstyle={{ fontSize: 14 }}
+            />
+          </View>
 
-        <View
-          style={{
-            marginBottom: 5,
-            paddingBottom: 10,
-            flexDirection: "row",
-            gap: 20,
-          }}
-        >
-          <RegularFontText
-            data="House Address:"
-            textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
-          />
-          <MediumFontText
-            data={Admin_Get_Single_Emergency_Report?.report?.additionalInfo}
-            textstyle={{ fontSize: 14 }}
-          />
-        </View>
+          <View
+            style={{
+              marginBottom: 5,
+              paddingBottom: 10,
+              flexDirection: "row",
+              gap: 20,
+            }}
+          >
+            <RegularFontText
+              data="House Address:"
+              textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
+            />
+            <MediumFontText
+              data={Admin_Get_Single_Emergency_Report?.report?.additionalInfo}
+              textstyle={{ fontSize: 14 }}
+            />
+          </View>
 
-        <View
-          style={{
-            marginBottom: 5,
-            paddingBottom: 10,
-            flexDirection: "row",
-            gap: 20,
-          }}
-        >
-          <RegularFontText
-            data="Status:"
-            textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
-          />
-          <MediumFontText
-            data={Admin_Get_Single_Emergency_Report?.report?.status}
-            textstyle={{ fontSize: 14 }}
-          />
-        </View>
+          <View
+            style={{
+              marginBottom: 5,
+              paddingBottom: 10,
+              flexDirection: "row",
+              gap: 20,
+            }}
+          >
+            <RegularFontText
+              data="Status:"
+              textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
+            />
+            <MediumFontText
+              data={Admin_Get_Single_Emergency_Report?.report?.status}
+              textstyle={{ fontSize: 14 }}
+            />
+          </View>
 
-        <View
-          style={{
-            marginBottom: 5,
-            paddingBottom: 10,
-            flexDirection: "row",
-            gap: 20,
-          }}
-        >
-          {/* <RegularFontText
+          <View
+            style={{
+              marginBottom: 5,
+              paddingBottom: 10,
+              flexDirection: "row",
+              gap: 20,
+            }}
+          >
+            {/* <RegularFontText
             data="Comment:"
             textstyle={{
               fontSize: 13,
@@ -317,32 +339,10 @@ export default function EmergencyDetails({ navigation }) {
             data="User’s account approved and game fire ie i kk"
             textstyle={{ fontSize: 14, width: "65%" }}
           /> */}
+          </View>
         </View>
-      </View>
 
-      <Formbutton
-        buttonStyle={{
-          backgroundColor: "#04973C",
-          paddingVertical: 14,
-          alignItems: "center",
-          borderRadius: 5,
-          borderWidth: 1,
-          marginTop: 10,
-        }}
-        textStyle={{
-          color: "white", ///item?.status === "Active" ? "#F34357" : "white",
-
-          fontWeight: "500",
-          fontSize: 14,
-          fontFamily: "RobotoSlab-Medium",
-        }}
-        data="Make a call " //{item?.status === "Active" ? "Ban User" : "Reinstate User"}
-        onPress={makePhoneCall}
-      />
-
-      {Admin_Get_Single_Emergency_Report?.report?.status === "pending" && (
         <Formbutton
-          isLoading={Resolve_Mutation.isLoading}
           buttonStyle={{
             backgroundColor: "#04973C",
             paddingVertical: 14,
@@ -358,158 +358,185 @@ export default function EmergencyDetails({ navigation }) {
             fontSize: 14,
             fontFamily: "RobotoSlab-Medium",
           }}
-          data="Resolve" //{item?.status === "Active" ? "Ban User" : "Reinstate User"}
-          onPress={() => {
-            Resolve_Mutation.mutate(
-              Admin_Get_Single_Emergency_Report?.report?._id
-            );
-          }}
+          data="Make a call " //{item?.status === "Active" ? "Ban User" : "Reinstate User"}
+          onPress={makePhoneCall}
         />
-      )}
 
-      {/* <EmergencyModal visible={modalVisible} onClose={closeModal} setModalFormVisible={setModalFormVisible} /> */}
+        {Admin_Get_Single_Emergency_Report?.report?.status === "pending" && (
+          <Formbutton
+            isLoading={Resolve_Mutation.isLoading}
+            buttonStyle={{
+              backgroundColor: "#04973C",
+              paddingVertical: 14,
+              alignItems: "center",
+              borderRadius: 5,
+              borderWidth: 1,
+              marginTop: 10,
+            }}
+            textStyle={{
+              color: "white", ///item?.status === "Active" ? "#F34357" : "white",
 
-      <Modal transparent={true} animationType="slide" visible={isModalVisible}>
-        <TouchableWithoutFeedback onPress={toggleModal}>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <View
-                style={{
-                  marginBottom: 20,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  borderBottomColor: "#CFCDCD",
-                  borderBottomWidth: 1,
-                  paddingBottom: 10,
-                }}
-              >
-                <MediumFontText
+              fontWeight: "500",
+              fontSize: 14,
+              fontFamily: "RobotoSlab-Medium",
+            }}
+            data="Resolve" //{item?.status === "Active" ? "Ban User" : "Reinstate User"}
+            onPress={() => {
+              Resolve_Mutation.mutate(
+                Admin_Get_Single_Emergency_Report?.report?._id
+              );
+            }}
+          />
+        )}
+
+        {/* <EmergencyModal visible={modalVisible} onClose={closeModal} setModalFormVisible={setModalFormVisible} /> */}
+
+        <Modal
+          transparent={true}
+          animationType="slide"
+          visible={isModalVisible}
+        >
+          <TouchableWithoutFeedback onPress={toggleModal}>
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <View
+                  style={{
+                    marginBottom: 20,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    borderBottomColor: "#CFCDCD",
+                    borderBottomWidth: 1,
+                    paddingBottom: 10,
+                  }}
+                >
+                  <MediumFontText
+                    data={
+                      item?.status === "Active" ? "Ban User " : "Reinstate User"
+                    }
+                    textstyle={{
+                      fontSize: 18,
+                      textAlign: "center",
+                      width: "100%",
+                    }}
+                  />
+                </View>
+
+                <RegularFontText
                   data={
-                    item?.status === "Active" ? "Ban User " : "Reinstate User"
+                    item?.status === "Active"
+                      ? "BBanning this user will suspend their account indefinitely, preventing further access to the system."
+                      : "Reinstating this user will reactivate their account, allowing them to access the system"
                   }
                   textstyle={{
-                    fontSize: 18,
+                    fontSize: 14,
+                    fontWeight: "400",
                     textAlign: "center",
-                    width: "100%",
                   }}
                 />
+                {item?.status === "Active" ? (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: 20,
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#FDF2F3",
+                        paddingHorizontal: 12,
+                        paddingVertical: 12,
+                        borderRadius: 6,
+                      }}
+                      onPress={toggleModal}
+                    >
+                      <RegularFontText
+                        data="Ban User"
+                        textstyle={{
+                          fontSize: 14,
+                          fontWeight: "400",
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#04973C",
+                        paddingHorizontal: 12,
+                        paddingVertical: 12,
+                        borderRadius: 6,
+                      }}
+                    >
+                      <RegularFontText
+                        data="Cancel"
+                        textstyle={{
+                          fontSize: 14,
+                          fontWeight: "400",
+                          textAlign: "center",
+                          color: "white",
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: 20,
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "white",
+                        paddingHorizontal: 12,
+                        paddingVertical: 12,
+                        borderRadius: 6,
+                        borderWidth: 1,
+                        borderColor: "#04973C",
+                      }}
+                      onPress={toggleModal}
+                    >
+                      <RegularFontText
+                        data="Cancel"
+                        textstyle={{
+                          fontSize: 14,
+                          fontWeight: "400",
+                          textAlign: "center",
+                          color: "#04973C",
+                        }}
+                      />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#04973C",
+                        paddingHorizontal: 12,
+                        paddingVertical: 12,
+                        borderRadius: 6,
+                      }}
+                    >
+                      <RegularFontText
+                        data="Reinstate"
+                        textstyle={{
+                          fontSize: 14,
+                          fontWeight: "400",
+                          textAlign: "center",
+                          color: "white",
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
-
-              <RegularFontText
-                data={
-                  item?.status === "Active"
-                    ? "BBanning this user will suspend their account indefinitely, preventing further access to the system."
-                    : "Reinstating this user will reactivate their account, allowing them to access the system"
-                }
-                textstyle={{
-                  fontSize: 14,
-                  fontWeight: "400",
-                  textAlign: "center",
-                }}
-              />
-              {item?.status === "Active" ? (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginTop: 20,
-                  }}
-                >
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: "#FDF2F3",
-                      paddingHorizontal: 12,
-                      paddingVertical: 12,
-                      borderRadius: 6,
-                    }}
-                    onPress={toggleModal}
-                  >
-                    <RegularFontText
-                      data="Ban User"
-                      textstyle={{
-                        fontSize: 14,
-                        fontWeight: "400",
-                        textAlign: "center",
-                      }}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: "#04973C",
-                      paddingHorizontal: 12,
-                      paddingVertical: 12,
-                      borderRadius: 6,
-                    }}
-                  >
-                    <RegularFontText
-                      data="Cancel"
-                      textstyle={{
-                        fontSize: 14,
-                        fontWeight: "400",
-                        textAlign: "center",
-                        color: "white",
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginTop: 20,
-                  }}
-                >
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: "white",
-                      paddingHorizontal: 12,
-                      paddingVertical: 12,
-                      borderRadius: 6,
-                      borderWidth: 1,
-                      borderColor: "#04973C",
-                    }}
-                    onPress={toggleModal}
-                  >
-                    <RegularFontText
-                      data="Cancel"
-                      textstyle={{
-                        fontSize: 14,
-                        fontWeight: "400",
-                        textAlign: "center",
-                        color: "#04973C",
-                      }}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: "#04973C",
-                      paddingHorizontal: 12,
-                      paddingVertical: 12,
-                      borderRadius: 6,
-                    }}
-                  >
-                    <RegularFontText
-                      data="Reinstate"
-                      textstyle={{
-                        fontSize: 14,
-                        fontWeight: "400",
-                        textAlign: "center",
-                        color: "white",
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )}
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-    </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+      </View>
+    </ScrollView>
   );
 }
 

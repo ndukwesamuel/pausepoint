@@ -133,7 +133,7 @@ const LiveSupport = ({ navigation }: { navigation: any }) => {
                         {/* {data?.map((item, index) => ( */}
                         <TouchableOpacity
                             // onPress={() => Linking.openURL('mailto:support@example.com?subject=SendMail&body=Description')}
-                            onPress={() => Linking.openURL('mailto:support@example.com')}
+                            onPress={() => Linking.openURL('mailto:pausepoint2023@gmail.com')}
 
                             style={{ backgroundColor: "#F6F8FA", paddingHorizontal: 20, paddingVertical: 20 }}>
                             <MediumFontText data="Email Us" textstyle={{ fontSize: 14, fontWeight: '500' }} />
@@ -157,7 +157,7 @@ const LiveSupport = ({ navigation }: { navigation: any }) => {
 
                         <TouchableOpacity
                             // onPress={() => Linking.openURL('mailto:support@example.com?subject=SendMail&body=Description')}
-                            onPress={() => Linking.openURL('tel:+1234567890')}
+                            onPress={() => Linking.openURL('tel:+2349019269787')}
 
                             style={{ backgroundColor: "#F6F8FA", paddingHorizontal: 20, paddingVertical: 20 }}>
                             <MediumFontText data="Call Us" textstyle={{ fontSize: 14, fontWeight: '500' }} />

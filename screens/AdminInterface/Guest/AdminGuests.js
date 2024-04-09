@@ -15,15 +15,6 @@ import {
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
-import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
-import axios from "axios";
-import Toast from "react-native-toast-message";
-import * as ImagePicker from "expo-image-picker";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
-
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -36,79 +27,8 @@ import { Get_All_User_Guest_Fun } from "../../../Redux/UserSide/GuestSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
 import { UserProfile_data_Fun } from "../../../Redux/ProfileSlice";
 import { Admin_Get_All_User_Guest_Fun } from "../../../Redux/Admin/AdminGuestSlice";
-
-const historydata = [
-  {
-    id: 1,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-
-  {
-    id: 2,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-
-  {
-    id: 3,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-
-  {
-    id: 4,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-
-  {
-    id: 5,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-  // Add more objects here if needed
-];
+import { CenterReuseModals } from "../../../components/shared/ReuseModals";
+import TheScan from "../../../TheScan";
 
 const AdminGuests = () => {
   const dispatch = useDispatch();
@@ -118,9 +38,10 @@ const AdminGuests = () => {
   const { Admin_get_all_user_guest_data } = useSelector(
     (state) => state?.AdminGuestSlice
   );
+  const [modalVisible, setModalVisible] = useState(false);
 
   console.log({
-    ww: Admin_get_all_user_guest_data,
+    ww: Admin_get_all_user_guest_data?.clanInvites,
   });
   useEffect(() => {
     dispatch(Admin_Get_All_User_Guest_Fun());
@@ -206,20 +127,6 @@ const AdminGuests = () => {
         </View>
 
         <View>
-          {/* <Text style={{ fontSize: 18, fontFamily: "RobotoSlab-SemiBold" }}>
-            Checked Out
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 11,
-              fontFamily: "RobotoSlab-Medium",
-              fontWeight: "500",
-            }}
-          >
-            Status
-          </Text> */}
-
           <Text
             style={{
               fontSize: 14,
@@ -273,18 +180,36 @@ const AdminGuests = () => {
           paddingHorizontal: 20,
         }}
       >
-        <TextInput
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            marginBottom: 10,
-            paddingLeft: 10,
-          }}
-          placeholder="Search by Visitor Name"
-          value={searchQuery}
-          onChangeText={(text) => setSearchQuery(text)}
-        />
+        <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+          <TextInput
+            style={{
+              height: 40,
+              borderColor: "gray",
+              borderWidth: 1,
+              marginBottom: 10,
+              paddingLeft: 10,
+              width: "80%",
+            }}
+            placeholder="Search by Visitor Name"
+            value={searchQuery}
+            onChangeText={(text) => setSearchQuery(text)}
+          />
+
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          >
+            <Image
+              source={require("../../../assets/qrcode.png")}
+              style={{
+                width: 25,
+                height: 25,
+                // tintColor: currentTab == title ? "#5359D1" : "black",
+              }}
+            />
+          </TouchableOpacity>
+        </View>
 
         {filteredData?.length === 0 ? (
           <View
@@ -316,6 +241,37 @@ const AdminGuests = () => {
           />
         )}
       </View>
+
+      <CenterReuseModals
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      >
+        <View
+          style={{
+            backgroundColor: "white",
+            padding: 20,
+            borderRadius: 10,
+            elevation: 5,
+            width: "90%",
+            height: "80%",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "500",
+              fontFamily: "RobotoSlab-Medium",
+              color: "black",
+              textAlign: "center",
+              marginBottom: 20,
+            }}
+          >
+            Qrcode
+          </Text>
+
+          <TheScan />
+        </View>
+      </CenterReuseModals>
     </AppScreen>
   );
 };
