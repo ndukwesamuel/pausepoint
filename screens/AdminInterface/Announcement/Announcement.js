@@ -25,23 +25,15 @@ import {
   SemiBoldFontText,
 } from "../../../components/shared/Paragrahp";
 import { MaterialIcons, AntDesign, Entypo } from "@expo/vector-icons";
-import LottieView from "lottie-react-native";
-import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
-import axios from "axios";
-import Toast from "react-native-toast-message";
-import {
-  Formbutton,
-  Forminput_Icon,
-} from "../../../components/shared/InputForm";
 import { userFile } from "../../../utils/fakedata";
 import { useRoute } from "@react-navigation/native";
-import { HalfScreenModal } from "../../../components/shared/ReuseableModal";
-import { StaticForum } from "../../../components/Forum/Forum";
+
 import { Admin_Get_My_Clan_Announcement_Fun } from "../../../Redux/Admin/AdminForumSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Announcement({ navigation }) {
+export default function Announcement({}) {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
 

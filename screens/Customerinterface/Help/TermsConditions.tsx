@@ -1,7 +1,7 @@
 
 
 
-import { FlatList, Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Platform, Linking } from 'react-native'
+import { View, Text, ScrollView } from 'react-native';
 import React, { useState } from 'react'
 import { emergencydata } from '../../../components/Emergency/emdata'
 import AppScreen from '../../../components/shared/AppScreen'
@@ -78,50 +78,14 @@ const TermsConditions = () => {
 
     return (
 
-        <AppScreen>
+        <ScrollView style={{ flex: 1, padding: 20 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Terms and Conditions for Pausepoint App</Text>
 
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={{ flex: 1 }}>
-
-
-                <View style={{ flex: 1, paddingHorizontal: 20 }}>
-                    <RegularFontText data="Lörem ipsum bodolingar biläfaliga lesongen mysokyfån på lar. Kroligen plasa. Trengen får, även om multis, i nodorade och saheten. Frimester vinde por. 
-Pseudossa hyporen, sade. Nedir åde att påsäras, terrastik. Denes ol, bikygisk. Vafålingar runera lasm rer. Toska nipp kakyngen. Dobel säpojogg treskapet atina: kameratelefon eftersom diledes. Trin semitode. Vaskap tidade men der. 
-Lesahet össa, neren. Anadade dektig pon spen, ösm degt. Rede förlåtandeintervall realing osade. Makrott euronde. 
-Säbel telengen der killgissa i paltkoma i tiling. Hyponade beskap sod. Polytinok homovis inte fårutiktiga. Presam olig, kasas. 
-Decis speda fonotion eftersom nihyrade personlig ana. Gensax monogyn olingar kang och povis emedan kvasin. Bäledes did guldsot när dovis bonol. Tresal hemiret. 
-Makronas. Heteroitet oliga även om hynat. Neligt bios säreskade. Sal sonorat krona. 
-Farade viligt benotisk, tills ultravagt förutom flygskam i monol. Intrajeliga usade och don, den etnotologi. Jongar or i kolig, liksom nes som kost, doskapet. Våck singen passivhus ifall svennekoloni. Tikyd koligen inklusive rebel i vårelogi att sekyna. Diktiga teled sasade blingbling. Tiska sev. Poren eurobossa jugon i Ter dengar prel ojelingar: grönt körfält. Megan egonening i kakyv. Pad lävåhet bett. Prertad plajofågisk prekynymir EU-migrant, i das ser. 
-" textstyle={{ fontSize: 14 }} />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </View>
-
-
-
-
-
-            </KeyboardAvoidingView>
-
-        </AppScreen>
+            <Text style={{ marginBottom: 20 }}>
+                The use of Pausepoint mobile application (the "App"), operated by PG works & Services Ltd ("us," "we," or "our"), is governed by these Terms and Conditions. By accessing or using the App, you agree to adhere to these Terms and Conditions, including our Privacy Policy, which outlines the collection, use, and disclosure of personal data. The App, its content, features, and functionality are owned by Pausepoint Ltd and are protected by various intellectual property laws. Users may need to create an account to access certain features and are responsible for maintaining the confidentiality of their account information. Engaging in activities that disrupt the App or its connected servers or networks is prohibited. We reserve the right to terminate or suspend access to the App without prior notice if these Terms and Conditions are breached. These Terms and Conditions are governed by the laws of Nigeria. We may modify or replace these Terms and Conditions at any time, and continued use of the App constitutes acceptance of any revised terms.
+            </Text>
+        </ScrollView>
     )
 }
 
 export default TermsConditions
-
-const styles = StyleSheet.create({})

@@ -10,6 +10,7 @@ import {
   View,
   FlatList,
   Platform,
+  ScrollView,
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +21,7 @@ import bookmark from "../../assets/bookmark.png";
 import Calendar_light from "../../assets/Calendar_light.png";
 
 import qrcode from "../../assets/qrcode.png";
+import service from "../../assets/images/service.png";
 
 import search from "../../assets/search.png";
 import color_swatch from "../../assets/color-swatch.png";
@@ -100,115 +102,116 @@ export default function App({ navigation }) {
     >
       <StatusBar style="dark" backgroundColor="black" />
 
-      <View style={{ justifyContent: "flex-start", padding: 15 }}>
-        <Image
-          source={{
-            uri: userProfile_data?.photo,
-          }}
-          style={{ width: 68, height: 68, borderRadius: 50 }}
-        />
+      <ScrollView>
+        <View style={{ justifyContent: "flex-start", padding: 15 }}>
+          <Image
+            source={{
+              uri: userProfile_data?.photo,
+            }}
+            style={{ width: 68, height: 68, borderRadius: 50 }}
+          />
 
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            // color: "white",
-            marginTop: 20,
-          }}
-        >
-          {userProfile_data?.user?.name}
-        </Text>
-        <RegularFontText
-          data={userProfile_data?.currentClanMeeting?.name}
-          textstyle={{ fontSize: 14, fontWeight: "400" }}
-        />
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              // color: "white",
+              marginTop: 20,
+            }}
+          >
+            {userProfile_data?.user?.name}
+          </Text>
+          <RegularFontText
+            data={userProfile_data?.currentClanMeeting?.name}
+            textstyle={{ fontSize: 14, fontWeight: "400" }}
+          />
 
-        <View style={{ flexGrow: 1, marginTop: 50 }}>
-          {
-            // Tab Bar Buttons....
-          }
+          <View>
+            <View style={{ flexGrow: 1, marginTop: 5 }}>
+              {TabButton(currentTab, setCurrentTab, "My Clans", clan, "myclan")}
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                "Polls/Surveys",
+                color_swatch,
+                "userpolls"
+              )}
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                "Event",
+                Calendar_light,
+                "userevents"
+              )}
 
-          {TabButton(currentTab, setCurrentTab, "My Clans", clan, "myclan")}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Polls/Surveys",
-            color_swatch,
-            "userpolls"
-          )}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Event",
-            Calendar_light,
-            "userevents"
-          )}
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                "Service",
+                service,
+                // "Neigborhood"
+                "service"
+              )}
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                "ICE Contacts",
+                Calendar_light,
+                "icecontact"
+              )}
 
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Service",
-            qrcode,
-            // "Neigborhood"
-            "service"
-          )}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "ICE Contacts",
-            Calendar_light,
-            "icecontact"
-          )}
-
-          {TabButton(
+              {/* {TabButton(
             currentTab,
             setCurrentTab,
             "QR Code",
             qrcode,
             // "Neigborhood"
             "comming"
-          )}
+          )} */}
 
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            " Directory",
-            bookmark,
-            // "Neigborhood"
-            "comming"
-          )}
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                " Directory",
+                bookmark,
+                // "Neigborhood"
+                "comming"
+              )}
+            </View>
+
+            <View
+              style={{ borderWidth: 1, borderColor: "black", borderRadius: 10 }}
+            />
+
+            <View style={{ flexGrow: 1 }}>
+              {
+                // Tab Bar Buttons....
+              }
+
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                "Help/Support",
+                clan,
+                // "HelpSupport"
+
+                "HelpSupport"
+              )}
+              {/* {TabButton(currentTab, setCurrentTab, "Rate Us", search, "comming")} */}
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                "About Us",
+                color_swatch,
+
+                "aboutus"
+              )}
+            </View>
+          </View>
+
+          {/* <View>{TabButton(currentTab, setCurrentTab, "LogOut", logout)}</View> */}
         </View>
-        <View
-          style={{ borderWidth: 1, borderColor: "black", borderRadius: 10 }}
-        />
-
-        <View style={{ flexGrow: 1 }}>
-          {
-            // Tab Bar Buttons....
-          }
-
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "Help/Support",
-            clan,
-            // "HelpSupport"
-
-            "comming"
-          )}
-          {TabButton(currentTab, setCurrentTab, "Rate Us", search, "comming")}
-          {TabButton(
-            currentTab,
-            setCurrentTab,
-            "About Us",
-            color_swatch,
-
-            "comming"
-          )}
-        </View>
-
-        {/* <View>{TabButton(currentTab, setCurrentTab, "LogOut", logout)}</View> */}
-      </View>
+      </ScrollView>
 
       {
         // Over lay View...

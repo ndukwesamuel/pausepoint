@@ -35,79 +35,6 @@ import { Get_All_User_Guest_Fun } from "../../../Redux/UserSide/GuestSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
 import { UserProfile_data_Fun } from "../../../Redux/ProfileSlice";
 
-const historydata = [
-  {
-    id: 1,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-
-  {
-    id: 2,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-
-  {
-    id: 3,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-
-  {
-    id: 4,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-
-  {
-    id: 5,
-
-    code: "430891",
-    codeLabel: "Code ID",
-    arrivalTime: "22/05/23, 5:59pm",
-    arrivalTimeLabel: "Arrival Time",
-
-    status: "Checked Out",
-    statusLabel: "Status",
-    departureTime: "22/05/23, 5:59pm",
-    departureTimeLabel: "Departure Time",
-  },
-  // Add more objects here if needed
-];
-
 const Guests = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -121,6 +48,10 @@ const Guests = () => {
 
     return () => {};
   }, [dispatch]);
+
+  console.log({
+    ttt: get_all_user_guest_data,
+  });
 
   const filteredData = get_all_user_guest_data?.userInvites?.filter((item) =>
     item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
@@ -271,7 +202,7 @@ const Guests = () => {
               backgroundColor: "green",
               // paddingHorizontal: 20,
               // paddingVertical: 10,
-              borderRadius: "50%",
+              borderRadius: 50,
               width: 50,
               height: 50,
               justifyContent: "center",

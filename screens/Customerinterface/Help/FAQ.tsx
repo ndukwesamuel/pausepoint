@@ -1,7 +1,9 @@
 
 
 
-import { FlatList, Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Platform, Linking } from 'react-native'
+
+import { View, Text, ScrollView, TouchableOpacity, Linking } from 'react-native';
+
 import React, { useState } from 'react'
 import { emergencydata } from '../../../components/Emergency/emdata'
 import AppScreen from '../../../components/shared/AppScreen'
@@ -71,6 +73,10 @@ const FAQ = () => {
 
 
 
+    const handleContactUs = () => {
+        // Implement your logic to handle contact us action
+        // For example, opening an email client or navigating to a contact form screen
+    };
 
 
 
@@ -78,50 +84,54 @@ const FAQ = () => {
 
     return (
 
-        <AppScreen>
+        <ScrollView style={{ flex: 1, padding: 20 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>FAQS</Text>
+            <TouchableOpacity onPress={() => Linking.openURL('https://www.pausepoint.net')}>
+                <Text style={{ fontSize: 16, color: 'blue', marginBottom: 20 }}>Visit our website</Text>
+            </TouchableOpacity>
 
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={{ flex: 1 }}>
+            <View style={{ marginBottom: 20 }}>
+                <Text style={{ fontWeight: 'bold' }}>1. How does Pausepoint gather information?</Text>
+                <Text>Pausepoint collects information through various channels, including feedback, online forms, surveys, social media interactions, and third-party data sources like Google Analytics.</Text>
+            </View>
 
+            <View style={{ marginBottom: 20 }}>
+                <Text style={{ fontWeight: 'bold' }}>2. What types of data does Pausepoint collect?</Text>
+                <Text>Pausepoint collects Personal Data such as email addresses, names, phone numbers, and Usage Data like device information and IP addresses. We also utilize cookies for tracking purposes.</Text>
+            </View>
 
-                <View style={{ flex: 1, paddingHorizontal: 20 }}>
-                    <RegularFontText data="Lörem ipsum bodolingar biläfaliga lesongen mysokyfån på lar. Kroligen plasa. Trengen får, även om multis, i nodorade och saheten. Frimester vinde por. 
-Pseudossa hyporen, sade. Nedir åde att påsäras, terrastik. Denes ol, bikygisk. Vafålingar runera lasm rer. Toska nipp kakyngen. Dobel säpojogg treskapet atina: kameratelefon eftersom diledes. Trin semitode. Vaskap tidade men der. 
-Lesahet össa, neren. Anadade dektig pon spen, ösm degt. Rede förlåtandeintervall realing osade. Makrott euronde. 
-Säbel telengen der killgissa i paltkoma i tiling. Hyponade beskap sod. Polytinok homovis inte fårutiktiga. Presam olig, kasas. 
-Decis speda fonotion eftersom nihyrade personlig ana. Gensax monogyn olingar kang och povis emedan kvasin. Bäledes did guldsot när dovis bonol. Tresal hemiret. 
-Makronas. Heteroitet oliga även om hynat. Neligt bios säreskade. Sal sonorat krona. 
-Farade viligt benotisk, tills ultravagt förutom flygskam i monol. Intrajeliga usade och don, den etnotologi. Jongar or i kolig, liksom nes som kost, doskapet. Våck singen passivhus ifall svennekoloni. Tikyd koligen inklusive rebel i vårelogi att sekyna. Diktiga teled sasade blingbling. Tiska sev. Poren eurobossa jugon i Ter dengar prel ojelingar: grönt körfält. Megan egonening i kakyv. Pad lävåhet bett. Prertad plajofågisk prekynymir EU-migrant, i das ser. 
-" textstyle={{ fontSize: 14 }} />
+            <View style={{ marginBottom: 20 }}>
+                <Text style={{ fontWeight: 'bold' }}>3. How does Pausepoint utilize collected data?</Text>
+                <Text>Pausepoint employs collected data for maintaining the Service, providing customer support, analyzing usage patterns, and enhancing the user experience.</Text>
+            </View>
 
+            <View style={{ marginBottom: 20 }}>
+                <Text style={{ fontWeight: 'bold' }}>4. Is my personal information secure with Pausepoint?</Text>
+                <Text>Yes, Pausepoint implements various security measures, including encryption and secure payment gateways, to safeguard collected information.</Text>
+            </View>
 
+            <View style={{ marginBottom: 20 }}>
+                <Text style={{ fontWeight: 'bold' }}>5. Does Pausepoint adhere to privacy regulations?</Text>
+                <Text>Yes, Pausepoint's privacy policy aligns with both NDPR and GDPR regulations to uphold user privacy and data rights.</Text>
+            </View>
 
+            <View style={{ marginBottom: 20 }}>
+                <Text style={{ fontWeight: 'bold' }}>6. Contact Us</Text>
+                <Text>If you have any inquiries about this Privacy Policy, please reach out to us using the provided contact information:</Text>
+                <Text>Lekki Palm City Addo Road Ajah, Lagos, Nigeria.</Text>
+                <TouchableOpacity onPress={() => Linking.openURL('mailto:support@pausepoint.net')}>
+                    <Text style={{ color: 'blue' }}>support@pausepoint.net</Text>
+                </TouchableOpacity>
+                <Text>Phone number: +234 703 984 5638</Text>
+            </View>
 
-
-
-
-
-
-
-
-
-
-
-
-
-                </View>
-
-
-
-
-
-            </KeyboardAvoidingView>
-
-        </AppScreen>
+            <TouchableOpacity onPress={handleContactUs}>
+                <Text style={{ fontSize: 16, color: 'blue', marginBottom: 20 }}>Contact Us</Text>
+            </TouchableOpacity>
+        </ScrollView>
     )
 }
 
 export default FAQ
 
-const styles = StyleSheet.create({})
+// const styles = StyleSheet.create({})

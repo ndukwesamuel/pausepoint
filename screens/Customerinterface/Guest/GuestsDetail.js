@@ -38,10 +38,18 @@ import {
   Get__User_Guest_detail_Fun,
 } from "../../../Redux/UserSide/GuestSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
+import * as Sharing from "expo-sharing";
+
+import QRCode from "react-native-qrcode-svg";
+import ViewShot from "react-native-view-shot";
+// import Share from "react-nat
+import { CenterReuseModals } from "../../../components/shared/ReuseModals";
 
 const GuestsDetail = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const route = useRoute();
   const { itemdata } = route.params;
@@ -52,6 +60,9 @@ const GuestsDetail = () => {
     (state) => state?.GuestSlice
   );
 
+  console.log({
+    ttt: get_user_guest_detail_data,
+  });
   const {
     user_data,
     user_isError,
@@ -111,6 +122,26 @@ const GuestsDetail = () => {
     }
   );
 
+  const [qrCodeValue, setQRCodeValue] = useState("");
+  const viewShotRef = useRef();
+  const captureAndShare = async () => {
+    try {
+      const uri = await captureQRCodeAsImage();
+      await Sharing.shareAsync(uri);
+    } catch (error) {
+      console.error("Error sharing QR code: ", error.message);
+    }
+  };
+
+  const captureQRCodeAsImage = async () => {
+    try {
+      const uri = await viewShotRef.current.capture();
+      return uri;
+    } catch (error) {
+      throw new Error("Error capturing QR code as image: ", error);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -156,7 +187,12 @@ const GuestsDetail = () => {
             {/* {get_user_guest_detail_data?.invitation?.expires} */}
           </Text>
         </View>
-        <View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <TouchableOpacity
             style={{
               backgroundColor: "red",
@@ -187,6 +223,38 @@ const GuestsDetail = () => {
               </Text>
             )}
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              backgroundColor: "green",
+              // paddingHorizontal: 20,
+              // paddingVertical: 10,
+              borderRadius: 10,
+              width: "40%",
+              // height: 50
+              paddingVertical: 10,
+            }}
+            onPress={() => {
+              // Cancle_Guests_Mutation.mutate();
+              setModalVisible(true);
+              const jsonString = JSON.stringify(
+                get_user_guest_detail_data?.invitation
+              );
+              setQRCodeValue(jsonString);
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                marginBottom: 5,
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Qrcode
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -209,6 +277,77 @@ const GuestsDetail = () => {
           <MaterialIcons name="mode-edit" size={24} color="black" />
         </TouchableOpacity>
       </View>
+
+      <CenterReuseModals
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      >
+        <View
+          style={{
+            backgroundColor: "white",
+            padding: 20,
+            borderRadius: 10,
+            elevation: 5,
+            width: "90%",
+            height: "50%",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "500",
+              fontFamily: "RobotoSlab-Medium",
+              color: "black",
+              textAlign: "center",
+              marginBottom: 20,
+            }}
+          >
+            Qrcode
+          </Text>
+
+          {qrCodeValue !== "" && (
+            <View
+              style={{
+                marginTop: 20,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {console.log({
+                sssdd: qrCodeValue,
+              })}
+              <QRCode
+                value={qrCodeValue}
+                size={200}
+                color="black"
+                backgroundColor="white"
+              />
+            </View>
+          )}
+
+          {/* <TouchableOpacity
+            onPress={captureAndShare}
+            style={{
+              marginTop: 20,
+              backgroundColor: "#007AFF",
+              padding: 10,
+              borderRadius: 5,
+              alignSelf: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Share QR Code
+            </Text>
+          </TouchableOpacity> */}
+        </View>
+      </CenterReuseModals>
     </View>
   );
 };

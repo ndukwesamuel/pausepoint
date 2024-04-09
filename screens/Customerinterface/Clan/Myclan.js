@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import {
@@ -138,219 +139,227 @@ const Myclan = ({ navigation }) => {
 
   return (
     <AppScreen>
-      <View
-        style={{
-          paddingHorizontal: 20,
-        }}
-      >
-        <View style={{ marginVertical: 20 }}>
-          <MediumFontText
-            data="All Estate you leave in"
-            textstyle={{ fontSize: 18, fontWeight: "500" }}
-          />
-
-          <RegularFontText
-            data="Join, where modern luxury meets timeless charm. Enjoy exquisite residences, world-class amenities, and a sense of community in a secure, exclusive environment"
-            textstyle={{ fontSize: 12, color: "#696969" }}
-          />
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate("alluserclan")}
-            style={{
-              backgroundColor: "green",
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              borderRadius: 10,
-              marginTop: 20,
-            }}
-          >
-            <RegularFontText
-              data="View All"
-              textstyle={{
-                fontSize: 14,
-                fontWeight: "400",
-                color: "white",
-                textAlign: "center",
-              }}
-            />
-
-            {/* <MaterialIcon name="keyboard-arrow-right" size={24} color="black" /> */}
-          </TouchableOpacity>
-        </View>
-        <View style={{ marginVertical: 20 }}>
-          <MediumFontText
-            data="Join A Community"
-            textstyle={{ fontSize: 18, fontWeight: "500" }}
-          />
-
-          <RegularFontText
-            data="Join, where modern luxury meets timeless charm. Enjoy exquisite residences, world-class amenities, and a sense of community in a secure, exclusive environment"
-            textstyle={{ fontSize: 12, color: "#696969" }}
-          />
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate("joinclan")}
-            style={{
-              backgroundColor: "green",
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              borderRadius: 10,
-              marginTop: 20,
-            }}
-          >
-            <RegularFontText
-              data="Join Now"
-              textstyle={{
-                fontSize: 14,
-                fontWeight: "400",
-                color: "white",
-                textAlign: "center",
-              }}
-            />
-
-            {/* <MaterialIcon name="keyboard-arrow-right" size={24} color="black" /> */}
-          </TouchableOpacity>
-        </View>
-
-        <View style={{ marginVertical: 20 }}>
-          <MediumFontText
-            data="Set Up A Community"
-            textstyle={{ fontSize: 18, fontWeight: "500" }}
-          />
-
-          <RegularFontText
-            data="Join, where modern luxury meets timeless charm. Enjoy exquisite residences, world-class amenities, and a sense of community in a secure, exclusive environment"
-            textstyle={{ fontSize: 12, color: "#696969" }}
-          />
-
-          <TouchableOpacity
-            onPress={() => setModalVisible(true)}
-            // onPress={() => navigation.navigate("createclan")}
-            style={{
-              backgroundColor: "green",
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              borderRadius: 10,
-              marginTop: 20,
-            }}
-          >
-            <RegularFontText
-              data="Set Up"
-              textstyle={{
-                fontSize: 14,
-                fontWeight: "400",
-                color: "white",
-                textAlign: "center",
-              }}
-            />
-
-            {/* <MaterialIcon name="keyboard-arrow-right" size={24} color="black" /> */}
-          </TouchableOpacity>
-        </View>
-
-        <CenterReuseModals
-          visible={isModalVisible}
-          onClose={() => setModalVisible(false)}
+      <ScrollView>
+        <View
+          style={{
+            paddingHorizontal: 20,
+          }}
         >
-          <View
-            style={{
-              backgroundColor: "white",
-              padding: 20,
-              borderRadius: 10,
-              elevation: 5,
-              width: "80%",
-            }}
+          <View style={{ marginVertical: 20 }}>
+            <MediumFontText
+              data="All the estate you leave in"
+              textstyle={{ fontSize: 18, fontWeight: "500" }}
+            />
+
+            <RegularFontText
+              data="Join, where modern luxury meets timeless charm. Enjoy exquisite residences, world-class amenities, and a sense of community in a secure, exclusive environment"
+              textstyle={{ fontSize: 12, color: "#696969" }}
+            />
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("alluserclan")}
+              style={{
+                backgroundColor: "green",
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                borderRadius: 10,
+                marginTop: 20,
+              }}
+            >
+              <RegularFontText
+                data="View All"
+                textstyle={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              />
+
+              {/* <MaterialIcon name="keyboard-arrow-right" size={24} color="black" /> */}
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginVertical: 20 }}>
+            <MediumFontText
+              data="Join A Community"
+              textstyle={{ fontSize: 18, fontWeight: "500" }}
+            />
+
+            <RegularFontText
+              data="Join, where modern luxury meets timeless charm. Enjoy exquisite residences, world-class amenities, and a sense of community in a secure, exclusive environment"
+              textstyle={{ fontSize: 12, color: "#696969" }}
+            />
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("joinclan")}
+              style={{
+                backgroundColor: "green",
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                borderRadius: 10,
+                marginTop: 20,
+              }}
+            >
+              <RegularFontText
+                data="Join Now"
+                textstyle={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              />
+
+              {/* <MaterialIcon name="keyboard-arrow-right" size={24} color="black" /> */}
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ marginVertical: 20 }}>
+            <MediumFontText
+              data="Set Up A Community"
+              textstyle={{ fontSize: 18, fontWeight: "500" }}
+            />
+
+            <RegularFontText
+              data="Join, where modern luxury meets timeless charm. Enjoy exquisite residences, world-class amenities, and a sense of community in a secure, exclusive environment"
+              textstyle={{ fontSize: 12, color: "#696969" }}
+            />
+
+            <TouchableOpacity
+              onPress={() => setModalVisible(true)}
+              // onPress={() => navigation.navigate("createclan")}
+              style={{
+                backgroundColor: "green",
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                borderRadius: 10,
+                marginTop: 20,
+              }}
+            >
+              <RegularFontText
+                data="Set Up"
+                textstyle={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              />
+
+              {/* <MaterialIcon name="keyboard-arrow-right" size={24} color="black" /> */}
+            </TouchableOpacity>
+          </View>
+
+          <CenterReuseModals
+            visible={isModalVisible}
+            onClose={() => setModalVisible(false)}
           >
             <View
               style={{
                 backgroundColor: "white",
-                // padding: 20,
-                width: "100%",
-                borderTopLeftRadius: 30,
-                borderTopRightRadius: 30,
-                height: "50%",
+                padding: 20,
+                borderRadius: 10,
+                elevation: 5,
+                width: "80%",
               }}
             >
-              <TouchableOpacity
+              <View
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                  marginTop: 10,
-                }}
-                onPress={() => setModalVisible(false)}
-              >
-                <MaterialIcons name="cancel" size={24} color="black" />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "500",
-                  fontFamily: "RobotoSlab-Medium",
-                  color: "black",
-                  textAlign: "center",
-                  marginBottom: 20,
+                  backgroundColor: "white",
+                  // padding: 20,
+                  width: "100%",
+                  borderTopLeftRadius: 30,
+                  borderTopRightRadius: 30,
+                  height: "80%",
                 }}
               >
-                Create Your Esate
-              </Text>
-
-              <View>
-                <MediumFontText data="Clan Name" textstyle={{ fontSize: 14 }} />
-
-                <Forminput
-                  placeholder="Clan Name"
-                  onChangeText={setName}
-                  value={name}
-                />
-
-                <MediumFontText data="Clan Name" textstyle={{ fontSize: 14 }} />
-
-                <CustomTextArea
-                  placeholder="Enter text here..."
-                  value={text}
-                  onChangeText={handleTextChange}
-                  style={{ width: "80%" }}
-                  inputStyle={{
-                    backgroundColor: "#F6F8FAE5",
-                    paddingHorizontal: 10,
-                    paddingVertical: 20,
-                    height: 200,
-                    padding: 10,
-                    borderRadius: 6,
-                    fontSize: 16,
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
+                    marginTop: 10,
                   }}
-                />
-              </View>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "#04973C",
-                  paddingHorizontal: 12,
-                  paddingVertical: 12,
-                  borderRadius: 6,
-                  marginTop: 20,
-                }}
-                onPress={handleEstate}
-              >
-                {Crate_Estate_Mutation.isLoading ? (
-                  <ActivityIndicator size="small" color="white" />
-                ) : (
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: "400",
-                      fontFamily: "RobotoSlab-Regular",
-                      color: "white",
-                      textAlign: "center",
+                  onPress={() => setModalVisible(false)}
+                >
+                  <MaterialIcons name="cancel" size={24} color="black" />
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "500",
+                    fontFamily: "RobotoSlab-Medium",
+                    color: "black",
+                    textAlign: "center",
+                    marginBottom: 20,
+                  }}
+                >
+                  Create Your Esate
+                </Text>
+
+                <View>
+                  <MediumFontText
+                    data="Clan Name"
+                    textstyle={{ fontSize: 14 }}
+                  />
+
+                  <Forminput
+                    placeholder="Clan Name"
+                    onChangeText={setName}
+                    value={name}
+                  />
+
+                  <MediumFontText
+                    data="Clan Name"
+                    textstyle={{ fontSize: 14 }}
+                  />
+
+                  <CustomTextArea
+                    placeholder="Enter text here..."
+                    value={text}
+                    onChangeText={handleTextChange}
+                    style={{ width: "80%" }}
+                    inputStyle={{
+                      backgroundColor: "#F6F8FAE5",
+                      paddingHorizontal: 10,
+                      paddingVertical: 20,
+                      height: 200,
+                      padding: 10,
+                      borderRadius: 6,
+                      fontSize: 16,
                     }}
-                  >
-                    Create Estate
-                  </Text>
-                )}
-              </TouchableOpacity>
+                  />
+                </View>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#04973C",
+                    paddingHorizontal: 12,
+                    paddingVertical: 12,
+                    borderRadius: 6,
+                    marginTop: 20,
+                  }}
+                  onPress={handleEstate}
+                >
+                  {Crate_Estate_Mutation.isLoading ? (
+                    <ActivityIndicator size="small" color="white" />
+                  ) : (
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: "400",
+                        fontFamily: "RobotoSlab-Regular",
+                        color: "white",
+                        textAlign: "center",
+                      }}
+                    >
+                      Create Estate
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </CenterReuseModals>
-      </View>
+          </CenterReuseModals>
+        </View>
+      </ScrollView>
     </AppScreen>
   );
 };

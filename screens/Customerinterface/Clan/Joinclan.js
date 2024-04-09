@@ -266,7 +266,7 @@ const Joinclan = () => {
                     </Text>
                     <BoldFontText text={"Creator Details"} />
 
-                    <Image
+                    {/* <Image
                       source={{
                         uri: modalVisibility?.data?.creatorData[0]?.photo,
                       }}
@@ -276,7 +276,7 @@ const Joinclan = () => {
                         //   borderRadius: 50,
                         marginBottom: 16,
                       }}
-                    />
+                    /> */}
                     <Text
                       style={{
                         fontSize: 24,
@@ -319,8 +319,6 @@ const Joinclan = () => {
                         <Text style={{ color: "white" }}>Join</Text>
                       )}
                     </TouchableOpacity>
-                    {/* Add more details as needed */}
-                    {/* Add more details as needed */}
                   </View>
                 </ScrollView>
               </ReuseModals>

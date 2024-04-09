@@ -185,8 +185,11 @@ const LoginScreen = ({ }: {}) => {
                         textStyle={{ color: '#454343', fontWeight: "500", fontSize: 14, fontFamily: "RobotoSlab-Medium" }}
                         data='Sign Up'
                         // icon={<AntDesign name="google" size={22} color="black" />}
-                        onPress={() => console.log("this is google")
-                        }
+                        // onPress={() => console.log("this is google")
+
+                        onPress={() => dispatch(authScreenChange("REGISTER"))}
+
+
 
                     />
                 </View>

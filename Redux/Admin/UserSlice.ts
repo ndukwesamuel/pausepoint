@@ -59,10 +59,9 @@ const Admin_Get_Single_User_Fun_Service = async (id : any,  token: any) => {
               },
         };
         const response = await axios.get(url, config);
-        console.log({response: response.data});
         
 
-        // return response.data;
+        return response.data;
     } catch (error) {
         // console.log({ error: error?.response });
 
@@ -82,7 +81,7 @@ export const Admin_Get_Single_User_Fun = createAsyncThunk(
             
             
 
-            return await Admin_Get_Single_User_Fun_Service(data?._id , token);
+            return await Admin_Get_Single_User_Fun_Service(data?.user?._id , token);
 
         } catch (error) {
             const errorMessage = handleApiError(error);
@@ -153,11 +152,7 @@ export const UserSlice = createSlice({
                 state.Alluser_data_message = null;
                 state.Alluser_data = action.payload;
 
-                // Toast.show({
-                //     type: "success",
-                //     text1: "Login  successfully!"
-
-                // })
+           
             })
             .addCase(Admin_Get_All_User_Fun.rejected, (state, action) => {
                 state.Alluser_data_isLoading = false;
@@ -166,6 +161,22 @@ export const UserSlice = createSlice({
                 state.Alluser_data = null;
                 state.Alluser_data_isSuccess = false;
 
+            }).addCase(Admin_Get_Single_User_Fun.pending, (state) => {
+                state.Singleuser_data_isLoading = true;
+            })
+            .addCase(Admin_Get_Single_User_Fun.fulfilled, (state, action) => {
+                state.Singleuser_data_isLoading = false;
+                state.Singleuser_data_isSuccess = true;
+                state.Singleuser_data_isError = false;
+                state.Singleuser_data_message = null;
+                state.Singleuser_data = action.payload;
+            })
+            .addCase(Admin_Get_Single_User_Fun.rejected, (state, action) => {
+                state.Singleuser_data_isLoading = false;
+                state.Singleuser_data_isError = true;
+                state.Singleuser_data_message = action.payload;
+                state.Singleuser_data = null;
+                state.Singleuser_data_isSuccess = false;
             });
     },
 });

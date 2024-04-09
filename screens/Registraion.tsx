@@ -206,7 +206,7 @@ const Registraion = ({ }: {}) => {
                     <Formbutton
                         buttonStyle={{ backgroundColor: '#04973C', paddingVertical: 14, alignItems: 'center', borderRadius: 5 }}
                         textStyle={{ color: 'white', fontWeight: "500", fontSize: 14, fontFamily: "RobotoSlab-Medium" }}
-                        data='Sign Up'
+                        data='Sign Up '
                         onPress={handleSubmit}
                         isLoading={RegistraionMutation.isLoading}
 

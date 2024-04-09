@@ -1,7 +1,8 @@
 
 
 
-import { FlatList, Image, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Platform, Linking } from 'react-native'
+
+import { View, Text, ScrollView } from 'react-native';
 import React, { useState } from 'react'
 import { emergencydata } from '../../../components/Emergency/emdata'
 import AppScreen from '../../../components/shared/AppScreen'
@@ -78,50 +79,82 @@ const PrivacyPolicy = () => {
 
     return (
 
-        <AppScreen>
+        <ScrollView style={{ flex: 1, padding: 20 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Privacy Policy for Pausepoint App</Text>
 
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={{ flex: 1 }}>
+            <Text style={{ marginBottom: 20 }}>
+                1. Introduction
+                PG Works & Services Ltd in affiliation of Pausepoint app ("we", "our", or "us") operates the Pausepoint mobile application (the "App"). This Privacy Policy informs you of our policies regarding the collection, use, and disclosure of personal data when you use our App and the choices you have associated with that data.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                2. Information Collection And Use
+                We collect various types of information for different purposes to provide and improve our Service to you.
+            </Text>
 
-                <View style={{ flex: 1, paddingHorizontal: 20 }}>
-                    <RegularFontText data="Lörem ipsum bodolingar biläfaliga lesongen mysokyfån på lar. Kroligen plasa. Trengen får, även om multis, i nodorade och saheten. Frimester vinde por. 
-Pseudossa hyporen, sade. Nedir åde att påsäras, terrastik. Denes ol, bikygisk. Vafålingar runera lasm rer. Toska nipp kakyngen. Dobel säpojogg treskapet atina: kameratelefon eftersom diledes. Trin semitode. Vaskap tidade men der. 
-Lesahet össa, neren. Anadade dektig pon spen, ösm degt. Rede förlåtandeintervall realing osade. Makrott euronde. 
-Säbel telengen der killgissa i paltkoma i tiling. Hyponade beskap sod. Polytinok homovis inte fårutiktiga. Presam olig, kasas. 
-Decis speda fonotion eftersom nihyrade personlig ana. Gensax monogyn olingar kang och povis emedan kvasin. Bäledes did guldsot när dovis bonol. Tresal hemiret. 
-Makronas. Heteroitet oliga även om hynat. Neligt bios säreskade. Sal sonorat krona. 
-Farade viligt benotisk, tills ultravagt förutom flygskam i monol. Intrajeliga usade och don, den etnotologi. Jongar or i kolig, liksom nes som kost, doskapet. Våck singen passivhus ifall svennekoloni. Tikyd koligen inklusive rebel i vårelogi att sekyna. Diktiga teled sasade blingbling. Tiska sev. Poren eurobossa jugon i Ter dengar prel ojelingar: grönt körfält. Megan egonening i kakyv. Pad lävåhet bett. Prertad plajofågisk prekynymir EU-migrant, i das ser. 
-" textstyle={{ fontSize: 14 }} />
+            <Text style={{ marginBottom: 20 }}>
+                How We Collect Information
+                We gather information through:
+                - Feedback you provide on our service
+                - Online forms
+                - Surveys
+                - Interaction with us via social media platforms
+                - Offline communication methods
+                - Third-party data collection sources (e.g., Google Analytics)
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                Types of Data Collected
+                - Personal Data: This includes information like email address, first and last name, phone number, address, etc.
+                - Usage Data: Automatically collected information includes device type, IP address, operating system, etc.
+                - Tracking & Cookies Data: We use cookies and similar technologies to track activity and hold certain information.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                3. Use of Data
+                We utilize collected data for various purposes, including but not limited to providing, maintaining, and improving the Service, notifying you about changes, providing customer support, and monitoring usage.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                4. Sharing Personal Information
+                We do not sell, trade, or rent personal identification information. However, we may share generic aggregated demographic information with trusted affiliates and advertisers. Personal information may be disclosed in specific cases outlined in our policy.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                5. Security Of Data
+                We employ appropriate measures to safeguard and secure the information we collect, including encryption and secure payment gateways.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                6. Children's Privacy
+                Our Service does not address anyone under the age of 18 ("Children"). We do not knowingly collect personally identifiable information from children without parental consent.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                7. Dispute Resolution Or Filing A Complaint
+                If you have any complaints regarding our compliance with this Privacy Policy, please contact our Data Protection Officer. We will investigate and attempt to resolve complaints and disputes within thirty (30) days.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                8. Changes To This Privacy Policy
+                We may update our Privacy Policy periodically, and we will notify you of any changes. You are advised to review this Privacy Policy periodically for any updates.
+            </Text>
 
+            <Text style={{ marginBottom: 20 }}>
+                9. NDPR and GDPR Compliance
+                Our privacy policy complies with both NDPR and GDPR rules and regulations.
+            </Text>
 
-
-
-
-
-
-
-
-                </View>
-
-
-
-
-
-            </KeyboardAvoidingView>
-
-        </AppScreen>
+            <Text style={{ marginBottom: 20 }}>
+                10. Contact Us
+                If you have any questions about this Privacy Policy, please contact us using the provided contact information.
+                Lekki Palm City Addo Road Ajah, Lagos, Nigeria.
+                By email: support@pausepoint.net
+                By visiting this page on our website: www.pausepoint.net
+                By phone number: +234 703 984 5638
+            </Text>
+        </ScrollView>
     )
 }
 
 export default PrivacyPolicy
-
-const styles = StyleSheet.create({})

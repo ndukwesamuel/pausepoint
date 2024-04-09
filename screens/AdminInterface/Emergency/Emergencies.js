@@ -10,6 +10,7 @@ import {
   Modal,
   TouchableWithoutFeedback,
   RefreshControl,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { emergencydata } from "../../../components/Emergency/emdata";
@@ -286,23 +287,32 @@ export default function Emergencies({ navigation }) {
                 />
               </View>
             ) : (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginVertical: 20,
-                }}
+              <ScrollView
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />
+                }
               >
-                <Image
-                  source={require("../../../assets/images/Pendingdata.png")}
-                  style={{ width: 250, height: 100 }}
-                />
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginVertical: 20,
+                  }}
+                >
+                  <Image
+                    source={require("../../../assets/images/Pendingdata.png")}
+                    style={{ width: 250, height: 100 }}
+                  />
 
-                <MediumFontText
-                  data="No Pending Emergencies"
-                  textstyle={{ fontSize: 14, color: "#969696" }}
-                />
-              </View>
+                  <MediumFontText
+                    data="No Pending Emergencies kkkk"
+                    textstyle={{ fontSize: 14, color: "#969696" }}
+                  />
+                </View>
+              </ScrollView>
             )}
           </View>
         )}
@@ -317,23 +327,32 @@ export default function Emergencies({ navigation }) {
                 />
               </View>
             ) : (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginVertical: 20,
-                }}
+              <ScrollView
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />
+                }
               >
-                <Image
-                  source={require("../../../assets/images/Pendingdata.png")}
-                  style={{ width: 250, height: 100 }}
-                />
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginVertical: 20,
+                  }}
+                >
+                  <Image
+                    source={require("../../../assets/images/Pendingdata.png")}
+                    style={{ width: 250, height: 100 }}
+                  />
 
-                <MediumFontText
-                  data="No resolved Emergencies"
-                  textstyle={{ fontSize: 14, color: "#969696" }}
-                />
-              </View>
+                  <MediumFontText
+                    data="No resolved Emergencies"
+                    textstyle={{ fontSize: 14, color: "#969696" }}
+                  />
+                </View>
+              </ScrollView>
             )}
           </View>
         )}
