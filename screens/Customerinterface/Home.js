@@ -172,10 +172,9 @@ export default function App({ navigation }) {
               {TabButton(
                 currentTab,
                 setCurrentTab,
-                " Directory",
+                "Directory",
                 bookmark,
-                // "Neigborhood"
-                "comming"
+                "Neigborhood"
               )}
             </View>
 

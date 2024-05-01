@@ -101,7 +101,7 @@ const EditPersonalInformation = () => {
       onSuccess: (success) => {
         Toast.show({
           type: "success",
-          text1: "Event created successfully!",
+          text1: "User Profile Updated successfully!",
         });
         dispatch(UserProfile_data_Fun());
       },
