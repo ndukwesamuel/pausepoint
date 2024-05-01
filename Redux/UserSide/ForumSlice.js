@@ -82,12 +82,9 @@ export const Get_My_Clan_Forum_Fun = createAsyncThunk(
           config
         );
 
+        console.log({ yyyresponse: response.data });
+
         return response.data;
-      } else {
-        Toast.show({
-          type: "error",
-          text1: `Not in a clan yet`,
-        });
       }
     } catch (error) {
       Toast.show({

@@ -11,6 +11,7 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
@@ -36,12 +37,25 @@ import { formatDateandTime } from "../../../utils/DateTime";
 
 const UserPolls = () => {
   const [polls, setPolls] = useState([]);
-  const { get_all_poll_data } = useSelector((state) => state.PollSlice);
+  const { get_all_poll_data } = useSelector((state) => state?.PollSlice);
+  const { get_user_profile_data } = useSelector(
+    (state) => state?.UserProfileSlice
+  );
+  const [refreshing, setRefreshing] = useState(false);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const animation = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const onRefresh = () => {
+    // Set the refreshing state to true
+    setRefreshing(true);
+    dispatch(Get_All_Polls_Fun());
+
+    // Wait for 2 seconds
+    setRefreshing(false);
+  };
 
   useEffect(() => {
     dispatch(Get_All_Polls_Fun());
@@ -133,53 +147,80 @@ const UserPolls = () => {
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          paddingHorizontal: 20,
-        }}
-      >
-        <TextInput
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            marginBottom: 10,
-            paddingLeft: 10,
-          }}
-          placeholder="Search by Visitor Name"
-          value={searchQuery}
-          onChangeText={(text) => setSearchQuery(text)}
-        />
-
-        {filteredData?.length === 0 ? (
+      {get_user_profile_data?.currentClanMeeting?._id ? (
+        <>
           <View
             style={{
               flex: 1,
               justifyContent: "center",
-              alignItems: "center",
+              paddingHorizontal: 20,
             }}
           >
-            <LottieView
-              autoPlay
-              ref={animation}
+            <TextInput
               style={{
-                width: 200,
-                height: 200,
-                // backgroundColor: "#eee",
+                height: 40,
+                borderColor: "gray",
+                borderWidth: 1,
+                marginBottom: 10,
+                paddingLeft: 10,
               }}
-              // Find more Lottie files at https://lottiefiles.com/featured
-              source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
+              placeholder="Search by Visitor Name"
+              value={searchQuery}
+              onChangeText={(text) => setSearchQuery(text)}
             />
+
+            {filteredData?.length === 0 ? (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <LottieView
+                  autoPlay
+                  ref={animation}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    // backgroundColor: "#eee",
+                  }}
+                  // Find more Lottie files at https://lottiefiles.com/featured
+                  source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
+                />
+              </View>
+            ) : (
+              <FlatList
+                data={filteredData}
+                renderItem={({ item }) => <HistoryItem itemdata={item} />}
+              />
+            )}
           </View>
-        ) : (
-          <FlatList
-            data={filteredData}
-            renderItem={({ item }) => <HistoryItem itemdata={item} />}
-          />
-        )}
-      </View>
+        </>
+      ) : (
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: "#D9D9D9",
+              padding: 10,
+              borderRadius: 6,
+            }}
+            onPress={() => navigation.navigate("myclan")}
+          >
+            <Text> Click join a clan </Text>
+          </TouchableOpacity>
+        </ScrollView>
+      )}
     </View>
   );
 };

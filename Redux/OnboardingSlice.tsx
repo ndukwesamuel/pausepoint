@@ -4,6 +4,7 @@ const initialState = {
   isOnboarding: false,
   value: 0,
   userlogin: "LOGIN",
+  localremember: null
 };
 
 export const OnboardingSlice = createSlice({
@@ -36,6 +37,11 @@ export const OnboardingSlice = createSlice({
 
     },
 
+    remeberUSerPassword: (state, action) => {
+      state.localremember = action.payload; // or action.type, depending on what you need
+
+    },
+
 
     incrementByAmount: (state, action) => {
       state.value += action.payload;
@@ -44,5 +50,5 @@ export const OnboardingSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { reset_isOnboarding, checkOnboarding, authScreenChange } = OnboardingSlice.actions;
+export const { remeberUSerPassword, reset_isOnboarding, checkOnboarding, authScreenChange } = OnboardingSlice.actions;
 export default OnboardingSlice.reducer;

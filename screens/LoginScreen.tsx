@@ -9,7 +9,7 @@ import { RegistraionHeadersText, RegistraionParagraphText } from '../components/
 import { FormLabel, Formbutton, Forminput, Forminputpassword } from '../components/shared/InputForm'
 
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-import { authScreenChange } from '../Redux/OnboardingSlice'
+import { authScreenChange, remeberUSerPassword } from '../Redux/OnboardingSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { Login_Fun } from '../Redux/AuthSlice'
 
@@ -20,6 +20,12 @@ interface Registraionprops {
 }
 
 const LoginScreen = ({ }: {}) => {
+
+    const { localremember } = useSelector((state: any) => state?.OnboardingSlice)
+
+    console.log({
+        dataee: localremember
+    });
 
     const dispatch = useDispatch()
     const {
@@ -38,12 +44,12 @@ const LoginScreen = ({ }: {}) => {
         setIsPasswordVisible(!isPasswordVisible);
     };
     const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState(localremember?.email || "")
 
     const [remember, setRemember] = useState(false)
 
     const [passwords, setPasswords] = useState<Registraionprops>({
-        mainPassword: '',
+        mainPassword: localremember?.password || '',
         confirmPassword: '',
     });
 
@@ -72,6 +78,18 @@ const LoginScreen = ({ }: {}) => {
             email: email,
             password: passwords.mainPassword
         }
+
+        if (remember) {
+            dispatch(remeberUSerPassword({
+                remember,
+                email: email,
+                password: passwords.mainPassword
+
+            }))
+
+        }
+
+
         dispatch(Login_Fun(data))
     }
     return (
