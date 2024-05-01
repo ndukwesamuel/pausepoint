@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   RefreshControl,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -101,6 +102,14 @@ const Forum = () => {
     (state) => state.ForumSlice
   );
 
+  const { get_user_profile_data } = useSelector(
+    (state) => state.UserProfileSlice
+  );
+
+  console.log({
+    get_user_profile_data: get_user_profile_data,
+  });
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -113,101 +122,103 @@ const Forum = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {get_my_clan_forum_message && (
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <LottieView
-            autoPlay
-            ref={animation}
-            style={{
-              width: 200,
-              height: 200,
-              // backgroundColor: "#eee",
-            }}
-            // Find more Lottie files at https://lottiefiles.com/featured
-            source={require("../../assets/Lottie/notFund.json")}
-          />
-          <Text>{get_my_clan_forum_message}</Text>
-        </View>
-      )}
+      {get_user_profile_data?.currentClanMeeting?._id ? (
+        <>
+          {get_my_clan_forum_message && (
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <LottieView
+                autoPlay
+                ref={animation}
+                style={{
+                  width: 200,
+                  height: 200,
+                  // backgroundColor: "#eee",
+                }}
+                // Find more Lottie files at https://lottiefiles.com/featured
+                source={require("../../assets/Lottie/notFund.json")}
+              />
+              <Text>{get_my_clan_forum_message}</Text>
+            </View>
+          )}
 
-      {get_my_clan_forum_message && (
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <LottieView
-            autoPlay
-            ref={animation}
-            style={{
-              width: 200,
-              height: 200,
-              // backgroundColor: "#eee",
-            }}
-            // Find more Lottie files at https://lottiefiles.com/featured
-            source={require("../../assets/Lottie/notFund.json")}
-          />
-          <Text>{get_my_clan_forum_message}</Text>
-        </View>
-      )}
+          {get_my_clan_forum_message && (
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <LottieView
+                autoPlay
+                ref={animation}
+                style={{
+                  width: 200,
+                  height: 200,
+                  // backgroundColor: "#eee",
+                }}
+                // Find more Lottie files at https://lottiefiles.com/featured
+                source={require("../../assets/Lottie/notFund.json")}
+              />
+              <Text>{get_my_clan_forum_message}</Text>
+            </View>
+          )}
 
-      <FlatList
-        data={get_my_clan_forum_data?.forums}
-        keyExtractor={(item) => item._id}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        renderItem={({ item }) => (
-          <View
-            style={{
-              flex: 1,
-
-              borderWidth: 1,
-              borderColor: "#CFCDCD",
-              borderRadius: 6,
-              padding: 10,
-              marginBottom: 10,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginVertical: 20,
-
-                // paddingBottom: 20,
-              }}
-            >
+          <FlatList
+            data={get_my_clan_forum_data?.forums}
+            keyExtractor={(item) => item._id}
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            renderItem={({ item }) => (
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10,
+                  flex: 1,
+
+                  borderWidth: 1,
+                  borderColor: "#CFCDCD",
+                  borderRadius: 6,
+                  padding: 10,
+                  marginBottom: 10,
                 }}
               >
-                <Image
-                  source={{
-                    uri:
-                      item?.user?.photo ||
-                      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginVertical: 20,
+
+                    // paddingBottom: 20,
                   }}
-                  style={{ width: 40, height: 40, borderRadius: 50 }}
-                />
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 10,
+                    }}
+                  >
+                    <Image
+                      source={{
+                        uri:
+                          item?.user?.photo ||
+                          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                      }}
+                      style={{ width: 40, height: 40, borderRadius: 50 }}
+                    />
 
-                <View>
-                  <MediumFontText
-                    data={item?.user?.name}
-                    textstyle={{ fontSize: 16, fontWeight: "500" }}
-                  />
+                    <View>
+                      <MediumFontText
+                        data={item?.user?.name}
+                        textstyle={{ fontSize: 16, fontWeight: "500" }}
+                      />
 
-                  <LightFontText
-                    data={formatDateandTime(item?.createdAt)}
-                    // "Jane Doe - 54 mins ago"
-                    textstyle={{ fontSize: 12, fontWeight: "300" }}
-                  />
-                </View>
-              </View>
+                      <LightFontText
+                        data={formatDateandTime(item?.createdAt)}
+                        // "Jane Doe - 54 mins ago"
+                        textstyle={{ fontSize: 12, fontWeight: "300" }}
+                      />
+                    </View>
+                  </View>
 
-              {/* uncmment later */}
-              {/* <TouchableOpacity
+                  {/* uncmment later */}
+                  {/* <TouchableOpacity
                 style={{
                   paddingHorizontal: 12,
                   paddingVertical: 2,
@@ -217,55 +228,55 @@ const Forum = () => {
               >
                 <Entypo name="dots-three-vertical" size={24} color="black" />
               </TouchableOpacity> */}
-            </View>
+                </View>
 
-            <View style={{ paddingHorizontal: 20 }}>
-              <RegularFontText
-                data={item?.content}
-                textstyle={{
-                  fontSize: 12,
-                  fontWeight: "400",
-                  textAlign: "justify",
-                }}
-              />
-            </View>
+                <View style={{ paddingHorizontal: 20 }}>
+                  <RegularFontText
+                    data={item?.content}
+                    textstyle={{
+                      fontSize: 12,
+                      fontWeight: "400",
+                      textAlign: "justify",
+                    }}
+                  />
+                </View>
 
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "#D9D9D9",
-                marginVertical: 10,
-              }}
-            />
+                <View
+                  style={{
+                    borderWidth: 1,
+                    borderColor: "#D9D9D9",
+                    marginVertical: 10,
+                  }}
+                />
 
-            {/* oncomment t latter */}
+                {/* oncomment t latter */}
 
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginVertical: 10,
-                paddingHorizontal: 30,
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 5,
-                }}
-                onPress={() => {
-                  Like_Mutation.mutate({
-                    forumid: item?._id,
-                    clanId: item?.clan,
-                  });
-                }}
-              >
-                <AntDesign name="hearto" size={24} color="black" />
-                <Text>{item?.likes?.length} Likes </Text>
-              </TouchableOpacity>
-              {/* <TouchableOpacity
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginVertical: 10,
+                    paddingHorizontal: 30,
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5,
+                    }}
+                    onPress={() => {
+                      Like_Mutation.mutate({
+                        forumid: item?._id,
+                        clanId: item?.clan,
+                      });
+                    }}
+                  >
+                    <AntDesign name="hearto" size={24} color="black" />
+                    <Text>{item?.likes?.length} Likes </Text>
+                  </TouchableOpacity>
+                  {/* <TouchableOpacity
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -288,10 +299,35 @@ const Forum = () => {
                 <AntDesign name="sharealt" size={24} color="black" />
                 <Text>Share</Text>
               </View> */}
-            </View>
-          </View>
-        )}
-      />
+                </View>
+              </View>
+            )}
+          />
+        </>
+      ) : (
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: "#D9D9D9",
+              padding: 10,
+              borderRadius: 6,
+            }}
+            onPress={() => navigation.navigate("myclan")}
+          >
+            <Text> Click join a clan </Text>
+          </TouchableOpacity>
+        </ScrollView>
+      )}
 
       <ForumModal visible={isModalVisible} onClose={toggleModal} />
     </View>
