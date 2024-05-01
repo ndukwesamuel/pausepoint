@@ -106,10 +106,6 @@ const Forum = () => {
     (state) => state.UserProfileSlice
   );
 
-  console.log({
-    get_user_profile_data: get_user_profile_data,
-  });
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
