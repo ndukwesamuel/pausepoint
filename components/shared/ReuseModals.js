@@ -40,7 +40,9 @@ export default function ReuseModals({ visible, children }) {
 export function CenterReuseModals({ children, visible, onClose }) {
   return (
     <Modal transparent visible={visible} animationType="slide">
-      <TouchableWithoutFeedback onPress={onClose}>
+      <TouchableWithoutFeedback
+      // onPress={onClose}
+      >
         <View style={styles.modalContainer}>{children}</View>
       </TouchableWithoutFeedback>
     </Modal>

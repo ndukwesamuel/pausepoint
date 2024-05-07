@@ -65,6 +65,10 @@ const UserPolls = () => {
     item?.question?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
 
+  console.log({
+    fff: get_all_poll_data,
+  });
+
   const renderItem = ({ item }) => (
     <View style={{ marginBottom: 20 }}>
       <Text>{item.question}</Text>

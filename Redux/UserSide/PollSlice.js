@@ -46,6 +46,9 @@ export const Get_All_Polls_Fun = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      console.log({
+        error: error?.response,
+      });
       Toast.show({
         type: "error",
         text1: `${error?.response?.data?.message} `,

@@ -15,11 +15,13 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://pause-point-api-v1.onrender.com/"
+        "EXPO_PUBLIC_API_URL": "https://pausepointbackend.onrender.com"
+
       }
     },    "test": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://pause-point-api-v1.onrender.com/"
+        "EXPO_PUBLIC_API_URL": "https://pausepointbackend.onrender.com"
+
 
       }
     }

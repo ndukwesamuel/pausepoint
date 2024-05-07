@@ -7,10 +7,9 @@ import AppScreen from '../shared/AppScreen';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigation';
 import { API_BASEURL } from "@env";
-import { checkOnboarding } from '../../Redux/OnboardingSlice';
 import { useDispatch } from 'react-redux';
+import { checkOnboarding } from '../../Redux/OnboardingSlice';
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-
 
 // let userAPi = process.env.APIBASEURL + "user/login";
 // const postUrl = process.env.BASE_URL

@@ -218,13 +218,24 @@ const Emergency = () => {
                 borderTopLeftRadius: 30,
                 borderTopRightRadius: 30,
                 height: "50%",
+                paddingTop: 30,
               }}
             >
               <TouchableOpacity
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                  marginTop: 10,
+                  // flexDirection: "row",
+                  // justifyContent: "flex-end",
+                  // marginTop: 10,
+                  // borderWidth: 1,
+                  // borderColor: "#CFCDCD",
+                  // borderRadius: 6,
+                  // paddingHorizontal: 10,
+                  // gap: 10,
+                  // width: 50,
+
+                  position: "absolute",
+                  top: 0,
+                  right: 1,
                 }}
                 onPress={() => setModalFormVisible(false)}
               >

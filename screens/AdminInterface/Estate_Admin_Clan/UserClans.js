@@ -29,7 +29,7 @@ import {
   RegularFontText,
 } from "../../../components/shared/Paragrahp";
 import { reset_login } from "../../../Redux/AuthSlice";
-import { reset_isOnboarding } from "../../../Redux/OnboardingSlice";
+import { reset_isOnboarding } from "../../../Redux/DontwantToResetSlice";
 import { CenterReuseModals } from "../../../components/shared/ReuseModals";
 
 // Replace this with the correct API endpoint for fetching user clans
