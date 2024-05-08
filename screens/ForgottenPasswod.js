@@ -22,7 +22,7 @@ import {
   Forminputpassword,
 } from "../components/shared/InputForm";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
-import { authScreenChange } from "../Redux/OnboardingSlice";
+import { authScreenChange } from "../Redux/DontwantToResetSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Toast from "react-native-toast-message";

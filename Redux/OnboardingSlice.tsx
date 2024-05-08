@@ -32,6 +32,10 @@ export const OnboardingSlice = createSlice({
 
 
     authScreenChange: (state, action) => {
+      console.log({
+        payload: action.payload
+      });
+
       state.userlogin = action.payload; // or action.type, depending on what you need
       console.log("this is userlogin", state.userlogin);
 
@@ -39,6 +43,14 @@ export const OnboardingSlice = createSlice({
 
     remeberUSerPassword: (state, action) => {
       state.localremember = action.payload; // or action.type, depending on what you need
+
+    },
+
+    changeauthscreen: (state, action) => {
+      console.log({
+        payload: action.payload
+      });
+      // state.localremember = action.payload; // or action.type, depending on what you need
 
     },
 
@@ -50,5 +62,5 @@ export const OnboardingSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { remeberUSerPassword, reset_isOnboarding, checkOnboarding, authScreenChange } = OnboardingSlice.actions;
+export const { changeauthscreen, remeberUSerPassword, reset_isOnboarding, checkOnboarding, authScreenChange } = OnboardingSlice.actions;
 export default OnboardingSlice.reducer;

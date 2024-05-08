@@ -2,7 +2,6 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer } from "redux-persist";
 import { combineReducers } from "redux";
-import OnboardingSlice from "./OnboardingSlice";
 import AuthSlice from "./AuthSlice";
 import UserSlice from "./Admin/UserSlice";
 import EventSlice from "./UserSide/EventSlice";
@@ -15,6 +14,8 @@ import AdminForumSlice from "./Admin/AdminForumSlice";
 import GuestSlice from "./UserSide/GuestSlice";
 import PollSlice from "./UserSide/PollSlice";
 import AdminGuestSlice from "./Admin/AdminGuestSlice";
+import DontwantToResetSlice from "./DontwantToResetSlice";
+import OnboardingSlice from "./OnboardingSlice";
 
 // import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
@@ -31,7 +32,8 @@ const reducers = combineReducers({
   AdminForumSlice:AdminForumSlice,
   GuestSlice:GuestSlice,
   PollSlice:PollSlice,
-  AdminGuestSlice:AdminGuestSlice
+  AdminGuestSlice:AdminGuestSlice,
+  DontwantToResetSlice:DontwantToResetSlice
  
 });
 

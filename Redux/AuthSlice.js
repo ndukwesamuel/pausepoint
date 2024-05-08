@@ -23,6 +23,8 @@ const initialState = {
 const Login_Fun_Service = async (data) => {
   let url = `${API_BASEURL}login`;
 
+  console.log({ dd: API_BASEURL });
+
   try {
     const response = await axios.post(url, data);
 
@@ -65,11 +67,6 @@ export const AuthSlice = createSlice({
         state.user_isError = false;
         state.user_message = null;
         state.user_data = action.payload;
-
-        Toast.show({
-          type: "success",
-          text1: "Login  successfully!",
-        });
       })
       .addCase(Login_Fun.rejected, (state, action) => {
         state.user_isLoading = false;
