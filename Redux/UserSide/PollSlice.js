@@ -31,10 +31,18 @@ export const Get_All_Polls_Fun = createAsyncThunk(
   "PollSlice/Get_All_Polls_Fun",
   async (_, thunkAPI) => {
     try {
+      let clan_id_admin =
+        thunkAPI.getState()?.UserProfileSlice?.get_user_profile_data
+          ?.AdmincurrentClanMeeting;
       let token_Data = thunkAPI.getState()?.AuthSlice.user_data?.token;
       let clan_id =
         thunkAPI.getState()?.UserProfileSlice?.get_user_profile_data
           ?.currentClanMeeting?._id;
+
+      console.log({
+        ddf: clan_id_admin,
+      });
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +50,14 @@ export const Get_All_Polls_Fun = createAsyncThunk(
           Authorization: `Bearer ${token_Data}`,
         },
       };
-      const response = await axios.get(`${API_BASEURL}poll`, config);
+
+      let response;
+
+      if (clan_id_admin) {
+        response = await axios.get(`${API_BASEURL}poll`, config);
+      } else {
+        response = await axios.get(`${API_BASEURL}poll/user`, config);
+      }
 
       return response.data;
     } catch (error) {

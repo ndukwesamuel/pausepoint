@@ -36,6 +36,7 @@ import { Usernaviagetion } from "./navigation/User/Usernaviagetion";
 import EventDetals from "./screens/Customerinterface/Events/EventDetals";
 import { UserProfile_data_Fun } from "./Redux/ProfileSlice";
 import { Get_User_Profle_Fun } from "./Redux/UserSide/UserProfileSlice";
+import { notificationservicecode } from "./utils/notificationservice";
 
 const queryClient = new QueryClient();
 
@@ -172,6 +173,8 @@ export const MainScreen = ({}) => {
         //   emargencysong();
         // }
 
+        notificationservicecode(notification?.request?.content?.data);
+
         // dispatch(NotificationDataModalFunC(true));
         // dispatch(NotificationDataFunC(notification));
       });
@@ -182,25 +185,25 @@ export const MainScreen = ({}) => {
     };
   }, []);
 
-  const soundObject = new Audio.Sound();
+  // const soundObject = new Audio.Sound();
 
-  async function emargencysong() {
-    try {
-      if (!soundObject._loaded) {
-        await soundObject.loadAsync(require("./assets/blowoffire.mp3"));
-      }
-      await soundObject.replayAsync();
-      console.log("Sound played successfully");
-    } catch (error) {
-      console.error("Failed to play the sound", error);
-    }
-  }
+  // async function emargencysong() {
+  //   try {
+  //     if (!soundObject._loaded) {
+  //       await soundObject.loadAsync(require("./assets/blowoffire.mp3"));
+  //     }
+  //     await soundObject.replayAsync();
+  //     console.log("Sound played successfully");
+  //   } catch (error) {
+  //     console.error("Failed to play the sound", error);
+  //   }
+  // }
 
-  useEffect(() => {
-    emargencysong();
+  // useEffect(() => {
+  //   notificationservicecode();
 
-    return () => {};
-  }, []);
+  //   return () => {};
+  // }, []);
 
   return (
     <Stack.Navigator

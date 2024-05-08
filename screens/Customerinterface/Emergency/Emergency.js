@@ -120,6 +120,9 @@ const Emergency = () => {
   );
 
   const RenderItem = ({ item }) => {
+    console.log({
+      hhh: item,
+    });
     const openFormModal = () => {
       setModalFormVisible(!modalformVisible);
       setSelectedItem(item); // Add this line to set the selected item

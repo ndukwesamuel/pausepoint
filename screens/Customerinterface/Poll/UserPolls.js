@@ -69,22 +69,6 @@ const UserPolls = () => {
     fff: get_all_poll_data,
   });
 
-  const renderItem = ({ item }) => (
-    <View style={{ marginBottom: 20 }}>
-      <Text>{item.question}</Text>
-      <FlatList
-        data={item.options}
-        keyExtractor={(option) => option.text}
-        renderItem={({ item: option }) => (
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text>{option.text}</Text>
-            <Text style={{ marginLeft: 10 }}>Votes: {option.votes || 0}</Text>
-          </View>
-        )}
-      />
-    </View>
-  );
-
   const HistoryItem = ({ itemdata }) => {
     return (
       <TouchableOpacity
@@ -174,12 +158,24 @@ const UserPolls = () => {
             />
 
             {filteredData?.length === 0 ? (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
+              <ScrollView
+                // style={{
+                //   flex: 1,
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                // }}
+
+                contentContainerStyle={{
                   alignItems: "center",
+                  justifyContent: "center",
+                  flex: 1,
                 }}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />
+                }
               >
                 <LottieView
                   autoPlay
@@ -192,9 +188,15 @@ const UserPolls = () => {
                   // Find more Lottie files at https://lottiefiles.com/featured
                   source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
                 />
-              </View>
+              </ScrollView>
             ) : (
               <FlatList
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />
+                }
                 data={filteredData}
                 renderItem={({ item }) => <HistoryItem itemdata={item} />}
               />

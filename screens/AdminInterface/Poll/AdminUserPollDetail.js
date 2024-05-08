@@ -100,7 +100,14 @@ const AdminUserPollDetail = () => {
       {Poll_Mutation?.isLoading && (
         <ActivityIndicator size="large" color="green" />
       )}
-      <View style={{ flexDirection: "row", gap: 20 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          gap: 10,
+          width: "100%",
+          flexWrap: "wrap",
+        }}
+      >
         <Text
           style={{
             fontSize: 20,
@@ -226,7 +233,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: "center",
     // alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     backgroundColor: "#fff",
   },
   questionText: {

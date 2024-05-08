@@ -4,6 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
@@ -35,6 +37,17 @@ const UserPollDetails = () => {
 
     return () => {};
   }, [dispatch, Vote_Mutation]);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    // Set the refreshing state to true
+    setRefreshing(true);
+    dispatch(Get_Single_Polls_Fun(itemdata?._id));
+
+    // Wait for 2 seconds
+    setRefreshing(false);
+  };
 
   let totalVotes = 0;
 
@@ -99,7 +112,12 @@ const UserPollDetails = () => {
     // In a real application, you would send a request to your backend to record the vote
   };
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       {Vote_Mutation?.isLoading && (
         <ActivityIndicator size="large" color="green" />
       )}
@@ -135,7 +153,7 @@ const UserPollDetails = () => {
           Total Votes: {totalVotes}
         </Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
