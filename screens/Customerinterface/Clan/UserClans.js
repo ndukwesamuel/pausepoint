@@ -28,7 +28,7 @@ import {
   RegularFontText,
 } from "../../../components/shared/Paragrahp";
 import { reset_login } from "../../../Redux/AuthSlice";
-import { reset_isOnboarding } from "../../../Redux/OnboardingSlice";
+import { reset_isOnboarding } from "../../../Redux/DontwantToResetSlice";
 
 // Replace this with the correct API endpoint for fetching user clans
 const API_ENDPOINT = "https://your-api-endpoint.com/user-clans";
@@ -65,10 +65,10 @@ const UserClans = () => {
   useEffect(() => {
     dispatch(Get_User_Clans_Fun());
     dispatch(Get_User_Profle_Fun());
+    dispatch(Get_all_clan_User_Is_adminIN_Fun());
 
-    if (get_user_profile_data?.AdmincurrentClanMeeting) {
-      dispatch(Get_all_clan_User_Is_adminIN_Fun());
-    }
+    // if (get_user_profile_data?.AdmincurrentClanMeeting) {
+    // }
 
     return () => {};
   }, []);
