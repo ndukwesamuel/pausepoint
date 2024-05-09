@@ -38,6 +38,8 @@ import ServiceView from "../../screens/Customerinterface/ServiceView";
 import VendorService from "../../screens/Customerinterface/VendorService";
 import AboutUS from "../../screens/Customerinterface/About.tsx";
 import ViewProfile from "../../screens/Customerinterface/Account/ViewProfile";
+import Review from "../../screens/Customerinterface/Review";
+import VendorReview from "../../screens/Customerinterface/VendorReview";
 const Stack = createNativeStackNavigator();
 
 const SingleScreenWithBackButton = (screenName, component, title) => {
@@ -137,17 +139,27 @@ export const Usernaviagetion = () => {
     {
       name: "service",
       component: Service,
-      title: "Service",
+      title: "Services",
     },
     {
       name: "serviceview",
       component: ServiceView,
-      title: "Service",
+      title: "Services",
     },
     {
-       name: "vendorService",
+      name: "vendorService",
       component: VendorService,
-      title: "Service",
+      title: "Services",
+    },
+    {
+      name: "review",
+      component: Review,
+      title: "Reviews",
+    },
+    {
+      name: "vendorReview",
+      component: VendorReview,
+      title: "Reviews",
     },
 
     {
