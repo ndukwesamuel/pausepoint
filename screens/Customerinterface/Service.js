@@ -7,13 +7,9 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons"; 
+import Icon from "react-native-vector-icons/Ionicons";
 
-
-
-const Service = ({navigation}) => {
- 
-  
+const Service = ({ navigation }) => {
   const images = [
     {
       id: 1,
@@ -95,9 +91,6 @@ const Service = ({navigation}) => {
 
   const [tab, setTab] = React.useState("default");
   const filteredImages = tab !== "engineering" ? images : engineering;
-
-  
-
 
   return (
     <View
@@ -193,7 +186,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: "80%",
     fontWeight: "400",
-    fontSize: "15px",
+    fontSize: 15,
   },
   text1: {
     paddingTop: 10,
@@ -217,8 +210,6 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
-
-  
 });
 
 export default Service;

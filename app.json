@@ -3,7 +3,7 @@
     "name": "pausepoint",
     "slug": "pausepoint",
     "orientation": "portrait",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -33,7 +33,7 @@
       }
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -45,6 +45,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+
+    "extra": {
+      "eas": {
+        "projectId": "8c0965b0-0d4a-4d07-b8a3-5b2c4c7b0e5a"
+      }
     }
   }
 }
