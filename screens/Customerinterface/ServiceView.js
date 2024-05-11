@@ -15,7 +15,7 @@ const ServiceView = ({navigation}) => {
 const items = [
   {
     id: 1,
-    source: require("../../assets/sevImg/med.png"),
+    source: require("../../assets/sevImg/mask.png"),
     names: "James John",
     title: "Mechanical Engr",
     desc: "21 years of experience ",
@@ -77,7 +77,7 @@ const items = [
     desc: " 21 years of experience",
   },
   {
-    id: 9,
+    id: 10,
     source: require("../../assets/sevImg/class.png"),
     names: "James John",
     title: "Mechanical Engr",
@@ -104,35 +104,48 @@ const items = [
       </View>
 
       <ScrollView>
-        <View style={{ justifyContent: "space-evenly", flexDirection: "row", flexWrap: "wrap" }}>
-          {items.map((item) => (
-            <View style={styles.cards}>
-              <View style={styles.cardImage}>
-                <Image
-                  source={item.source}
-                  style={{
-                    width: "100%",
-                    height: 150,
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                  }}
-                />
-              </View>
-              <View style={styles.cardContent}>
-                <Text style={{ paddingBottom: 10 }}>
-                  <Rating
-                    readonly
-                    startingValue="rating"
-                    imageSize={17}
-                    fractions={1}
+        <View
+          style={{
+            justifyContent: "space-evenly",
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {items.map((item, id) => (
+            <Pressable
+              onPress={() => {
+                navigation.navigate("vendorService");
+              }}
+              key={id}
+            >
+              <View style={styles.cards}>
+                <View style={styles.cardImage}>
+                  <Image
+                    source={item.source}
+                    style={{
+                      width: "100%",
+                      height: 150,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                    }}
                   />
-                </Text>
+                </View>
+                <View style={styles.cardContent}>
+                  <Text style={{ paddingBottom: 10 }}>
+                    <Rating
+                      readonly
+                      startingValue="rating"
+                      imageSize={17}
+                      fractions={1}
+                    />
+                  </Text>
 
-                <Text style={styles.cardName}>{item.names}</Text>
-                <Text style={styles.cardSubtitle}>{item.title}</Text>
-                <Text style={styles.cardDescription}>{item.desc}</Text>
+                  <Text style={styles.cardName}>{item.names}</Text>
+                  <Text style={styles.cardSubtitle}>{item.title}</Text>
+                  <Text style={styles.cardDescription}>{item.desc}</Text>
+                </View>
               </View>
-            </View>
+            </Pressable>
           ))}
         </View>
       </ScrollView>

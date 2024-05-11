@@ -44,6 +44,9 @@ export const Login_Fun = createAsyncThunk(
     try {
       return await Login_Fun_Service(data);
     } catch (error) {
+      console.log({
+        fff: error?.response,
+      });
       const errorMessage = handleApiError(error);
       return thunkAPI.rejectWithValue(errorMessage);
     }

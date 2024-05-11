@@ -7,16 +7,35 @@ import Toast from "react-native-toast-message";
 import { reset_isOnboardings } from "../Redux/DontwantToResetSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { reset_login } from "../Redux/AuthSlice";
+import OTP from "./OTP";
+import { authScreenChange } from "../Redux/OnboardingSlice";
 
 const Auth = () => {
   const { userlogin } = useSelector((state) => state?.OnboardingSlice);
   const ss = useSelector((state) => state.DontwantToResetSlice);
   // console.log({ data });OnboardingSlice
   const dispatch = useDispatch();
+  const {
+    user_data,
+    user_isError,
+    user_isSuccess,
+    user_isLoading,
+    user_message,
+  } = useSelector((state) => state.AuthSlice);
 
   console.log({
     ssssff: ss,
   });
+
+  console.log({
+    ggg: user_message,
+  });
+  useEffect(() => {
+    if (user_message === "Email Not Verified") {
+      dispatch(authScreenChange("OTP"));
+    }
+    return () => {};
+  }, [user_data, user_message]);
 
   //   useEffect(() => {
   //     dispatch(reset_login());
@@ -58,6 +77,8 @@ const Auth = () => {
             </TouchableOpacity> */}
 
       {userlogin === "LOGIN" && <LoginScreen />}
+      {userlogin === "OTP" && <OTP />}
+
       {userlogin === "REGISTER" && <Registraion />}
 
       {userlogin === "FORGOTTENPASSWOD" && <ForgottenPasswod />}

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppScreen from "../components/shared/AppScreen";
 import RegHeaders from "../components/shared/RegHeaders";
 import {
@@ -28,14 +28,16 @@ import {
   AAchangeauthscreen,
   authscreensatet,
   remeberUSerPassword,
+  setOtpEmail,
 } from "../Redux/DontwantToResetSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Login_Fun } from "../Redux/AuthSlice";
 import { authScreenChange, changeauthscreen } from "../Redux/OnboardingSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = ({}) => {
   const { localremember } = useSelector((state) => state?.DontwantToResetSlice);
-
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {
     user_data,
@@ -103,6 +105,7 @@ const LoginScreen = ({}) => {
       value,
     });
 
+    dispatch(setOtpEmail(email));
     dispatch(Login_Fun(data));
   };
 

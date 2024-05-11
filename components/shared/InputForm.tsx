@@ -170,13 +170,14 @@ interface FormbuttonProps {
     icon?: React.ReactElement; // Add this line
     onPress?: () => void;
     isLoading?: boolean;
+    isLoading_color?: string;
 }
 
-export const Formbutton = ({ buttonStyle, textStyle, data, icon, isLoading, onPress }: FormbuttonProps) => {
+export const Formbutton = ({ buttonStyle, textStyle, data, icon, isLoading, isLoading_color, onPress }: FormbuttonProps) => {
     return (
 
         <TouchableOpacity style={[buttonStyle]} onPress={onPress}>
-            {isLoading ? <ActivityIndicator size="small" color="white" />
+            {isLoading ? <ActivityIndicator size="small" color={isLoading_color || "white"} />
 
                 : <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                     {icon && <View >{icon}</View>}

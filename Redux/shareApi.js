@@ -32,7 +32,7 @@ export const handleApiError = (error) => {
     } else {
       Toast.show({
         type: "error",
-        text1: `${error?.response?.data?.error}`,
+        text1: `${error?.response?.data?.message}`,
 
         // text1: `${error?.response?.data?.message} `,
 
