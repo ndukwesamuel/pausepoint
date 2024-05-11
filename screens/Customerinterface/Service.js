@@ -101,13 +101,17 @@ const Service = ({ navigation }) => {
         backgroundColor: "white",
       }}
     >
-      <Text style={styles.text1}> Select which category...</Text>
+      {tab === "engineering" ? (
+        <Text style={styles.headingText}>Category:Engineering</Text>
+      ) : (
+        <Text style={styles.text1}> Select which category...</Text>
+      )}
 
       {tab === "engineering" && (
         <View style={styles.inputs}>
           <Icon name="search" size={20} color="#777" style={styles.icon} />
           <TextInput
-            placeholder="Search by name..."
+            placeholder="Search services"
             style={styles.input}
             placeholderTextColor="#777"
           />
@@ -209,6 +213,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  headingText: {
+    paddingTop: 10,
+    paddingBottom: 15,
+    paddingLeft: 10,
+    color: "rgba(0, 0, 0, 0.5)",
+    fontSize: 15,
+    fontWeight: "bold",
   },
 });
 
