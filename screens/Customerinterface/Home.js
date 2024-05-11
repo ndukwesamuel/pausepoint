@@ -47,6 +47,7 @@ import { useNavigation } from "@react-navigation/native";
 import { UserProfile_data_Fun } from "../../Redux/ProfileSlice";
 import { Feather } from "@expo/vector-icons";
 import { LogoutModal } from "../../components/Account/Logout";
+import Forum_Market from "../../components/shared/Forum_Market";
 
 export default function App({ navigation }) {
   // const navigation = useNavigation();
@@ -301,35 +302,7 @@ export default function App({ navigation }) {
             </View>
           </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <MediumFontText
-              data="Forum"
-              textstyle={{
-                fontSize: 20,
-                fontWeight: "500",
-                marginVertical: 10,
-              }}
-            />
-
-            {/* {userProfile_data?.currentClanMeeting && (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("createforum")}
-              >
-                <Feather name="edit" size={24} color="black" />
-              </TouchableOpacity>
-            )} 
-            this code was commented for now till i want user to create a forum
-            */}
-          </View>
-          <View style={{ height: "85%" }}>
-            <Forum />
-          </View>
+          <Forum_Market />
         </Animated.View>
       </Animated.View>
     </SafeAreaView>
