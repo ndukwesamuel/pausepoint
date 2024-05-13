@@ -54,6 +54,15 @@ const ForumDetails = () => {
   });
   let item = {};
 
+  useEffect(() => {
+    // Check if forumid is available before dispatching the action
+    dispatch(Get_My_Clan_Single_Forum_Fun(forumid));
+
+    return () => {
+      dispatch(reset__single_forum(null));
+    };
+  }, [dispatch, forumid]); // Include forumid in the dependency array
+
   const handleCommentSubmit = () => {
     // Step 4: Handle comment submission logic
     console.log("User submitted comment:", commentInput);
@@ -61,15 +70,6 @@ const ForumDetails = () => {
     // Clear the comment input after submission
     setCommentInput("");
   };
-
-  // useEffect(() => {
-  //   // Check if forumid is available before dispatching the action
-  //   dispatch(Get_My_Clan_Single_Forum_Fun(forumid));
-
-  //   return () => {
-  //     dispatch(reset__single_forum(null));
-  //   };
-  // }, [dispatch, forumid]); // Include forumid in the dependency array
 
   return (
     <View>
@@ -79,8 +79,6 @@ const ForumDetails = () => {
           alignItems: "center",
           justifyContent: "space-between",
           marginVertical: 20,
-          paddingHorizontal: 20,
-          paddingHorizontal: 20,
         }}
       >
         <View

@@ -36,7 +36,7 @@ export const Get_My_Clan_Single_Forum_Fun = createAsyncThunk(
         thunkAPI.getState()?.UserProfileSlice?.get_user_profile_data
           ?.currentClanMeeting?._id;
 
-      let url = `${API_BASEURL}forum/${clan_id}/${data_id}`;
+      let url = `${API_BASEURL}forum/user/${data_id}`;
 
       const config = {
         headers: {

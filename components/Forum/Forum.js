@@ -183,11 +183,17 @@ const Forum = () => {
                     // paddingBottom: 20,
                   }}
                 >
-                  <View
+                  <TouchableOpacity
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
                       gap: 10,
+                    }}
+                    onPress={() => {
+                      console.log({
+                        j: "dddd",
+                      });
+                      navigation.navigate("forumdetail", item);
                     }}
                   >
                     <Image
@@ -211,19 +217,23 @@ const Forum = () => {
                         textstyle={{ fontSize: 12, fontWeight: "300" }}
                       />
                     </View>
-                  </View>
+                  </TouchableOpacity>
 
                   {/* uncmment later */}
-                  {/* <TouchableOpacity
-                style={{
-                  paddingHorizontal: 12,
-                  paddingVertical: 2,
-                  borderRadius: 6,
-                }}
-                onPress={toggleModal}
-              >
-                <Entypo name="dots-three-vertical" size={24} color="black" />
-              </TouchableOpacity> */}
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 12,
+                      paddingVertical: 2,
+                      borderRadius: 6,
+                    }}
+                    onPress={toggleModal}
+                  >
+                    <Entypo
+                      name="dots-three-vertical"
+                      size={24}
+                      color="black"
+                    />
+                  </TouchableOpacity>
                 </View>
 
                 <View style={{ paddingHorizontal: 20 }}>
