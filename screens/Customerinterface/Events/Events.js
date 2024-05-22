@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   RefreshControl,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import { Entypo, AntDesign, Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";

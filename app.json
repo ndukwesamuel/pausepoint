@@ -20,7 +20,8 @@
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
         }
-      ]
+      ],
+      "expo-font"
     ],
     "ios": {
       "supportsTablet": true,
@@ -45,12 +46,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-
-    "extra": {
-      "eas": {
-        "projectId": "8c0965b0-0d4a-4d07-b8a3-5b2c4c7b0e5a"
-      }
     }
   }
 }

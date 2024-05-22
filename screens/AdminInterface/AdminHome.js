@@ -11,6 +11,7 @@ import {
   FlatList,
   ScrollView,
   Dimensions,
+  Platform
 } from "react-native";
 import profile from "../../assets/profile.png";
 // Tab ICons...
@@ -33,6 +34,8 @@ import logout from "../../assets/logout.png";
 // Menu
 import menu from "../../assets/menu.png";
 import close from "../../assets/close.png";
+import setting from "../../assets/settings.png"
+import market from "../../assets/marketPlace.png"
 
 // Photo
 import photo from "../../assets/photo.jpg";
@@ -207,6 +210,20 @@ export default function AdminHome() {
               "Guests",
               savepost,
               "AdminGuest"
+            )}
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Service",
+              setting,
+              "AdminService"
+            )}
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "MarketPlace",
+              market,
+              "VendorLists"
             )}
 
             {TabButton(currentTab, setCurrentTab, "Qrcode", qrcode, "scanner")}

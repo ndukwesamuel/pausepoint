@@ -87,7 +87,7 @@ const LoginScreen = ({}) => {
     let data = {
       email: email,
       password: passwords.mainPassword,
-      tokenNotification: value,
+      tokenNotification: "ExponentPushToken[TZmRRTGdOUMyGqNGWHKfNb]",
       mobile,
     };
 

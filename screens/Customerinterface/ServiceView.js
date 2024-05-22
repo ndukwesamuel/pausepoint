@@ -112,13 +112,13 @@ const items = [
           }}
         >
           {items.map((item, id) => (
-            <Pressable
-              onPress={() => {
-                navigation.navigate("vendorService");
-              }}
-              key={id}
-            >
-              <View style={styles.cards}>
+            <View style={styles.cards}>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate("vendorService");
+                }}
+                key={id}
+              >
                 <View style={styles.cardImage}>
                   <Image
                     source={item.source}
@@ -144,8 +144,8 @@ const items = [
                   <Text style={styles.cardSubtitle}>{item.title}</Text>
                   <Text style={styles.cardDescription}>{item.desc}</Text>
                 </View>
-              </View>
-            </Pressable>
+              </Pressable>
+            </View>
           ))}
         </View>
       </ScrollView>

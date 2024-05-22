@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Image,
-  Pressable,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
@@ -31,117 +30,98 @@ const Review = ({ navigation }) => {
   ];
 
   return (
-    <View
-      style={{
-        padding: 20,
-        flex: 1,
-        backgroundColor: "white",
-      }}
-    >
+    <View style={styles.container}>
       <ScrollView>
         {items.map((item, index) => (
-          <View style={styles.container} key={index}>
+          <View style={styles.reviewContainer} key={index}>
             <View style={styles.profile}>
-              <View style={styles.imgRow}>
-                <Image source={require("../../assets/sevImg/review.png")} />
-                <View>
-                  <View
-                    style={{
-                      justifyContent: "space-between",
-                      flexDirection: "row",
-                      marginBottom: 10,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={styles.nameText}>{item.name}</Text>
-                    <View
-                      style={{
-                        height: 25,
-                        width: 47,
-                        padding: 5,
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        borderColor: "#81CB9D",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        gap: 5,
-                      }}
-                    >
-                      <Text>
-                        <Icon name="star" size={15} color="#04973C" />
-                      </Text>
-
-                      <Text>5</Text>
-                    </View>
-                  </View>
-                  <View style={styles.textContent}>
-                    <Text style={styles.desText}>{item.desc}</Text>
-                  </View>
+              <Image
+                source={require("../../assets/sevImg/review.png")}
+                style={styles.profileImage}
+              />
+              <View style={styles.profileInfo}>
+                <Text style={styles.nameText}>{item.name}</Text>
+                <View style={styles.ratingContainer}>
+                  <Icon name="star" size={15} color="#04973C" />
+                  <Text style={styles.ratingText}>5</Text>
                 </View>
               </View>
             </View>
+            <Text style={styles.descText}>{item.desc}</Text>
           </View>
         ))}
       </ScrollView>
-      <View>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => {
-            navigation.navigate("vendorReview");
-          }}
-        >
-          <Text style={styles.text}>Create your Review</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={() => {
+          navigation.navigate("vendorReview");
+        }}
+      >
+        <Text style={styles.buttonText}>Create your Review</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "white",
+    padding: 20,
+  },
+  reviewContainer: {
     borderBottomWidth: 1,
     borderBottomColor: "#E5E5E5",
-    paddingBottom: 20,
-    paddingTop: 20,
+    padding: 20,
   },
-  
   profile: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  profileImage: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+  },
+  profileInfo: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  buttonContainer: {
+  nameText: {
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  ratingContainer: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 15,
-    backgroundColor: "#04973C",
-    borderRadius: 5,
-    justifyContent: "center",
-    marginTop: 14,
+    height: 25,
+    width: 47,
+    padding: 5,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#81CB9D",
+    gap: 5,
   },
-
-  text: {
+  ratingText: {
+    marginLeft: 5,
+  },
+  descText: {
+    fontSize: 15,
+   
+  },
+  buttonContainer: {
+    backgroundColor: "#04973C",
+    padding: 15,
+    alignItems: "center",
+     borderRadius: 5,
+  },
+  buttonText: {
     fontSize: 16,
     color: "white",
   },
-  imgRow: {
-    flexDirection: "row",
-   
-    overflow: "visible",
-    gap: 10,
-    paddingRight: 70,
-  
-  },
-  desText: {
-    
-    fontSize: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#F6F6F6",
-  },
-  nameText: {
-    fontSize: 16,
-    fontWeight: "600"
-  }
 });
 
 export default Review;

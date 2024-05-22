@@ -35,6 +35,11 @@ import AnnouncementDetails from "../../screens/AdminInterface/Announcement/Annou
 import EditPersonalInformation from "../../screens/Customerinterface/Account/EditPersonalInformation";
 import QRScanner from "../../screens/AdminInterface/QRScanner";
 import TheScan from "../../screens/AdminInterface/TheScan";
+import Service from "../../screens/AdminInterface/Service/Service";
+import VendorProfile from "../../screens/AdminInterface/Service/VendorProfile";
+import VendorList from "../../screens/AdminInterface/Service/VendorList";
+import VendorLists from "../../screens/AdminInterface/MarketPlace/VendorLists";
+import ProductDetails from "../../screens/AdminInterface/MarketPlace/ProductDetails";
 
 const Stack = createStackNavigator();
 
@@ -107,6 +112,33 @@ const Adminnaviagetion = () => {
           "AdminEmergencies",
           Emergencies,
           "Emergencies"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton("AdminService", Service, "Service")}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "VendorProfile",
+          VendorProfile,
+          "Create Vendor Profile"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton("VendorList", VendorList, "Services")}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "VendorLists",
+          VendorLists,
+          "MarketPlace"
+        )}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "ProductDetails",
+          ProductDetails,
+          "Product Details"
         )}
       />
       <Stack.Screen

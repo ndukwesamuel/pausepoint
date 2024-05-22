@@ -247,68 +247,70 @@ export const NavigationScreen = () => {
   } = useSelector((state) => state.AuthSlice);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // dispatch(UserProfile_data_Fun());
-    // dispatch(Get_User_Profle_Fun());
+  // useEffect(() => {
+  //   // dispatch(UserProfile_data_Fun());
+  //   // dispatch(Get_User_Profle_Fun());
 
-    async function getNotificationPermission() {
-      const { status } = await Notifications.getPermissionsAsync();
-      if (status !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-      }
-      if (status !== "granted") {
-        // Handle the case where the user declines permission
-        console.log("Failed to get push token for push notification!");
-        return;
-      }
-      let token;
-      token = (
-        await Notifications.getExpoPushTokenAsync({
-          projectId: Constants.expoConfig.extra.eas.projectId,
-        })
-      ).data;
-      // token = (
-      //   await Notifications.getExpoPushTokenAsync({
-      //     projectId: Constants.expoConfig.extra.eas.projectId,
-      //   })
-      // ).data;
+  //   async function getNotificationPermission() {
+  //     const { status } = await Notifications.getPermissionsAsync();
+  //     if (status !== "granted") {
+  //       const { status } = await Notifications.requestPermissionsAsync();
+  //     }
+  //     if (status !== "granted") {
+  //       // Handle the case where the user declines permission
+  //       console.log("Failed to get push token for push notification!");
+  //       return;
+  //     }
+  //     let token;
+  //     token = (
+  //       await Notifications.getExpoPushTokenAsync({
+  //         projectId: Constants.expoConfig.extra.eas.projectId,
+  //       })
+  //     ).data;
+  //     // token = (
+  //     //   await Notifications.getExpoPushTokenAsync({
+  //     //     projectId: Constants.expoConfig.extra.eas.projectId,
+  //     //   })
+  //     // ).data;
 
-      console.log({ first_token: token });
-      // Permission granted, handle accordingly
-      await AsyncStorage.setItem("PushToken", token);
-      const value = await AsyncStorage.getItem("PushToken");
+      
 
-      console.log({ value });
-      // setPushToken(value);
-    }
+  //     console.log({ first_token: token });
+  //     // Permission granted, handle accordingly
+  //     await AsyncStorage.setItem("PushToken", token);
+  //     const value = await AsyncStorage.getItem("PushToken");
 
-    getNotificationPermission();
-    // getNotificationPermission();
-  }, [dispatch]);
+  //     console.log({ value });
+  //     // setPushToken(value);
+  //   }
 
-  useEffect(() => {
-    const backgroundSubscription =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log({ response });
+  //   getNotificationPermission();
+  //   // getNotificationPermission();
+  // }, [dispatch]);
 
-        const data = response.notification.request.content.data;
-        // dispatch(NotificationDataModalFunC(true));
+  // useEffect(() => {
+  //   const backgroundSubscription =
+  //     Notifications.addNotificationResponseReceivedListener((response) => {
+  //       console.log({ response });
 
-        // dispatch(NotificationDataFunC(response));
-      });
+  //       const data = response.notification.request.content.data;
+  //       // dispatch(NotificationDataModalFunC(true));
 
-    const foregroundSubscription =
-      Notifications.addNotificationReceivedListener((notification) => {
-        console.log({ notification });
-        // dispatch(NotificationDataModalFunC(true));
-        // dispatch(NotificationDataFunC(notification));
-      });
+  //       // dispatch(NotificationDataFunC(response));
+  //     });
 
-    return () => {
-      backgroundSubscription.remove();
-      foregroundSubscription.remove();
-    };
-  }, []);
+  //   const foregroundSubscription =
+  //     Notifications.addNotificationReceivedListener((notification) => {
+  //       console.log({ notification });
+  //       // dispatch(NotificationDataModalFunC(true));
+  //       // dispatch(NotificationDataFunC(notification));
+  //     });
+
+  //   return () => {
+  //     backgroundSubscription.remove();
+  //     foregroundSubscription.remove();
+  //   };
+  // }, []);
 
   console.log({ user_data });
   return (

@@ -40,6 +40,8 @@ import AboutUS from "../../screens/Customerinterface/About.tsx";
 import ViewProfile from "../../screens/Customerinterface/Account/ViewProfile";
 import Review from "../../screens/Customerinterface/Review";
 import VendorReview from "../../screens/Customerinterface/VendorReview";
+import MarketReview from "../../screens/Customerinterface/MarketPlace/MarketReview";
+
 const Stack = createNativeStackNavigator();
 
 const SingleScreenWithBackButton = (screenName, component, title) => {
@@ -161,6 +163,7 @@ export const Usernaviagetion = () => {
       component: VendorReview,
       title: "Reviews",
     },
+    
 
     {
       title: "ICE Contact",
@@ -276,6 +279,13 @@ export const Usernaviagetion = () => {
         }}
         name="eventdetails"
         component={EventDetals}
+      />
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "MarketReview",
+          MarketReview,
+          "Review"
+        )}
       />
 
       <Stack.Screen

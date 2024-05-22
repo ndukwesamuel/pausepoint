@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 const VendorService = ({ navigation }) => {
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <View style={{ backgroundColor: "white",height: "100%" }}>
       <View style={styles.container}>
         <View style={styles.container1}>
           <Image source={require("../../assets/sevImg/profile.png")} />
@@ -20,7 +20,7 @@ const VendorService = ({ navigation }) => {
             James John
           </Text>
           <Text style={{}}>Builder</Text>
-          <Text>21 years of experience</Text>
+          <Text>27 years of experience</Text>
         </View>
         <View
           style={{
