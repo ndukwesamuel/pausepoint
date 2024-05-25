@@ -16,6 +16,8 @@ import PollSlice from "./UserSide/PollSlice";
 import AdminGuestSlice from "./Admin/AdminGuestSlice";
 import DontwantToResetSlice from "./DontwantToResetSlice";
 import OnboardingSlice from "./OnboardingSlice";
+import MainEventSlice from "./UserSide/MainEventSlice";
+import AdminMainEventSlice from "./Admin/AdminMainEventSlice";
 
 // import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
@@ -33,7 +35,9 @@ const reducers = combineReducers({
   GuestSlice:GuestSlice,
   PollSlice:PollSlice,
   AdminGuestSlice:AdminGuestSlice,
-  DontwantToResetSlice:DontwantToResetSlice
+  DontwantToResetSlice:DontwantToResetSlice,
+  MainEventSlice:MainEventSlice,
+  AdminMainEventSlice:AdminMainEventSlice
  
 });
 

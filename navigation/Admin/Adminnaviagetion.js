@@ -35,18 +35,15 @@ import AnnouncementDetails from "../../screens/AdminInterface/Announcement/Annou
 import EditPersonalInformation from "../../screens/Customerinterface/Account/EditPersonalInformation";
 import QRScanner from "../../screens/AdminInterface/QRScanner";
 import TheScan from "../../screens/AdminInterface/TheScan";
+import AdminMainEvent from "../../screens/AdminInterface/Event/AdminMainEvent";
 
 const Stack = createStackNavigator();
 
-const SingleScreenWithBackButton = (
-  screenName: any,
-  component: any,
-  title: any
-) => {
+const SingleScreenWithBackButton = (screenName, component, title) => {
   return {
     name: screenName,
     component: component,
-    options: ({ navigation }: { navigation: any }) => ({
+    options: ({ navigation }) => ({
       title: title,
       headerStyle: {
         backgroundColor: "white",
@@ -147,6 +144,10 @@ const Adminnaviagetion = () => {
 
       <Stack.Screen
         {...SingleScreenWithBackButton("AdminGuest", AdminGuests, "Guest")}
+      />
+
+      <Stack.Screen
+        {...SingleScreenWithBackButton("AdminEvent", AdminMainEvent, "Event")}
       />
       <Stack.Screen
         {...SingleScreenWithBackButton(

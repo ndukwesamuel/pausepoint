@@ -209,6 +209,14 @@ export default function AdminHome() {
               "AdminGuest"
             )}
 
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Events",
+              savepost,
+              "AdminEvent"
+            )}
+
             {TabButton(currentTab, setCurrentTab, "Qrcode", qrcode, "scanner")}
             {TabButton(
               currentTab,

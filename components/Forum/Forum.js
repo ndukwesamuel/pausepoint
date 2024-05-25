@@ -282,19 +282,20 @@ const Forum = () => {
                     <AntDesign name="hearto" size={24} color="black" />
                     <Text>{item?.likes?.length} Likes </Text>
                   </TouchableOpacity>
-                  {/* <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 5,
-                }}
-                onPress={() =>
-                  navigation.navigate("forumdetail", { forumid: item })
-                }
-              >
-                <AntDesign name="message1" size={24} color="black" />
-                <Text>Comment</Text>
-              </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5,
+                    }}
+                    onPress={() =>
+                      navigation.navigate("forumdetail", { forumid: item })
+                    }
+                  >
+                    <AntDesign name="message1" size={24} color="black" />
+                    <Text>Comment</Text>
+                  </TouchableOpacity>
+                  {/*
               <View
                 style={{
                   flexDirection: "row",
