@@ -37,47 +37,52 @@ import {
   Get_GeneralEvent_Fun,
   Get_UserEvent_Fun,
 } from "../../../Redux/UserSide/MainEventSlice";
+import { Admin_Get_AllEvent_Fun } from "../../../Redux/Admin/AdminMainEventSlice";
 
 const AdminMainEvent = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const animation = useRef(null);
   const [refreshing, setRefreshing] = useState(false);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const onRefresh = () => {
     // Set the refreshing state to true
     setRefreshing(true);
 
     // Fetch the updated data
-    dispatch(All_Public_events_Fun(searchQuery));
-    dispatch(Host__events_Fun(searchQuery));
-    dispatch(All_Host_Public_events_Fun(searchQuery));
+    dispatch(Admin_Get_AllEvent_Fun());
 
     // After fetching the data, set the refreshing state back to false
     setRefreshing(false);
   };
 
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
   const { user_data } = useSelector((state) => state?.AuthSlice);
+  const { Adminuserevent_data } = useSelector(
+    (state) => state?.AdminMainEventSlice
+  );
 
+  const adminEvents = [];
+  const nonAdminEvents = [];
+
+  // Function to filter and separate data
+  function filterData(events) {
+    events.forEach((event) => {
+      if (event.isAdmin) {
+        adminEvents.push(event);
+      } else {
+        nonAdminEvents.push(event);
+      }
+    });
+  }
   const { all_public_event_data, host_event, all_host_public_event } =
     useSelector((state) => state?.EventSlice);
 
   const screenWidth = Dimensions.get("window").width;
-  console.log({
-    aaa: all_public_event_data,
-  });
-  // Filter data based on the search query
-  // const filteredData = data.filter(
-  //   (item) =>
-  //     item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //     item.content.toLowerCase().includes(searchQuery.toLowerCase())
-  // );
 
   const handleItemClick = (itemId) => {
     // Navigate to the details screen with the selected item ID
@@ -88,17 +93,11 @@ const AdminMainEvent = () => {
 
   const [turnmodal, setTurnmodal] = useState(false);
 
-  const [myevent, setMyevent] = useState("my_events");
+  const [myevent, setMyevent] = useState("admin_event");
 
-  // };
-
-  useEffect(() => {
-    dispatch(All_Public_events_Fun(searchQuery));
-    dispatch(Host__events_Fun(searchQuery));
-    dispatch(All_Host_Public_events_Fun(searchQuery));
-
-    return () => {};
-  }, [dispatch, searchQuery]);
+  console.log({
+    aaa: myevent,
+  });
 
   return (
     // <AppScreen>
@@ -221,11 +220,12 @@ const AdminMainEvent = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => setMyevent("my_events")}
+            onPress={() => setMyevent("admin_event")}
             style={{
               // backgroundColor: "lightgray",
 
-              backgroundColor: myevent === "my_events" ? "green" : "lightgray",
+              backgroundColor:
+                myevent === "admin_event" ? "green" : "lightgray",
 
               paddingHorizontal: 12,
               paddingVertical: 2,
@@ -235,12 +235,12 @@ const AdminMainEvent = () => {
             }}
           >
             <RegularFontText
-              data="My Events"
+              data="Admin Event"
               textstyle={{
                 fontSize: 12,
                 fontWeight: "bold",
 
-                color: myevent === "my_events" ? "white" : "black",
+                color: myevent === "admin_event" ? "white" : "black",
               }}
             />
           </TouchableOpacity>
@@ -276,8 +276,8 @@ const AdminMainEvent = () => {
           value={searchQuery}
         />
 
-        {myevent === "my_events" && <MyEvent />}
-        {myevent === "estate_event" && <AdminEvent />}
+        {myevent === "estate_event " && <MyEvent />}
+        {myevent === "admin_event" && <AdminEvent />}
       </View>
     </KeyboardAvoidingView>
     // </AppScreen>
@@ -295,22 +295,28 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainEvent;
+export default AdminMainEvent;
 
 const MyEvent = () => {
   const { all_public_event_data, host_event, all_host_public_event } =
     useSelector((state) => state?.EventSlice);
+  const [userEvents, setUserEvents] = useState([]);
 
-  const { userevent_data } = useSelector((state) => state?.MainEventSlice);
   console.log({
-    fdf: userevent_data?.events[0],
+    jfff: "hghghgh",
   });
+  const { userevent_data } = useSelector((state) => state?.MainEventSlice);
 
   const animation = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(Get_UserEvent_Fun());
+    dispatch(Admin_Get_AllEvent_Fun());
+
+    const filteredEvents = Adminuserevent_data?.events?.filter(
+      (event) => !event.isAdmin
+    );
+    setUserEvents(filteredEvents);
 
     return () => {};
   }, []);
@@ -322,15 +328,18 @@ const MyEvent = () => {
     setRefreshing(true);
 
     // Fetch the updated data
-    dispatch(Get_UserEvent_Fun());
+    dispatch(Admin_Get_AllEvent_Fun());
 
     // After fetching the data, set the refreshing state back to false
     setRefreshing(false);
   };
+  const { Adminuserevent_data } = useSelector(
+    (state) => state?.AdminMainEventSlice
+  );
 
   return (
     <View style={{ flex: 1 }}>
-      {userevent_data?.events?.length === 0 ? (
+      {userEvents?.length === 0 ? (
         <ScrollView
           contentContainerStyle={{
             flex: 1,
@@ -355,7 +364,7 @@ const MyEvent = () => {
         </ScrollView>
       ) : (
         <FlatList
-          data={userevent_data?.events}
+          data={userEvents}
           keyExtractor={(item) => String(item._id)}
           // numColumns={2}
           showsVerticalScrollIndicator={false}
@@ -373,16 +382,24 @@ const AdminEvent = () => {
   const { all_public_event_data, host_event, all_host_public_event } =
     useSelector((state) => state?.EventSlice);
 
+  const [adminEvents, setAdminEvents] = useState([]);
+
   const { generalevent_data } = useSelector((state) => state?.MainEventSlice);
-  console.log({
-    fdf: generalevent_data?.events[0],
-  });
+
+  const { Adminuserevent_data } = useSelector(
+    (state) => state?.AdminMainEventSlice
+  );
 
   const animation = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(Get_GeneralEvent_Fun());
+    dispatch(Admin_Get_AllEvent_Fun());
+
+    const filteredEvents = Adminuserevent_data?.events?.filter(
+      (event) => event.isAdmin
+    );
+    setAdminEvents(filteredEvents);
 
     return () => {};
   }, [dispatch]);
@@ -394,7 +411,8 @@ const AdminEvent = () => {
     setRefreshing(true);
 
     // Fetch the updated data
-    dispatch(Get_GeneralEvent_Fun());
+
+    dispatch(Admin_Get_AllEvent_Fun());
 
     // After fetching the data, set the refreshing state back to false
     setRefreshing(false);
@@ -402,7 +420,7 @@ const AdminEvent = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {generalevent_data?.events?.length === 0 ? (
+      {adminEvents?.length === 0 ? (
         <ScrollView
           contentContainerStyle={{
             flex: 1,
@@ -426,16 +444,20 @@ const AdminEvent = () => {
           />
         </ScrollView>
       ) : (
-        <FlatList
-          data={generalevent_data?.events}
-          keyExtractor={(item) => String(item._id)}
-          // numColumns={2}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => <HistoryItem itemdata={item} />}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        />
+        <>
+          <FlatList
+            data={adminEvents}
+            keyExtractor={(item) => String(item._id)}
+            // numColumns={2}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => <HistoryItem itemdata={item} />}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+
+          <Text>kaka</Text>
+        </>
       )}
     </View>
   );

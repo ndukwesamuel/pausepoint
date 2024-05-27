@@ -26,8 +26,8 @@ const initialState = {
   AdminsingleEvent_message: null,
 };
 
-export const Get_UserEvent_Fun = createAsyncThunk(
-  "MainEventSlice/Get_UserEvent_Fun",
+export const Admin_Get_AllEvent_Fun = createAsyncThunk(
+  "AdminMainEventSlice/Admin_Get_AllEvent_Fun",
   async (_, thunkAPI) => {
     try {
       let mydata = thunkAPI.getState().AuthSlice.user_data;
@@ -39,7 +39,10 @@ export const Get_UserEvent_Fun = createAsyncThunk(
         },
       };
 
-      const response = await axios.get(`${API_BASEURL}resident-event`, config);
+      const response = await axios.get(
+        `${API_BASEURL}resident-event/admin`,
+        config
+      );
 
       return response.data;
     } catch (error) {
@@ -109,60 +112,26 @@ export const AdminMainEventSlice = createSlice({
   reducers: {
     reset_MainEventSlice: (state) => initialState,
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(Get_UserEvent_Fun.pending, (state) => {
-  //       state.userevent_isLoading = true;
-  //     })
-  //     .addCase(Get_UserEvent_Fun.fulfilled, (state, action) => {
-  //       state.userevent_isLoading = false;
-  //       state.userevent_isSuccess = true;
-  //       state.userevent_isError = false;
-  //       state.userevent_message = null;
-  //       state.userevent_data = action.payload;
-  //     })
-  //     .addCase(Get_UserEvent_Fun.rejected, (state, action) => {
-  //       state.userevent_isLoading = false;
-  //       state.userevent_isError = true;
-  //       state.userevent_message = action.payload;
-  //       state.userevent_data = null;
-  //       state.userevent_isSuccess = false;
-  //     })
-  //     .addCase(Get_GeneralEvent_Fun.pending, (state) => {
-  //       state.generalevent_isLoading = true;
-  //     })
-  //     .addCase(Get_GeneralEvent_Fun.fulfilled, (state, action) => {
-  //       state.generalevent_isLoading = false;
-  //       state.generalevent_isSuccess = true;
-  //       state.generalevent_isError = false;
-  //       state.generalevent_message = null;
-  //       state.generalevent_data = action.payload;
-  //     })
-  //     .addCase(Get_GeneralEvent_Fun.rejected, (state, action) => {
-  //       state.generalevent_isLoading = false;
-  //       state.generalevent_isError = true;
-  //       state.generalevent_message = action.payload;
-  //       state.generalevent_data = null;
-  //       state.generalevent_isSuccess = false;
-  //     })
-  //     .addCase(Get_Single_UserEvent_Fun.pending, (state) => {
-  //       state.singleEvent_isLoading = true;
-  //     })
-  //     .addCase(Get_Single_UserEvent_Fun.fulfilled, (state, action) => {
-  //       state.singleEvent_isLoading = false;
-  //       state.singleEvent_isSuccess = true;
-  //       state.singleEvent_isError = false;
-  //       state.singleEvent_message = null;
-  //       state.singleEvent_Data = action.payload;
-  //     })
-  //     .addCase(Get_Single_UserEvent_Fun.rejected, (state, action) => {
-  //       state.singleEvent_isLoading = false;
-  //       state.singleEvent_isError = true;
-  //       state.singleEvent_message = action.payload;
-  //       state.singleEvent_Data = null;
-  //       state.singleEvent_isSuccess = false;
-  //     });
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(Admin_Get_AllEvent_Fun.pending, (state) => {
+        state.Adminuserevent_isLoading = true;
+      })
+      .addCase(Admin_Get_AllEvent_Fun.fulfilled, (state, action) => {
+        state.Adminuserevent_isLoading = false;
+        state.Adminuserevent_isError = false;
+        state.Adminuserevent_isSuccess = true;
+        state.Adminuserevent_data = action.payload;
+        state.Adminuserevent_message = null;
+      })
+      .addCase(Admin_Get_AllEvent_Fun.rejected, (state, action) => {
+        state.Adminuserevent_isLoading = false;
+        state.Adminuserevent_isError = true;
+        state.Adminuserevent_message = action.payload;
+        state.Adminuserevent_data = null;
+        state.Adminuserevent_isSuccess = false;
+      });
+  },
 });
 
 export const { reset_MainEventSlice } = AdminMainEventSlice.actions;
