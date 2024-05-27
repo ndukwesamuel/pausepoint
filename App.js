@@ -33,7 +33,6 @@ import UserTabNavigation from "./navigation/User/UserTabNavigation";
 import AdminTabNavigation from "./navigation/Admin/AdminTabNavigation";
 import Adminnaviagetion from "./navigation/Admin/Adminnaviagetion";
 import { Usernaviagetion } from "./navigation/User/Usernaviagetion";
-import EventDetals from "./screens/Customerinterface/Events/EventDetals";
 import { UserProfile_data_Fun } from "./Redux/ProfileSlice";
 import { Get_User_Profle_Fun } from "./Redux/UserSide/UserProfileSlice";
 import { notificationservicecode } from "./utils/notificationservice";

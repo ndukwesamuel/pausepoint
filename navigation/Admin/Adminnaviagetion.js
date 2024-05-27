@@ -40,18 +40,15 @@ import VendorProfile from "../../screens/AdminInterface/Service/VendorProfile";
 import VendorList from "../../screens/AdminInterface/Service/VendorList";
 import VendorLists from "../../screens/AdminInterface/MarketPlace/VendorLists";
 import ProductDetails from "../../screens/AdminInterface/MarketPlace/ProductDetails";
+import AdminMainEvent from "../../screens/AdminInterface/Event/AdminMainEvent";
 
 const Stack = createStackNavigator();
 
-const SingleScreenWithBackButton = (
-  screenName: any,
-  component: any,
-  title: any
-) => {
+const SingleScreenWithBackButton = (screenName, component, title) => {
   return {
     name: screenName,
     component: component,
-    options: ({ navigation }: { navigation: any }) => ({
+    options: ({ navigation }) => ({
       title: title,
       headerStyle: {
         backgroundColor: "white",
@@ -179,6 +176,10 @@ const Adminnaviagetion = () => {
 
       <Stack.Screen
         {...SingleScreenWithBackButton("AdminGuest", AdminGuests, "Guest")}
+      />
+
+      <Stack.Screen
+        {...SingleScreenWithBackButton("AdminEvent", AdminMainEvent, "Event")}
       />
       <Stack.Screen
         {...SingleScreenWithBackButton(

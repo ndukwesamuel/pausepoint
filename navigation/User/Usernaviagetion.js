@@ -20,9 +20,9 @@ import PrivacyPolicy from "../../screens/Customerinterface/Help/PrivacyPolicy";
 import Share from "../../screens/Customerinterface/Help/Share";
 import CommentScreen from "../../screens/SharedScreen/CommentScreen";
 import Events from "../../screens/Customerinterface/Events/Events";
-import EventDetals from "../../screens/Customerinterface/Events/EventDetals";
+// import EventDetals from "../../screens/Customerinterface/Events/EventDetalsdddd";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CreatePrivateEvent from "../../screens/Customerinterface/Events/CreatePrivateEvent";
+import CreatePrivateEvent from "../../screens/Customerinterface/Events/CreateMainEvent";
 import CreatePublicEvent from "../../screens/Customerinterface/Events/CreatePublicEvent";
 import Commingsoon from "../../screens/SharedScreen/Commingsoon";
 import UserClans from "../../screens/Customerinterface/Clan/UserClans";
@@ -42,6 +42,9 @@ import Review from "../../screens/Customerinterface/Review";
 import VendorReview from "../../screens/Customerinterface/VendorReview";
 import MarketReview from "../../screens/Customerinterface/MarketPlace/MarketReview";
 
+import MainEvent from "../../screens/Customerinterface/Events/MainEvent";
+import CreateMainEvent from "../../screens/Customerinterface/Events/CreateMainEvent";
+import EventDetals from "../../screens/Customerinterface/Events/EventDetals";
 const Stack = createNativeStackNavigator();
 
 const SingleScreenWithBackButton = (screenName, component, title) => {
@@ -81,6 +84,12 @@ export const Usernaviagetion = () => {
       name: "CreatePrivateEvent",
       component: CreatePrivateEvent,
       title: "Create Private Event",
+    },
+
+    {
+      name: "CreateMainEvent",
+      component: CreateMainEvent,
+      title: "Create Main Event",
     },
 
     {
@@ -127,6 +136,12 @@ export const Usernaviagetion = () => {
     },
 
     {
+      name: "eventdetails",
+      component: EventDetals,
+      title: " Event Details",
+    },
+
+    {
       name: "userpolls",
       component: UserPolls,
       title: "Estate Polls",
@@ -163,7 +178,6 @@ export const Usernaviagetion = () => {
       component: VendorReview,
       title: "Reviews",
     },
-    
 
     {
       title: "ICE Contact",
@@ -218,7 +232,7 @@ export const Usernaviagetion = () => {
           ),
         })}
         name="userevents"
-        component={Events}
+        component={MainEvent}
       />
 
       <Stack.Screen
@@ -272,7 +286,7 @@ export const Usernaviagetion = () => {
       {screens.map((screen) =>
         createScreen(screen.name, screen.component, screen.title)
       )}
-
+      {/* 
       <Stack.Screen
         options={{
           headerShown: false,
@@ -287,6 +301,7 @@ export const Usernaviagetion = () => {
           "Review"
         )}
       />
+      /> */}
 
       <Stack.Screen
         options={({ navigation }) => ({

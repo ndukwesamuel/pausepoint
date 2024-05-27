@@ -50,7 +50,7 @@ import {
   reset_MainEventSlice,
 } from "../../../Redux/UserSide/MainEventSlice";
 
-const EventDetals = () => {
+const AdminEventDetals = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -76,9 +76,6 @@ const EventDetals = () => {
     user_message,
   } = useSelector((state) => state.AuthSlice);
 
-  console.log({
-    sss: user_data?.token,
-  });
   useEffect(() => {
     dispatch(Get_Single_UserEvent_Fun(itemdata?._id));
 
@@ -95,6 +92,7 @@ const EventDetals = () => {
     (data_info) => {
       const config = {
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json",
           //   "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${user_data?.token}`,
@@ -103,7 +101,7 @@ const EventDetals = () => {
 
       let url = `${API_BASEURL}resident-event/${singleEvent_Data?.events?._id}`;
 
-      return axios.delete(url, config);
+      return axios.delete(url, data_info, config);
     },
     {
       onSuccess: (success) => {
@@ -392,7 +390,7 @@ const EventDetals = () => {
   );
 };
 
-export default EventDetals;
+export default AdminEventDetals;
 
 const styles = StyleSheet.create({
   container: {

@@ -49,10 +49,6 @@ const Guests = () => {
     return () => {};
   }, [dispatch]);
 
-  console.log({
-    ttt: get_all_user_guest_data,
-  });
-
   const filteredData = get_all_user_guest_data?.userInvites?.filter((item) =>
     item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
   );

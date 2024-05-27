@@ -226,6 +226,14 @@ export default function AdminHome() {
               "VendorLists"
             )}
 
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Events",
+              savepost,
+              "AdminEvent"
+            )}
+
             {TabButton(currentTab, setCurrentTab, "Qrcode", qrcode, "scanner")}
             {TabButton(
               currentTab,

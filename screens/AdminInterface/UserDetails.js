@@ -48,9 +48,7 @@ export default function UserDetails({ navigation }) {
   };
 
   const route = useRoute();
-  console.log({
-    ttt: route,
-  });
+
   // const { item } = route.params as { item: any };
 
   const { item } = route.params;
