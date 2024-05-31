@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -6,37 +6,47 @@ import {
   TextInput,
   Image,
   Pressable,
+  FlatList,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { useDispatch, useSelector } from "react-redux";
+import { All_service_category_data_Fun } from "../../../Redux/UserSide/ServiceSlice";
 
 const Service = ({ navigation }) => {
+  dispatch = useDispatch();
+  const { all_service_category_data } = useSelector(
+    (state) => state.ServiceSlice
+  );
+  console.log({
+    ggg: all_service_category_data,
+  });
   const images = [
     {
       id: 1,
-      source: require("../../assets/sevImg/engineering.png"),
+      source: require("../../../assets/sevImg/engineering.png"),
       text: "Engineering",
     },
     {
       id: 2,
-      source: require("../../assets/sevImg/electricity.png"),
+      source: require("../../../assets/sevImg/electricity.png"),
       text: "Electricity",
     },
     {
-      source: require("../../assets/sevImg/cleaning.png"),
+      source: require("../../../assets/sevImg/cleaning.png"),
       text: "Cleaning",
     },
     {
-      source: require("../../assets/sevImg/rentals.png"),
+      source: require("../../../assets/sevImg/rentals.png"),
       text: "Rentals",
     },
     {
       id: 5,
-      source: require("../../assets/sevImg/chefs.png"),
+      source: require("../../../assets/sevImg/chefs.png"),
       text: "Chefs",
     },
     {
       id: 6,
-      source: require("../../assets/sevImg/others.png"),
+      source: require("../../../assets/sevImg/others.png"),
       text: "Others...",
     },
   ];
@@ -44,53 +54,59 @@ const Service = ({ navigation }) => {
   const engineering = [
     {
       id: 1,
-      source: require("../../assets/sevImg/engineering.png"),
+      source: require("../../../assets/sevImg/engineering.png"),
       text: "Cleaning",
     },
     {
       id: 2,
-      source: require("../../assets/sevImg/electricity.png"),
+      source: require("../../../assets/sevImg/electricity.png"),
       text: "Reparing",
     },
     {
       id: 3,
-      source: require("../../assets/sevImg/cleaning.png"),
+      source: require("../../../assets/sevImg/cleaning.png"),
       text: "Electrician",
     },
     {
       id: 4,
-      source: require("../../assets/sevImg/rentals.png"),
+      source: require("../../../assets/sevImg/rentals.png"),
       text: "Carpenter",
     },
     {
       id: 5,
-      source: require("../../assets/sevImg/chefs.png"),
+      source: require("../../../assets/sevImg/chefs.png"),
       text: "Repairing",
     },
     {
       id: 6,
-      source: require("../../assets/sevImg/cleaning.png"),
+      source: require("../../../assets/sevImg/cleaning.png"),
       text: "Electrician",
     },
     {
       id: 7,
-      source: require("../../assets/sevImg/rentals.png"),
+      source: require("../../../assets/sevImg/rentals.png"),
       text: "Carpenter",
     },
     {
       id: 8,
-      source: require("../../assets/sevImg/chefs.png"),
+      source: require("../../../assets/sevImg/chefs.png"),
       text: "Repairing",
     },
     {
       id: 9,
-      source: require("../../assets/sevImg/cleaning.png"),
+      source: require("../../../assets/sevImg/cleaning.png"),
       text: "Electrician",
     },
   ];
 
   const [tab, setTab] = React.useState("default");
   const filteredImages = tab !== "engineering" ? images : engineering;
+
+  useEffect(() => {
+    dispatch(All_service_category_data_Fun());
+
+    return () => {};
+  }, []);
 
   return (
     <View
@@ -118,6 +134,30 @@ const Service = ({ navigation }) => {
         </View>
       )}
       <View style={styles.container}>
+        {all_service_category_data.map((item, index) => (
+          <Pressable
+            onPress={() =>
+              tab === "default"
+                ? setTab("engineering")
+                : navigation.navigate("serviceview")
+            }
+            style={{
+              ...styles.card,
+              backgroundColor: index % 2 === 0 ? "#F3FFF3" : "#FFF1E7",
+              borderColor: index % 2 === 0 ? "#3DCF3A" : "#F27F2D",
+            }}
+            key={index}
+          >
+            <View>
+              <Image
+                source={require("../../../assets/sevImg/engineering.png")}
+                style={styles.image}
+              />
+              <Text style={styles.text}>{item.name}</Text>
+            </View>
+          </Pressable>
+        ))}
+
         {filteredImages.map((image, index) => (
           <Pressable
             onPress={() =>

@@ -217,6 +217,22 @@ export default function AdminHome() {
               "AdminEvent"
             )}
 
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Service",
+              savepost,
+              "Service"
+            )}
+
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "MarketPlace",
+              savepost,
+              "AdminMarketPlace"
+            )}
+
             {TabButton(currentTab, setCurrentTab, "Qrcode", qrcode, "scanner")}
             {TabButton(
               currentTab,

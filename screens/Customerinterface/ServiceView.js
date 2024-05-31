@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,84 +6,40 @@ import {
   TextInput,
   Image,
   Pressable,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { Rating } from "react-native-elements";
-import Icon from "react-native-vector-icons/Ionicons"; 
+import Icon from "react-native-vector-icons/Ionicons";
+import { useDispatch, useSelector } from "react-redux";
+import { All_service__data_Fun } from "../../Redux/UserSide/ServiceSlice";
 
-const ServiceView = ({navigation}) => {
-const items = [
-  {
-    id: 1,
-    source: require("../../assets/sevImg/mask.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: "21 years of experience ",
-  },
-  {
-    id: 2,
-    source: require("../../assets/sevImg/class.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: " 21 years of experience",
-  },
-  {
-    id: 3,
-    source: require("../../assets/sevImg/engr.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: " 21 years of experience",
-  },
-  {
-    id: 4,
-    source: require("../../assets/sevImg/mask.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: " 21 years of experience",
-  },
-  {
-    id: 5,
-    source: require("../../assets/sevImg/med.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: " 21 years of experience",
-  },
-  {
-    id: 6,
-    source: require("../../assets/sevImg/class.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: "21 years of experience ",
-  },
-  {
-    id: 7,
-    source: require("../../assets/sevImg/engr.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: " 21 years of experience",
-  },
-  {
-    id: 8,
-    source: require("../../assets/sevImg/mask.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: " 21 years of experience",
-  },
-  {
-    id: 9,
-    source: require("../../assets/sevImg/med.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: " 21 years of experience",
-  },
-  {
-    id: 10,
-    source: require("../../assets/sevImg/class.png"),
-    names: "James John",
-    title: "Mechanical Engr",
-    desc: " 21 years of experience",
-  },
-];
+const ServiceView = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { all_service__data } = useSelector((state) => state.ServiceSlice);
+  useEffect(() => {
+    dispatch(All_service__data_Fun());
+
+    return () => {};
+  }, [dispatch]);
+  console.log({
+    emeka: all_service__data?.vendors[0],
+  });
+  const [filteredUsers, setFilteredUsers] = useState(
+    all_service__data?.vendors
+  );
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (text) => {
+    setSearch(text);
+    if (text) {
+      const filtered = all_service__data?.vendors?.filter((user) =>
+        user?.FullName.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredUsers(filtered);
+    } else {
+      setFilteredUsers(all_service__data?.vendors);
+    }
+  };
 
   return (
     <View
@@ -93,13 +49,15 @@ const items = [
         backgroundColor: "white",
       }}
     >
-      <Text style={styles.text1}>Category:Engineering/Mechanical</Text>
+      {/* <Text style={styles.text1}>Category:Engineering/Mechanical</Text> */}
       <View style={styles.inputs}>
         <Icon name="search" size={20} color="#777" style={styles.icon} />
         <TextInput
           placeholder="Search by name..."
           style={styles.input}
           placeholderTextColor="#777"
+          value={search}
+          onChangeText={handleSearch}
         />
       </View>
 
@@ -111,17 +69,19 @@ const items = [
             flexWrap: "wrap",
           }}
         >
-          {items.map((item, id) => (
+          {filteredUsers?.map((item, id) => (
             <Pressable
               onPress={() => {
-                navigation.navigate("vendorService");
+                navigation.navigate("vendorService", { item: item });
               }}
               key={id}
             >
               <View style={styles.cards}>
                 <View style={styles.cardImage}>
                   <Image
-                    source={item.source}
+                    source={{
+                      uri: item?.photo?.url,
+                    }}
                     style={{
                       width: "100%",
                       height: 150,
@@ -140,9 +100,9 @@ const items = [
                     />
                   </Text>
 
-                  <Text style={styles.cardName}>{item.names}</Text>
-                  <Text style={styles.cardSubtitle}>{item.title}</Text>
-                  <Text style={styles.cardDescription}>{item.desc}</Text>
+                  <Text style={styles.cardName}>{item?.FullName}</Text>
+                  <Text style={styles.cardSubtitle}>{item.category?.name}</Text>
+                  {/* <Text style={styles.cardDescription}>{item.desc}</Text> */}
                 </View>
               </View>
             </Pressable>
@@ -151,7 +111,7 @@ const items = [
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   cards: {
@@ -218,4 +178,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ServiceView
+export default ServiceView;

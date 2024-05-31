@@ -33,7 +33,6 @@ import CreateGuests from "../../screens/Customerinterface/Guest/CreateGuests";
 import GuestsDetail from "../../screens/Customerinterface/Guest/GuestsDetail";
 import UserPolls from "../../screens/Customerinterface/Poll/UserPolls";
 import UserPollDetails from "../../screens/Customerinterface/Poll/UserPollDetails";
-import Service from "../../screens/Customerinterface/Service";
 import ServiceView from "../../screens/Customerinterface/ServiceView";
 import VendorService from "../../screens/Customerinterface/VendorService";
 import AboutUS from "../../screens/Customerinterface/About.tsx";
@@ -43,6 +42,10 @@ import VendorReview from "../../screens/Customerinterface/VendorReview";
 import MainEvent from "../../screens/Customerinterface/Events/MainEvent";
 import CreateMainEvent from "../../screens/Customerinterface/Events/CreateMainEvent";
 import EventDetals from "../../screens/Customerinterface/Events/EventDetals";
+import Service from "../../screens/Customerinterface/Service/Service";
+import MarketPlace from "../../screens/Customerinterface/MarketPlace/Marketplace";
+import MarketReview from "../../screens/Customerinterface/MarketPlace/MarketReview";
+import CreateProduct from "../../screens/Customerinterface/MarketPlace/CreateProduct";
 const Stack = createNativeStackNavigator();
 
 const SingleScreenWithBackButton = (screenName, component, title) => {
@@ -153,14 +156,27 @@ export const Usernaviagetion = () => {
 
     {
       name: "service",
-      component: Service,
-      title: "Services",
-    },
-    {
-      name: "serviceview",
       component: ServiceView,
       title: "Services",
     },
+    {
+      name: "Marketplace",
+      component: MarketPlace,
+      title: "Market Place",
+    },
+
+    {
+      name: "MarketReview",
+      component: MarketReview,
+      title: "Market Review",
+    },
+
+    {
+      name: "CreateProduct",
+      component: CreateProduct,
+      title: "Create Product",
+    },
+
     {
       name: "vendorService",
       component: VendorService,

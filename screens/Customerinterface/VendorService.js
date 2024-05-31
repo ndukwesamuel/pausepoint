@@ -1,3 +1,4 @@
+import { useRoute } from "@react-navigation/native";
 import React from "react";
 import {
   View,
@@ -6,21 +7,37 @@ import {
   Image,
   Pressable,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { Rating } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const VendorService = ({ navigation }) => {
+  const item = useRoute().params?.item;
+  console.log({
+    item: item,
+  });
+
+  const makePhoneCall = () => {
+    // Alert.alert("Call Support", "Are you sure you want to call support?");
+    // Linking.openURL(
+    //   `${Admin_Get_Single_Emergency_Report?.userProfile?.phoneNumber} || 080`
+    // );
+    Linking.openURL(`tel:${item?.phone_number}`);
+  };
   return (
     <View style={{ backgroundColor: "white" }}>
       <View style={styles.container}>
         <View style={styles.container1}>
-          <Image source={require("../../assets/sevImg/profile.png")} />
+          <Image
+            source={{ uri: item?.photo?.url }}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+          />
           <Text style={{ paddingTop: 10, fontWeight: "bold", fontSize: 20 }}>
-            James John
+            {item?.FullName}
           </Text>
           <Text style={{}}>Builder</Text>
-          <Text>21 years of experience</Text>
+          <Text>{item?.years_of_experience} years of experience</Text>
         </View>
         <View
           style={{
@@ -79,12 +96,12 @@ const VendorService = ({ navigation }) => {
           </Text>
           <Text>
             <Icon name="phone" size={20} color="green" />
-            <Text> 070 4583 9007 </Text>
+            <Text> {item?.phone_number} </Text>
           </Text>
 
           <Text>
             <Icon name="map-marker" size={20} color="green" />
-            <Text> 517 Washington Ave, Machester,Kenturky 39004</Text>
+            <Text>{item?.address}</Text>
           </Text>
         </View>
         <View
@@ -102,7 +119,10 @@ const VendorService = ({ navigation }) => {
           <Text>Weekends 09:00am - 08:00pm</Text>
         </View>
         <View>
-          <TouchableOpacity style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={makePhoneCall}
+          >
             <Icon name="phone" size={30} color="white" style={styles.icon} />
             <Text style={styles.text}>Call Now</Text>
           </TouchableOpacity>

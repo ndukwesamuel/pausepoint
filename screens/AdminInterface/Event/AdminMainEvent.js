@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainEvent;
+export default AdminMainEvent;
 
 const MyEvent = () => {
   const { all_public_event_data, host_event, all_host_public_event } =

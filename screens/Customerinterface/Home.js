@@ -153,6 +153,16 @@ export default function App({ navigation }) {
                 // "Neigborhood"
                 "service"
               )}
+
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                "Marketplace",
+                service,
+                // "Neigborhood"
+                "Marketplace"
+              )}
+
               {TabButton(
                 currentTab,
                 setCurrentTab,
