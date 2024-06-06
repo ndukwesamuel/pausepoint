@@ -84,7 +84,7 @@ const VendorList = ({ navigation }) => {
         />
       </View> */}
       <ScrollView>
-        {filteredVendors.map((item, index) => (
+        {filteredVendors?.map((item, index) => (
           <View key={index} style={styles.itemContainer}>
             <Image
               source={{

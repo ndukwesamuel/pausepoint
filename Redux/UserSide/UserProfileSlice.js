@@ -18,10 +18,16 @@ const initialState = {
   get_user_profile_isSuccess: false,
   get_user_profile_isLoading: false,
   get_user_profile_message: null,
+
+  get_all_user_data: null,
+  get_all_user_isError: false,
+  get_all_user_isSuccess: false,
+  get_all_user_isLoading: false,
+  get_all_user_message: null,
 };
 
 export const Get_User_Profle_Fun = createAsyncThunk(
-  "ClanSlice/Get_User_Profle_Fun",
+  "UserProfileSlice/Get_User_Profle_Fun",
   async (_, thunkAPI) => {
     try {
       let mydata = thunkAPI.getState().AuthSlice.user_data;
@@ -35,6 +41,33 @@ export const Get_User_Profle_Fun = createAsyncThunk(
       };
 
       const response = await axios.get(`${API_BASEURL}profile`, config);
+
+      return response.data;
+    } catch (error) {
+      const errorMessage = handleApiError(error);
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const Get_All_User_Profle_Fun = createAsyncThunk(
+  "UserProfileSlice/Get_All_User_Profle_Fun",
+  async (_, thunkAPI) => {
+    try {
+      let mydata = thunkAPI.getState().AuthSlice.user_data;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${mydata?.token}`,
+        },
+      };
+
+      const response = await axios.get(`${API_BASEURL}users`, config);
+      console.log({
+        kaka: response.data,
+      });
 
       return response.data;
     } catch (error) {
@@ -77,6 +110,23 @@ export const UserProfileSlice = createSlice({
         state.get_user_profile_message = action.payload;
         state.get_user_profile_data = null;
         state.get_user_profile_isSuccess = false;
+      })
+      .addCase(Get_All_User_Profle_Fun.pending, (state) => {
+        state.get_all_user_isLoading = true;
+      })
+      .addCase(Get_All_User_Profle_Fun.fulfilled, (state, action) => {
+        state.get_all_user_isLoading = false;
+        state.get_all_user_isError = false;
+        state.get_all_user_message = null;
+        state.get_all_user_data = action.payload;
+        state.get_all_user_isSuccess = true;
+      })
+      .addCase(Get_All_User_Profle_Fun.rejected, (state, action) => {
+        state.get_all_user_isLoading = false;
+        state.get_all_user_isError = true;
+        state.get_all_user_message = action.payload;
+        state.get_all_user_data = null;
+        state.get_all_user_isSuccess = false;
       });
   },
 });
