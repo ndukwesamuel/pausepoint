@@ -8,6 +8,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 import React, { useEffect, useState } from "react";
 import { Audio } from "expo-av";
+import io from "socket.io-client";
 
 import Constants from "expo-constants";
 import { useCallback } from "react";
@@ -36,6 +37,8 @@ import { Usernaviagetion } from "./navigation/User/Usernaviagetion";
 import { UserProfile_data_Fun } from "./Redux/ProfileSlice";
 import { Get_User_Profle_Fun } from "./Redux/UserSide/UserProfileSlice";
 import { notificationservicecode } from "./utils/notificationservice";
+import { API_BASEURL } from "@env";
+import { setOnlineUser, setSocketConnection } from "./Redux/socketSlice";
 
 const queryClient = new QueryClient();
 
@@ -204,6 +207,30 @@ export const MainScreen = ({}) => {
   //   return () => {};
   // }, []);
 
+  console.log({
+    ddd: user_data,
+    API_BASEURL,
+  });
+
+  useEffect(() => {
+    const socketConnection = io(API_BASEURL, {
+      auth: {
+        token: user_data?.token,
+      },
+    });
+
+    socketConnection.on("onlineUser", (data) => {
+      console.log(data);
+      dispatch(setOnlineUser(data));
+    });
+
+    console.log({ yyy: socketConnection });
+    dispatch(setSocketConnection(socketConnection));
+
+    return () => {
+      socketConnection.disconnect();
+    };
+  }, []);
   return (
     <Stack.Navigator
       initialRouteName="UserNavigation"

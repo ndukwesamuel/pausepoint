@@ -12,6 +12,7 @@ import Home from '../../screens/Customerinterface/Home';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Guests from '../../screens/Customerinterface/Guest/Guests';
 import Myclan from '../../screens/Customerinterface/Clan/Myclan';
+import Neigborhood from '../../screens/Customerinterface/Neigborhood';
 
 
 
@@ -86,7 +87,7 @@ const UserTabNavigation = () => {
 
                 <Tab.Screen
                     options={{
-                        title: "Clan",
+                        title: "Neigborhood",
                         tabBarActiveTintColor: "#005091",
                         headerShown: false,
                         tabBarIcon: ({ focused }) => {
@@ -95,7 +96,7 @@ const UserTabNavigation = () => {
                                     focused={focused}
                                     iconFocused={require('../../assets/images/history.png')}
                                     iconUnfocused={require('../../assets/images/historyhistory2.png')}
-                                    label="Clan"
+                                    label="Neigborhood"
                                     containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
                                     texttStyle={{ color: "#000000" }}
                                 />
@@ -105,7 +106,7 @@ const UserTabNavigation = () => {
                         },
                     }}
 
-                    name="History" component={Myclan} />
+                    name="History" component={Neigborhood} />
 
 
                 <Tab.Screen name="Home" component={Home}

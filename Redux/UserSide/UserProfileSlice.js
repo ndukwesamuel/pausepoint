@@ -50,6 +50,37 @@ export const Get_User_Profle_Fun = createAsyncThunk(
   }
 );
 
+export const Profle_Fun = createAsyncThunk(
+  "UserProfileSlice/Profle_Fun",
+  async (_, thunkAPI) => {
+    console.log("thhjsjdhsdjh");
+    try {
+      let mydata = thunkAPI.getState().AuthSlice.user_data;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          // Authorization: `Bearer ${mydata?.token}`,
+        },
+      };
+
+      const response = await axios.get(`https://102.89.43.151:5050`);
+      console.log({
+        uuuu: response,
+      });
+
+      return response.data;
+    } catch (error) {
+      console.log({
+        eee: error,
+      });
+      const errorMessage = handleApiError(error);
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
+
 export const Get_All_User_Profle_Fun = createAsyncThunk(
   "UserProfileSlice/Get_All_User_Profle_Fun",
   async (_, thunkAPI) => {
