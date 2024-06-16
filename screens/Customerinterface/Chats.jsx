@@ -1,5 +1,5 @@
 import { useRoute } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -28,6 +28,8 @@ const Chats = () => {
     otheruser_id,
   });
 
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const flatListRef = useRef(null);
   const socketConnection = useSelector(
     (state) => state?.socketSlice?.socketConnection
   );
@@ -140,6 +142,14 @@ const Chats = () => {
 
   useEffect(() => {
     if (socketConnection) {
+      let user_Sender_id = user_data?.user?.id;
+      let user_Receiver_id = otheruser_id;
+
+      socketConnection.emit("fetch-conversation", {
+        sender: user_Sender_id,
+        receiver: user_Receiver_id,
+      });
+
       socketConnection.emit("message-page", otheruser_id);
 
       socketConnection.emit("seen", otheruser_id);
@@ -151,6 +161,10 @@ const Chats = () => {
         setDataUser(data);
       });
 
+      socketConnection.on("conversation-history", (data) => {
+        setAllMessage(data);
+      });
+
       socketConnection.on("message", (data) => {
         console.log("message data", data);
         setAllMessage(data);
@@ -158,6 +172,33 @@ const Chats = () => {
     }
   }, [socketConnection, otheruser_id, user_data]);
 
+  const handleContentSizeChange = () => {
+    if (!isUserScrolling && allMessage.length > 0) {
+      flatListRef.current.scrollToIndex({
+        index: allMessage.length - 1,
+        animated: true,
+      });
+    }
+  };
+
+  const handleScroll = (event) => {
+    const { contentOffset } = event.nativeEvent;
+    const isScrollingUpward = contentOffset.y > 0;
+    setIsUserScrolling(isScrollingUpward);
+  };
+
+  const getItemLayout = (data, index) => ({
+    length: 70, // Adjust this based on the height of your message items
+    offset: 70 * index,
+    index,
+  });
+
+  const handleScrollToIndexFailed = (info) => {
+    const wait = new Promise((resolve) => setTimeout(resolve, 500));
+    wait.then(() => {
+      flatListRef.current?.scrollToIndex({ index: info.index, animated: true });
+    });
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"} // Choose the behavior based on the platform
@@ -185,12 +226,20 @@ const Chats = () => {
           fire: allMessage,
         })}
         <FlatList
+          ref={flatListRef}
           data={allMessage}
           keyExtractor={(message) => message._id}
+          getItemLayout={getItemLayout}
+          onScrollToIndexFailed={handleScrollToIndexFailed}
+          onContentSizeChange={handleContentSizeChange}
+          onScroll={handleScroll}
           renderItem={({ item }) => (
             <View
               style={{
-                alignSelf: item.sender === "User1" ? "flex-end" : "flex-start",
+                alignSelf:
+                  item?.msgByUserId === user_data?.user?.id
+                    ? "flex-end"
+                    : "flex-start",
               }}
             >
               {console.log({
@@ -202,7 +251,9 @@ const Chats = () => {
                     padding: 10,
                     margin: 5,
                     backgroundColor:
-                      item.sender === "User1" ? "#B9B9B94D" : "#F3FFF3",
+                      item?.msgByUserId === user_data?.user?.id
+                        ? "#B9B9B94D"
+                        : "#F3FFF3",
                     borderRadius: 10,
                     color: "black",
                   }}
