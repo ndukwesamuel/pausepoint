@@ -8,13 +8,14 @@ import { RootStackParamList } from '../../navigation/AppNavigation';
 import ForumModal from '../Forum/ForumModal';
 import { reset_login } from '../../Redux/AuthSlice';
 import { useDispatch } from 'react-redux';
-import { reset_isOnboarding } from '../../Redux/DontwantToResetSlice';
+// import { reset_isOnboarding } from '../../Redux/DontwantToResetSlice';
 import { reset_Admin_Get_All_User } from '../../Redux/Admin/UserSlice';
 import { reset_ClanSlice } from '../../Redux/UserSide/ClanSlice';
 import { reset_EventSlice } from '../../Redux/UserSide/EventSlice';
 import { reset_ForumSlice } from '../../Redux/UserSide/ForumSlice';
 import { reset_UserProfileSlice } from '../../Redux/UserSide/UserProfileSlice';
 import { reset_ProfileSlice } from '../../Redux/ProfileSlice';
+import { reset_isOnboarding } from '../../Redux/OnboardingSlice';
 
 
 type GeneralData = {

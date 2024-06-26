@@ -187,26 +187,6 @@ export const MainScreen = ({}) => {
     };
   }, []);
 
-  // const soundObject = new Audio.Sound();
-
-  // async function emargencysong() {
-  //   try {
-  //     if (!soundObject._loaded) {
-  //       await soundObject.loadAsync(require("./assets/blowoffire.mp3"));
-  //     }
-  //     await soundObject.replayAsync();
-  //     console.log("Sound played successfully");
-  //   } catch (error) {
-  //     console.error("Failed to play the sound", error);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   notificationservicecode();
-
-  //   return () => {};
-  // }, []);
-
   console.log({
     ddd: user_data,
     API_BASEURL,

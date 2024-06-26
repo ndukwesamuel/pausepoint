@@ -36,7 +36,7 @@ const Neigborhood = () => {
   const { user_data } = useSelector((state) => state.AuthSlice);
 
   useEffect(() => {
-    // dispatch(Get_All_User_Profle_Fun());
+    dispatch(Get_All_User_Profle_Fun());
     dispatch(Profle_Fun());
 
     return () => {};
