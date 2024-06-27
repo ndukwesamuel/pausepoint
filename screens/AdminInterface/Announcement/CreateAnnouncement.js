@@ -23,7 +23,8 @@ import UploadFile from "../../../components/UserHome/UploadFile";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";

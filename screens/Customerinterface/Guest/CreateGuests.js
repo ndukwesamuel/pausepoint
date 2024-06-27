@@ -24,7 +24,8 @@ import { RegularFontText } from "../../../components/shared/Paragrahp";
 import { formatDateString } from "../../../utils/DateTime";
 import LottieView from "lottie-react-native";
 import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import {

@@ -6,7 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppScreen from '../shared/AppScreen';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigation';
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import { useDispatch } from 'react-redux';
 import { checkOnboarding } from '../../Redux/OnboardingSlice';
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;

@@ -29,7 +29,8 @@ import ReuseModals, {
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import LottieView from "lottie-react-native";

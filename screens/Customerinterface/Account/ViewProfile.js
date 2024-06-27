@@ -24,7 +24,8 @@ import { useRoute } from "@react-navigation/native";
 // import { HalfScreenModal } from "../../components/shared/ReuseableModal";
 // import { Admin_Get_Single_User_Fun } from "../../Redux/Admin/UserSlice";
 import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Toast from "react-native-toast-message";

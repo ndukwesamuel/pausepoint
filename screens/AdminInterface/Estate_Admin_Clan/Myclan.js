@@ -26,7 +26,8 @@ import {
 } from "../../../components/shared/ReuseModals";
 
 import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import axios from "axios";
 import Toast from "react-native-toast-message";
 

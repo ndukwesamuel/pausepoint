@@ -106,6 +106,9 @@ const LoginScreen = ({}) => {
     });
 
     dispatch(setOtpEmail(email));
+    console.log({
+      data,
+    });
     dispatch(Login_Fun(data));
   };
 

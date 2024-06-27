@@ -11,7 +11,8 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
 import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,12 +48,11 @@ const ProductDetails = ({ navigation }) => {
           type: "success",
           text1: " successfully ",
         });
-    dispatch(AdminMarket_data_Fun());
-
+        dispatch(AdminMarket_data_Fun());
 
         navigation.goBack();
         // dispatch(Get_My_Clan_Forum_Fun());
-        
+
         // setTurnmodal(false);
       },
 

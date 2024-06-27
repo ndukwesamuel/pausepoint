@@ -24,7 +24,8 @@ import { Get_My_Clan_Forum_Fun } from "../../Redux/UserSide/ForumSlice";
 import { formatDate, formatDateandTime } from "../../utils/DateTime";
 import LottieView from "lottie-react-native";
 import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import axios from "axios";
 import Toast from "react-native-toast-message";
 

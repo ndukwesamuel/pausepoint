@@ -3,7 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import { AnyIfEmpty } from "react-redux";
 import Toast from "react-native-toast-message";
 import { handleApiError } from "../shareApi";

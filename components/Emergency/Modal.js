@@ -18,7 +18,8 @@ import { FormLabel, Formbutton, Forminput } from "../shared/InputForm";
 import { MediumFontText } from "../shared/Paragrahp";
 
 import { useMutation } from "react-query";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import LottieView from "lottie-react-native";

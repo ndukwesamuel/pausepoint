@@ -37,7 +37,8 @@ import { Usernaviagetion } from "./navigation/User/Usernaviagetion";
 import { UserProfile_data_Fun } from "./Redux/ProfileSlice";
 import { Get_User_Profle_Fun } from "./Redux/UserSide/UserProfileSlice";
 import { notificationservicecode } from "./utils/notificationservice";
-import { API_BASEURL } from "@env";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 import { setOnlineUser, setSocketConnection } from "./Redux/socketSlice";
 
 const queryClient = new QueryClient();
