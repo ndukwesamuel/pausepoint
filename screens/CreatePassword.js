@@ -21,38 +21,36 @@ import {
   Forminput,
   Forminputpassword,
 } from "../components/shared/InputForm";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
+
 import axios from "axios";
 import Toast from "react-native-toast-message";
+import { authScreenChange } from "../Redux/OnboardingSlice";
 
 import { useMutation } from "react-query";
 const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
 
-import { useNavigation } from "@react-navigation/native";
-import { authScreenChange } from "../Redux/OnboardingSlice";
-import { setOtpEmail } from "../Redux/DontwantToResetSlice";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
 
-const ForgottenPasswod = ({}) => {
-  const navigation = useNavigation();
-
-  const dispatch = useDispatch();
+const CreatePassword = ({ navigation }) => {
   const [inputValue, setInputValue] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
+
+  const { otpemail } = useSelector((state) => state?.DontwantToResetSlice);
+  console.log({
+    otpemail,
+  });
+
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const {
-    user_data,
-    user_isError,
-    user_isSuccess,
-    user_isLoading,
-    user_message,
-  } = useSelector((state) => state.AuthSlice);
+  const [otp, setOtp] = useState("");
 
-  const [remember, setRemember] = useState(false);
+  const [privacypolicy, setPrivacypolicy] = useState(false);
+  const [privacyPolicyColor, setPrivacyPolicyColor] = useState("#04973C");
 
   const [passwords, setPasswords] = useState({
     mainPassword: "",
@@ -69,6 +67,17 @@ const ForgottenPasswod = ({}) => {
   const handleSubmit = () => {
     console.log("Current Password:", passwords.mainPassword);
     console.log("New Password:", passwords.confirmPassword);
+    console.log({
+      otp,
+    });
+
+    let data = {
+      email: otpemail,
+      otp: otp,
+      passoword: passwords?.mainPassword,
+    };
+
+    CreatePassword_Mutation.mutate(data);
     // Add your password change logic here, e.g., sending it to a server
   };
 
@@ -76,20 +85,20 @@ const ForgottenPasswod = ({}) => {
     setInputValue(text);
   };
 
-  const Forget_Mutation = useMutation(
+  const CreatePassword_Mutation = useMutation(
     (data_info) => {
-      let url = `${API_BASEURL}forgot-password`;
+      let url = `${API_BASEURL}reset-forgotten-password`;
 
       const config = {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
           //   "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${user_data?.token}`,
+          // Authorization: `Bearer ${user_data?.token}`,
         },
       };
 
-      return axios.post(url, data_info, config);
+      return axios.post(url, data_info);
     },
     {
       onSuccess: (success) => {
@@ -106,7 +115,7 @@ const ForgottenPasswod = ({}) => {
 
       onError: (error) => {
         console.log({
-          aaa: error?.response,
+          aaa: error?.response?.data,
         });
         Toast.show({
           type: "error",
@@ -121,33 +130,54 @@ const ForgottenPasswod = ({}) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
+        <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+          <TouchableOpacity
+            style={{ marginBottom: 30 }}
+            onPress={() => dispatch(authScreenChange("LOGIN"))}
+          >
+            <AntDesign name="arrowleft" size={28} color="black" />
+          </TouchableOpacity>
+        </View>
         <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20 }}>
-          <View style={{ flex: 1 }}>
-            {/* <TouchableOpacity style={{ marginBottom: 30 }}
-                            onPress={() => navigation.goBack()}> */}
+          <RegistraionHeadersText data="Create New Password " textStyle={{}} />
 
-            <TouchableOpacity
-              style={{ marginBottom: 30 }}
-              onPress={() => dispatch(authScreenChange("LOGIN"))}
-            >
-              <AntDesign name="arrowleft" size={28} color="black" />
-            </TouchableOpacity>
+          <RegistraionParagraphText
+            data="Please enter your new password, and ensure to keep it safe."
+            color="#8E8E8F"
+          />
 
-            <RegistraionHeadersText data="Forgotten Passwod  " textStyle={{}} />
+          <RegistraionParagraphText data={otpemail} color="#8E8E8F" />
 
-            <View style={{ flexDirection: "row", gap: 10, marginBottom: 30 }}>
-              <RegistraionParagraphText
-                data="Please enter your email address below, we’ll send you a verification code."
-                color="#8E8E8F"
+          <View style={{ flex: 1, marginTop: 20 }}>
+            <View style={{ marginBottom: 15 }}>
+              <FormLabel data="OTP " />
+              <Forminput
+                placeholder="Enter your email"
+                onChangeText={setOtp}
+                value={otp}
+              />
+            </View>
+            <View style={{ marginBottom: 20 }}>
+              <FormLabel data="Password " />
+
+              <Forminputpassword
+                placeholder="Enter your password"
+                onChangeText={(text) =>
+                  handlePasswordChange("mainPassword", text)
+                }
+                value={passwords.mainPassword}
               />
             </View>
 
-            <View style={{ marginBottom: 15 }}>
-              <FormLabel data="Email " />
-              <Forminput
-                placeholder="Enter your email"
-                onChangeText={setEmail}
-                value={email}
+            <View style={{ marginBottom: 20 }}>
+              <FormLabel data="Confirm Password " />
+
+              <Forminputpassword
+                placeholder="Enter your password"
+                onChangeText={(text) =>
+                  handlePasswordChange("confirmPassword", text)
+                }
+                value={passwords.confirmPassword}
               />
             </View>
           </View>
@@ -167,12 +197,8 @@ const ForgottenPasswod = ({}) => {
                 fontFamily: "RobotoSlab-Medium",
               }}
               data="Submit"
-              onPress={() => {
-                dispatch(setOtpEmail(email));
-
-                Forget_Mutation.mutate({ email });
-              }}
-              isLoading={Forget_Mutation.isLoading}
+              onPress={handleSubmit}
+              isLoading={CreatePassword_Mutation.isLoading}
             />
           </View>
         </View>
@@ -181,6 +207,16 @@ const ForgottenPasswod = ({}) => {
   );
 };
 
-export default ForgottenPasswod;
+export default CreatePassword;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  customInput: {
+    borderWidth: 1,
+    borderColor: "red",
+    padding: 10,
+    borderRadius: 5,
+    fontSize: 16,
+    backgroundColor: "#f6f8fa",
+    // opacity: 0.4
+  },
+});

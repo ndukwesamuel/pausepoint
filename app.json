@@ -3,7 +3,7 @@
     "name": "PausePoint",
     "slug": "PausePoint",
     "orientation": "portrait",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -33,7 +33,7 @@
       }
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -48,7 +48,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "e012faf4-1814-4ba6-986a-167a537c8ea3"
+        "projectId": "c0923b5f-79c7-403c-86be-9e150b698494"
       }
     }
   }

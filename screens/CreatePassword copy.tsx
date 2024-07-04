@@ -48,6 +48,15 @@ const CreatePassword = ({ navigation }: { navigation: any }) => {
     const handleInputChange = (text: string) => {
         setInputValue(text);
     };
+
+
+    const handelsubmit = () => {
+        console.log({
+            passwords
+        });
+
+
+    }
     return (
 
         <AppScreen>
@@ -57,7 +66,7 @@ const CreatePassword = ({ navigation }: { navigation: any }) => {
                 style={{ flex: 1 }}>
                 <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20 }}>
 
-                    <RegistraionHeadersText data="Create New Password" textStyle={{}} />
+                    <RegistraionHeadersText data="Create New Password ss" textStyle={{}} />
 
 
 

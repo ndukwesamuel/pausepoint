@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { reset_login } from "../Redux/AuthSlice";
 import OTP from "./OTP";
 import { authScreenChange } from "../Redux/OnboardingSlice";
+import CreatePassword from "./CreatePassword";
 
 const Auth = () => {
   const { userlogin } = useSelector((state) => state?.OnboardingSlice);
@@ -82,6 +83,7 @@ const Auth = () => {
       {userlogin === "REGISTER" && <Registraion />}
 
       {userlogin === "FORGOTTENPASSWOD" && <ForgottenPasswod />}
+      {userlogin === "CREATEPASSWORD" && <CreatePassword />}
     </View>
   );
 };

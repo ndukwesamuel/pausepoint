@@ -37,7 +37,7 @@ export const OnboardingSlice = createSlice({
       });
 
       state.userlogin = action.payload; // or action.type, depending on what you need
-      console.log("this is userlogin", state.userlogin);
+      // console.log("this is userlogin", state.userlogin);
 
     },
 

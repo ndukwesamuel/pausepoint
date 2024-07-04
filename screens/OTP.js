@@ -150,6 +150,7 @@ const OTP = ({}) => {
               onPress={() => {
                 dispatch(reset_login());
                 dispatch(reset_isOnboarding());
+                // dispatch(authScreenChange("LOGIN"));
 
                 // navigation.goBack();
               }}

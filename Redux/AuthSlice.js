@@ -24,12 +24,10 @@ const initialState = {
 const Login_Fun_Service = async (data) => {
   let url = `${API_BASEURL}login`;
 
-  console.log({ dd: API_BASEURL });
+  console.log({ dd: url });
 
   try {
     const response = await axios.post(url, data);
-
-    console.log({ response: response.data });
 
     return response.data;
   } catch (error) {
@@ -46,7 +44,7 @@ export const Login_Fun = createAsyncThunk(
       return await Login_Fun_Service(data);
     } catch (error) {
       console.log({
-        fff: error?.response,
+        fff: error?.response?.data,
       });
       const errorMessage = handleApiError(error);
       return thunkAPI.rejectWithValue(errorMessage);
