@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,23 +18,48 @@ import {
   Get_all_admin_Service__Fun,
   Get_all_Categoryes__Fun,
 } from "../../../Redux/Admin/AdminServiceSlice";
+import LottieView from "lottie-react-native";
 
 const VendorList = ({ navigation }) => {
   const dispatch = useDispatch();
   const { get_all_admin_Service_data, categoryes_data } = useSelector(
     (state) => state.AdminServiceSlice
   );
-  const [category, setCategory] = useState("All");
 
   console.log({
-    emem: categoryes_data,
+    s: get_all_admin_Service_data,
   });
+  const [category, setCategory] = useState("All");
+  const animation = useRef(null);
+
   useEffect(() => {
     dispatch(Get_all_admin_Service__Fun());
     dispatch(Get_all_Categoryes__Fun());
 
     return () => {};
-  }, [dispatch, get_all_admin_Service_data]);
+  }, [dispatch]);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  // const onRefresh = () => {
+  //   console.log({
+  //     qqemem: categoryes_data,
+  //   });
+  //   // Set the refreshing state to true
+  //   setRefreshing(true);
+  //   dispatch(Get_all_admin_Service__Fun());
+  //   dispatch(Get_all_Categoryes__Fun());
+
+  //   // Wait for 2 seconds
+  //   setRefreshing(false);
+  // };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await dispatch(Get_all_admin_Service__Fun());
+    await dispatch(Get_all_Categoryes__Fun());
+    setRefreshing(false);
+  };
 
   const handleCategory = (item) => {};
   const filteredVendors =
@@ -41,6 +68,56 @@ const VendorList = ({ navigation }) => {
       : get_all_admin_Service_data?.vendors.filter(
           (vendor) => vendor?.category?.slug === category
         );
+
+  const renderItem = ({ item, index }) => (
+    <View style={styles.serviceItem}>
+      <View key={index} style={styles.itemContainer}>
+        <Image
+          source={{
+            uri: item?.photo?.url,
+          }}
+          style={{ width: 56, height: 56, borderRadius: 50 }}
+        />
+        <View>
+          <Text style={styles.itemName}>{item?.FullName}</Text>
+          <View style={styles.itemDetails}>
+            <Text>{item?.category?.slug}</Text>
+            <Text>23 reviews</Text>
+            <View style={styles.ratingContainer}>
+              <Icon name="star" size={15} color="#04973C" />
+              <Text style={styles.ratingText}>5</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+
+  const renderEmptyList = () => (
+    <ScrollView
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <LottieView
+        autoPlay
+        ref={animation}
+        style={{
+          width: 200,
+          height: 200,
+          // backgroundColor: "#eee",
+        }}
+        // Find more Lottie files at https://lottiefiles.com/featured
+        source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
+      />
+    </ScrollView>
+    // <Text style={styles.emptyText}>No products available.</Text>
+  );
 
   return (
     <View style={styles.container}>
@@ -53,59 +130,18 @@ const VendorList = ({ navigation }) => {
         />
       </View>
 
-      {/* <View style={styles.serviceListContainer}>
-  
-
-        <FlatList
-          data={categoryes_data}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                console.log({
-                  service: item,
-                });
-                setCategory(item.slug);
-              }}
-              style={{ gap: 10 }}
-            >
-              <Text style={styles.serviceItem}>{item.slug}</Text>
-            </TouchableOpacity>
-          )}
-          ItemSeparatorComponent={() => (
-            <View
-              style={{
-                width: 10,
-              }}
-            />
-          )}
-        />
-      </View> */}
-      <ScrollView>
-        {filteredVendors?.map((item, index) => (
-          <View key={index} style={styles.itemContainer}>
-            <Image
-              source={{
-                uri: item?.photo?.url,
-              }}
-              style={{ width: 56, height: 56, borderRadius: 50 }}
-            />
-            <View>
-              <Text style={styles.itemName}>{item?.FullName}</Text>
-              <View style={styles.itemDetails}>
-                <Text>{item?.category?.slug}</Text>
-                <Text>23 reviews</Text>
-                <View style={styles.ratingContainer}>
-                  <Icon name="star" size={15} color="#04973C" />
-                  <Text style={styles.ratingText}>5</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
+      {refreshing && <ActivityIndicator size="large" color="#04973C" />}
+      {/* <ScrollView> */}
+      <FlatList
+        data={filteredVendors}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        ListEmptyComponent={renderEmptyList}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      />
+      {/* </ScrollView> */}
 
       <Pressable
         style={{

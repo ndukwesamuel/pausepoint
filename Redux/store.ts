@@ -23,6 +23,7 @@ import AdminServiceSlice from "./Admin/AdminServiceSlice";
 import MarketSLice from "./UserSide/MarketSLice";
 import AdminMarketSLice from "./Admin/AdminMarketSLice";
 import socketSlice from "./socketSlice";
+import UtilitisSlice from "./UtilitisSlice";
 
 // import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
@@ -47,6 +48,7 @@ const reducers = combineReducers({
 ServiceSlice:ServiceSlice,
 MarketSLice:MarketSLice,
 AdminMarketSLice:AdminMarketSLice,
+UtilitisSlice:UtilitisSlice,
 socketSlice:socketSlice
  
 });

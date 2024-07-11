@@ -27,6 +27,11 @@ import qrcode from "../../assets/qrcode.png";
 import search from "../../assets/search.png";
 import color_swatch from "../../assets/color-swatch.png";
 
+import calendar from "../../assets/calendar.png";
+import guest_icon from "../../assets/guest.png";
+import service from "../../assets/customer-support.png";
+import market from "../../assets/market.png";
+
 import emergencies_icon from "../../assets/images/info-circle.png";
 import savepost from "../../assets/bookmark.png";
 import logout from "../../assets/logout.png";
@@ -146,10 +151,10 @@ export default function AdminHome() {
           >
             {userProfile_data?.user?.name}
           </Text>
-          <RegularFontText
+          {/* <RegularFontText
             data=" Lekki County Homes"
             textstyle={{ fontSize: 14, fontWeight: "400" }}
-          />
+          /> */}
 
           <View
             style={{
@@ -205,7 +210,7 @@ export default function AdminHome() {
               currentTab,
               setCurrentTab,
               "Guests",
-              savepost,
+              guest_icon,
               "AdminGuest"
             )}
 
@@ -213,7 +218,7 @@ export default function AdminHome() {
               currentTab,
               setCurrentTab,
               "Events",
-              savepost,
+              calendar,
               "AdminEvent"
             )}
 
@@ -221,7 +226,7 @@ export default function AdminHome() {
               currentTab,
               setCurrentTab,
               "Service",
-              savepost,
+              service,
               "Service"
             )}
 
@@ -229,7 +234,7 @@ export default function AdminHome() {
               currentTab,
               setCurrentTab,
               "MarketPlace",
-              savepost,
+              market,
               "AdminMarketPlace"
             )}
 

@@ -48,6 +48,9 @@ const VendorProfile = ({ navigation }) => {
     user_message,
   } = useSelector((state) => state.AuthSlice);
 
+  console.log({
+    f: user_data,
+  });
   const formattedCategories = categoryes_data.map((category) => ({
     label: category.name,
     value: category._id,
@@ -180,7 +183,7 @@ const VendorProfile = ({ navigation }) => {
         </View>
 
         <View style={styles.row}>
-          <View style={styles.column}>
+          {/* <View style={styles.column}>
             <Text style={styles.label}>Category</Text>
             <DropDownPicker
               open={subCategoryOpen}
@@ -194,7 +197,7 @@ const VendorProfile = ({ navigation }) => {
               containerStyle={{ height: 40 }}
               dropDownStyle={{ backgroundColor: "#eee" }}
             />
-          </View>
+          </View> */}
           {/* <View style={styles.column}>
             <Text style={styles.label}>Sub-Category</Text>
             <DropDownPicker

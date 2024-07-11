@@ -6,7 +6,6 @@ import { Alert } from "react-native";
 export const handleApiError = (error) => {
   // const navigation = useNavigation();
 
-  console.log({ errorMessage_2: error?.response });
   console.log({ errorMessage_3: error?.response?.data });
 
   if (error?.response?.data) {
@@ -34,9 +33,7 @@ export const handleApiError = (error) => {
         type: "error",
         text1: `${error?.response?.data?.message}`,
 
-        // text1: `${error?.response?.data?.message} `,
-
-        // text2: `${error?.response?.data?.error} `,
+        text2: `${error?.response?.data?.error} `,
 
         // text2: 'Toast message',
       });

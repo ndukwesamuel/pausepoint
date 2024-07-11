@@ -62,16 +62,16 @@ const CreateProduct = ({ navigation }) => {
   const { userProfile_data } = useSelector((state) => state.ProfileSlice);
 
   console.log({
-    dddd: userProfile_data?.currentClanMeeting?._id,
+    dddd: marketcategory__data,
   });
 
-  const formattedCategories = marketcategory__data.map((category) => ({
-    label: category.name,
+  const formattedCategories = marketcategory__data?.map((category) => ({
+    label: category?.name,
     value: category._id,
   }));
 
   console.log({
-    ewe: formattedCategories,
+    ewe: userProfile_data?.currentClanMeeting?._id,
   });
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -122,6 +122,9 @@ const CreateProduct = ({ navigation }) => {
     CreateVendor_Mutation.mutate(formData);
   };
 
+  console.log({
+    gg: user_data?.token,
+  });
   const CreateVendor_Mutation = useMutation(
     (data_info) => {
       let url = `${API_BASEURL}market/product/create`;

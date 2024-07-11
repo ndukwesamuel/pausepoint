@@ -302,7 +302,18 @@ const CreateGuests = () => {
                 {showArrivalDatePicker && (
                   <DateTimePicker
                     value={formData.arrivalDate}
-                    mode="datetime"
+                    mode="date"
+                    display="default"
+                    onChange={(event, selectedDate) =>
+                      handleDateChange(event, selectedDate, "arrivalDate")
+                    }
+                  />
+                )}
+
+                {showArrivalDatePicker && (
+                  <DateTimePicker
+                    value={formData.arrivalDate}
+                    mode="time"
                     display="default"
                     onChange={(event, selectedDate) =>
                       handleDateChange(event, selectedDate, "arrivalDate")
@@ -357,7 +368,18 @@ const CreateGuests = () => {
                 {showDepartureDatePicker && (
                   <DateTimePicker
                     value={formData.departureDate}
-                    mode="datetime"
+                    mode="date"
+                    display="default"
+                    onChange={(event, selectedDate) =>
+                      handleDateChange(event, selectedDate, "departureDate")
+                    }
+                  />
+                )}
+
+                {showDepartureDatePicker && (
+                  <DateTimePicker
+                    value={formData.departureDate}
+                    mode="time"
                     display="default"
                     onChange={(event, selectedDate) =>
                       handleDateChange(event, selectedDate, "departureDate")

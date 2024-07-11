@@ -21,7 +21,9 @@ import bookmark from "../../assets/bookmark.png";
 import Calendar_light from "../../assets/Calendar_light.png";
 
 import qrcode from "../../assets/qrcode.png";
-import service from "../../assets/images/service.png";
+import service from "../../assets/customer-support.png";
+import market from "../../assets/market.png";
+import polling from "../../assets/polling.png";
 
 import search from "../../assets/search.png";
 import color_swatch from "../../assets/color-swatch.png";
@@ -55,6 +57,7 @@ export default function App({ navigation }) {
   // To get the curretn Status of menu ...
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
+
   // Animated Properties...
   const {
     user_data,
@@ -66,21 +69,12 @@ export default function App({ navigation }) {
 
   // Animated Properties...
   const { userProfile_data } = useSelector((state) => state.ProfileSlice);
+  let user_clan_info = userProfile_data?.currentClanMeeting;
 
   const offsetValue = useRef(new Animated.Value(0)).current;
   // Scale Intially must be One...
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
-
-  const data = [
-    { id: "1", title: "Item 1" },
-    { id: "2", title: "Item 2" },
-    { id: "3", title: "Item 2" },
-    { id: "4", title: "Item 2" },
-    { id: "5", title: "Item 2" },
-    { id: "6", title: "Item 2" },
-    // Add more items as needed
-  ];
 
   useEffect(() => {
     dispatch(UserProfile_data_Fun());
@@ -134,15 +128,17 @@ export default function App({ navigation }) {
                 currentTab,
                 setCurrentTab,
                 "Polls/Surveys",
-                color_swatch,
-                "userpolls"
+                polling,
+                "userpolls",
+                user_clan_info
               )}
               {TabButton(
                 currentTab,
                 setCurrentTab,
                 "Event",
                 Calendar_light,
-                "userevents"
+                "userevents",
+                user_clan_info
               )}
 
               {TabButton(
@@ -150,17 +146,20 @@ export default function App({ navigation }) {
                 setCurrentTab,
                 "Service",
                 service,
-                // "Neigborhood"
-                "service"
+                // customer-support
+
+                "service",
+                user_clan_info
               )}
 
               {TabButton(
                 currentTab,
                 setCurrentTab,
                 "Marketplace",
-                service,
+                market,
                 // "Neigborhood"
-                "Marketplace"
+                "Marketplace",
+                user_clan_info
               )}
 
               {TabButton(
@@ -171,21 +170,13 @@ export default function App({ navigation }) {
                 "icecontact"
               )}
 
-              {/* {TabButton(
-            currentTab,
-            setCurrentTab,
-            "QR Code",
-            qrcode,
-            // "Neigborhood"
-            "comming"
-          )} */}
-
               {TabButton(
                 currentTab,
                 setCurrentTab,
                 "Directory",
                 bookmark,
-                "Neigborhood"
+                "Neigborhood",
+                user_clan_info
               )}
             </View>
 
@@ -320,7 +311,14 @@ export default function App({ navigation }) {
 }
 
 // For multiple Buttons...
-const TabButton = (currentTab, setCurrentTab, title, image, link) => {
+const TabButton = (
+  currentTab,
+  setCurrentTab,
+  title,
+  image,
+  link,
+  user_clan_info
+) => {
   const navigation = useNavigation();
 
   return (
@@ -329,6 +327,11 @@ const TabButton = (currentTab, setCurrentTab, title, image, link) => {
         if (title == "LogOut") {
           // Do your Stuff...
           console.log("LogOut");
+        }
+        if (user_clan_info === null) {
+          navigation.navigate("myclan");
+
+          return null;
         } else {
           setCurrentTab(title);
           navigation.navigate(link);

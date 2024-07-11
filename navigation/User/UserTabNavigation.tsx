@@ -37,14 +37,7 @@ const UserTabNavigation = () => {
 
                     tabBarStyle: {
                         backgroundColor: 'white',
-                        // position: 'absolute',
-                        // bottom: 25,
-                        // left: 20,
-                        // right: 20,
-                        // borderRadius: 15,
-                        // borderTopEndRadius: 50,
-                        // borderTopLeftRadius: 50,
-                        // alignItems: 'center',
+
                         height: 65,
                         // justifyContent: 'center',
                         ...styles.shadow,
@@ -96,7 +89,7 @@ const UserTabNavigation = () => {
                                     focused={focused}
                                     iconFocused={require('../../assets/images/history.png')}
                                     iconUnfocused={require('../../assets/images/historyhistory2.png')}
-                                    label="Neigborhood"
+                                    label="Chat"
                                     containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
                                     texttStyle={{ color: "#000000" }}
                                 />
