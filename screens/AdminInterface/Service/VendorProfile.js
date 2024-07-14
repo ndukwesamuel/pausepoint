@@ -125,7 +125,7 @@ const VendorProfile = ({ navigation }) => {
 
       onError: (error) => {
         console.log({
-          error: error?.response?.data,
+          fire: error?.response?.data,
         });
         Toast.show({
           type: "error",

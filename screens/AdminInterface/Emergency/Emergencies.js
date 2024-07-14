@@ -308,7 +308,7 @@ export default function Emergencies({ navigation }) {
                   />
 
                   <MediumFontText
-                    data="No Pending Emergencies kkkk"
+                    data="No Pending Emergencies "
                     textstyle={{ fontSize: 14, color: "#969696" }}
                   />
                 </View>

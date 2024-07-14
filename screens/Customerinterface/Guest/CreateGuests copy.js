@@ -6,7 +6,7 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  ScrollView
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -88,19 +88,19 @@ const CreateGuests = () => {
   };
 
   const handleDateChange = (event, selectedDate, field, type) => {
+    if (selectedDate) {
+      setFormData({
+        ...formData,
+        [field]: new Date(
+          formData[field].setFullYear(
+            selectedDate.getFullYear(),
+            selectedDate.getMonth(),
+            selectedDate.getDate()
+          )
+        ),
+      });
+    }
     if (type === "date") {
-      if (selectedDate) {
-        setFormData({
-          ...formData,
-          [field]: new Date(
-            formData[field].setFullYear(
-              selectedDate.getFullYear(),
-              selectedDate.getMonth(),
-              selectedDate.getDate()
-            )
-          ),
-        });
-      }
       if (field === "arrivalDate") {
         setShowArrivalDatePicker(false);
       } else {
@@ -208,8 +208,7 @@ const CreateGuests = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-
-<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+              <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={{ paddingHorizontal: 20 }}>
           <View style={{ marginBottom: 15 }}>
             <FormLabel data="Name" />
@@ -333,7 +332,7 @@ const CreateGuests = () => {
           />
         </View>
 
-</ScrollView>
+        </ScrollView>
       </KeyboardAvoidingView>
     </AppScreen>
   );
