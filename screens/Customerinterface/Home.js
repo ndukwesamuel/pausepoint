@@ -147,7 +147,6 @@ export default function App({ navigation }) {
                 "Service",
                 service,
                 // customer-support
-
                 "service",
                 user_clan_info
               )}
