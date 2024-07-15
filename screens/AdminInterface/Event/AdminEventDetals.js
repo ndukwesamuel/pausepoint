@@ -298,7 +298,7 @@ const AdminEventDetals = () => {
               backgroundColor: "green",
               // paddingHorizontal: 20,
               // paddingVertical: 10,
-              borderRadius: "50%",
+              borderRadius: 50,
               width: 50,
               height: 50,
               justifyContent: "center",
