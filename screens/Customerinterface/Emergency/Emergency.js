@@ -110,7 +110,7 @@ const Emergency = () => {
 
       onError: (error) => {
         console.log({
-          error: error?.response,
+          error: error?.response?.data,
         });
         Toast.show({
           type: "error",

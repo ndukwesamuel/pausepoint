@@ -11,6 +11,7 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
@@ -35,6 +36,7 @@ import {
 import { Get_All_User_Guest_Fun } from "../../../Redux/UserSide/GuestSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
 import { UserProfile_data_Fun } from "../../../Redux/ProfileSlice";
+import ClickToJoinCLan from "../../../components/shared/ClickToJoinCLan";
 
 const Guests = () => {
   const dispatch = useDispatch();
@@ -42,17 +44,31 @@ const Guests = () => {
   const animation = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
   const { get_all_user_guest_data } = useSelector((state) => state?.GuestSlice);
+  const { get_user_profile_data } = useSelector(
+    (state) => state?.UserProfileSlice
+  );
+  console.log({
+    ss: get_user_profile_data?.currentClanMeeting,
+  });
 
   useEffect(() => {
-    dispatch(Get_All_User_Guest_Fun());
-    dispatch(UserProfile_data_Fun());
-
     return () => {};
   }, [dispatch]);
 
   const filteredData = get_all_user_guest_data?.userInvites?.filter((item) =>
     item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    // Set the refreshing state to true
+    setRefreshing(true);
+    dispatch(Get_All_User_Guest_Fun());
+    dispatch(UserProfile_data_Fun());
+
+    // Wait for 2 seconds
+    setRefreshing(false);
+  };
 
   const HistoryItem = ({ itemdata }) => {
     return (
@@ -113,20 +129,6 @@ const Guests = () => {
         </View>
 
         <View>
-          {/* <Text style={{ fontSize: 18, fontFamily: "RobotoSlab-SemiBold" }}>
-            Checked Out
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 11,
-              fontFamily: "RobotoSlab-Medium",
-              fontWeight: "500",
-            }}
-          >
-            Status
-          </Text> */}
-
           <Text
             style={{
               fontSize: 14,
@@ -173,72 +175,94 @@ const Guests = () => {
 
   return (
     <AppScreen>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          paddingHorizontal: 20,
-        }}
-      >
-        <TextInput
+      {get_user_profile_data?.currentClanMeeting ? (
+        <View
           style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            marginBottom: 10,
-            paddingLeft: 10,
+            flex: 1,
+            justifyContent: "center",
+            paddingHorizontal: 20,
           }}
-          placeholder="Search by Visitor Name"
-          value={searchQuery}
-          onChangeText={(text) => setSearchQuery(text)}
-        />
-
-        <View style={{ position: "absolute", right: 20, top: 320, zIndex: 1 }}>
-          <TouchableOpacity
+        >
+          <TextInput
             style={{
-              backgroundColor: "green",
-              // paddingHorizontal: 20,
-              // paddingVertical: 10,
-              borderRadius: 50,
-              width: 50,
-              height: 50,
-              justifyContent: "center",
-              alignItems: "center",
+              height: 40,
+              borderColor: "gray",
+              borderWidth: 1,
+              marginBottom: 10,
+              paddingLeft: 10,
             }}
-            // navigation.navigate("guestsdetail", { itemdata });
-
-            onPress={() => navigation.navigate("inviteguest")}
-          >
-            <MaterialIcons name="mode-edit" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
-
-        {filteredData?.length === 0 ? (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <LottieView
-              autoPlay
-              ref={animation}
-              style={{
-                width: 200,
-                height: 200,
-              }}
-              // Find more Lottie files at https://lottiefiles.com/featured
-              source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
-            />
-          </View>
-        ) : (
-          <FlatList
-            data={filteredData}
-            renderItem={({ item }) => <HistoryItem itemdata={item} />}
+            placeholder="Search by Visitor Name"
+            value={searchQuery}
+            onChangeText={(text) => setSearchQuery(text)}
           />
-        )}
-      </View>
+
+          <View
+            style={{ position: "absolute", right: 20, top: 320, zIndex: 1 }}
+          >
+            <TouchableOpacity
+              style={{
+                backgroundColor: "green",
+                // paddingHorizontal: 20,
+                // paddingVertical: 10,
+                borderRadius: 50,
+                width: 50,
+                height: 50,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              // navigation.navigate("guestsdetail", { itemdata });
+
+              onPress={() => navigation.navigate("inviteguest")}
+            >
+              <MaterialIcons name="mode-edit" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
+
+          {}
+
+          {filteredData?.length === 0 ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <LottieView
+                autoPlay
+                ref={animation}
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+                // Find more Lottie files at https://lottiefiles.com/featured
+                source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
+              />
+            </View>
+          ) : (
+            <FlatList
+              data={filteredData}
+              renderItem={({ item }) => <HistoryItem itemdata={item} />}
+            />
+          )}
+        </View>
+      ) : (
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <ClickToJoinCLan />
+          <Text style={{ fontSize: 18 }}>
+            Join a clan to see a guest list and invite guests.
+          </Text>
+        </ScrollView>
+      )}
     </AppScreen>
   );
 };

@@ -113,14 +113,9 @@ export const Get_ALl_Clan_Fun = createAsyncThunk(
       };
 
       const response = await axios.get(`${API_BASEURL}clan`, config);
-      console.log({
-        dddd: response.data,
-      });
+
       return response.data;
     } catch (error) {
-      console.log({
-        error: error?.response,
-      });
       const errorMessage = handleApiError(error);
       return thunkAPI.rejectWithValue(errorMessage);
     }
@@ -140,7 +135,6 @@ export const Get_User_Clans_Fun = createAsyncThunk(
           Authorization: `Bearer ${mydata?.token}`,
         },
       };
-
       const response = await axios.get(
         `${API_BASEURL}clan/getuserclans`,
         config

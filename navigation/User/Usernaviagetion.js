@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Text, Button, TouchableOpacity } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native";
+
 import UserTabNavigation from "./UserTabNavigation";
 import Neigborhood from "../../screens/Customerinterface/Neigborhood";
 import { AntDesign } from "@expo/vector-icons";
@@ -19,8 +18,6 @@ import TermsConditions from "../../screens/Customerinterface/Help/TermsCondition
 import PrivacyPolicy from "../../screens/Customerinterface/Help/PrivacyPolicy";
 import Share from "../../screens/Customerinterface/Help/Share";
 import CommentScreen from "../../screens/SharedScreen/CommentScreen";
-import Events from "../../screens/Customerinterface/Events/Events";
-// import EventDetals from "../../screens/Customerinterface/Events/EventDetalsdddd";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CreatePrivateEvent from "../../screens/Customerinterface/Events/CreateMainEvent";
 import CreatePublicEvent from "../../screens/Customerinterface/Events/CreatePublicEvent";

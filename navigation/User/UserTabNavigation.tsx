@@ -1,201 +1,150 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AntDesign } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
+
 import About from '../../screens/Customerinterface/About';
-import { AntDesign } from "@expo/vector-icons";
-import { CustomTabButton, Tabcomponent } from '../../components/shared/naviagetion';
-import Emergency from '../../screens/Customerinterface/Emergency/Emergency';
 import Account from '../../screens/Customerinterface/Account/Account';
 import History from '../../screens/Customerinterface/Guest/History';
 import Home from '../../screens/Customerinterface/Home';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Guests from '../../screens/Customerinterface/Guest/Guests';
-import Myclan from '../../screens/Customerinterface/Clan/Myclan';
 import Neigborhood from '../../screens/Customerinterface/Neigborhood';
-
-
-
+import { CustomTabButton, Tabcomponent } from '../../components/shared/naviagetion';
+import ClanRequiredScreen from '../../components/shared/ClanRequiredScreen';
+import Emergency from '../../screens/Customerinterface/Emergency/Emergency';
+import { StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-
-
-
-
-
-
 const UserTabNavigation = () => {
     return (
-        <>
-
-            {/* <Text>UserTabNavigation</Text> */}
-            <Tab.Navigator
-                initialRouteName="Home"
-                screenOptions={{
-                    tabBarShowLabel: false,
-
-                    tabBarStyle: {
-                        backgroundColor: 'white',
-
-                        height: 65,
-                        // justifyContent: 'center',
-                        ...styles.shadow,
-                        // paddingVertical: 20
-                        // Set the background color of the tab bar
-                    },
-                    tabBarLabelStyle: {
-
-                        color: 'white', // Set the text color of the tab labels
-                    },
-                    // You can add more styling options as needed
+        <Tab.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    backgroundColor: 'white',
+                    height: 65,
+                    ...styles.shadow,
+                },
+                tabBarLabelStyle: {
+                    color: 'white',
+                },
+            }}
+        >
+            <Tab.Screen
+                name="Guests"
+                options={{
+                    title: "Guests",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <Tabcomponent
+                            focused={focused}
+                            iconFocused={require('../../assets/images/guest2.png')}
+                            iconUnfocused={require('../../assets/images/guest.png')}
+                            label="Guests"
+                            containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
+                            texttStyle={{ color: "#000000" }}
+                        />
+                    ),
                 }}
             >
+                {props => (
+                    <ClanRequiredScreen {...props}>
+                        <Guests {...props} />
+                    </ClanRequiredScreen>
+                )}
+            </Tab.Screen>
 
+            <Tab.Screen
+                name="Neigborhood"
+                options={{
+                    title: "Neigborhood",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <Tabcomponent
+                            focused={focused}
+                            iconFocused={require('../../assets/images/history.png')}
+                            iconUnfocused={require('../../assets/images/historyhistory2.png')}
+                            label="Neigborhood"
+                            containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
+                            texttStyle={{ color: "#000000" }}
+                        />
+                    ),
+                }}
+            >
+                {props => (
+                    <ClanRequiredScreen {...props}>
+                        <Neigborhood {...props} />
+                    </ClanRequiredScreen>
+                )}
+            </Tab.Screen>
 
+            <Tab.Screen
+                name="Home"
+                component={Home}
+                options={{
+                    title: "Home",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <AntDesign name="plus" size={24} color="white" style={{ width: 25, height: 25 }} />
+                    ),
+                    tabBarButton: (props) => <CustomTabButton {...props} />,
+                }}
+            />
 
+            <Tab.Screen
+                name="Emergencyscreen"
+                options={{
+                    title: "Emergency",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <Tabcomponent
+                            focused={focused}
+                            iconFocused={require('../../assets/images/emergency2.png')}
+                            iconUnfocused={require('../../assets/images/emergency.png')}
+                            label="Emergency"
+                            containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
+                            texttStyle={{ color: "#000000" }}
+                        />
+                    ),
+                }}
+            >
+                {props => (
+                    <ClanRequiredScreen {...props}>
+                        <Emergency {...props} />
+                    </ClanRequiredScreen>
+                )}
+            </Tab.Screen>
 
-                <Tab.Screen
-                    options={{
-                        title: "Guests",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <Tabcomponent
-                                    focused={focused}
-                                    iconFocused={require('../../assets/images/guest2.png')}
-                                    iconUnfocused={require('../../assets/images/guest.png')}
-                                    label="Guests"
-                                    containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
-                                    texttStyle={{ color: "#000000" }}
-                                />
-
-
-                            );
-                        },
-                    }}
-
-                    name="Guests" component={Guests} />
-
-                <Tab.Screen
-                    options={{
-                        title: "Neigborhood",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <Tabcomponent
-                                    focused={focused}
-                                    iconFocused={require('../../assets/images/history.png')}
-                                    iconUnfocused={require('../../assets/images/historyhistory2.png')}
-                                    label="Chat"
-                                    containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
-                                    texttStyle={{ color: "#000000" }}
-                                />
-
-
-                            );
-                        },
-                    }}
-
-                    name="History" component={Neigborhood} />
-
-
-                <Tab.Screen name="Home" component={Home}
-
-
-
-                    options={{
-
-                        title: "Home",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <AntDesign name="plus" size={24} color="white" style={{
-                                    width: 25,
-                                    height: 25,
-                                }} />
-
-                            );
-                        },
-                        tabBarButton: (props: any,) => {
-                            return (
-                                <CustomTabButton {...props} />
-
-                            );
-                        }
-                    }}
-
-                />
-
-
-                <Tab.Screen
-                    options={{
-                        title: "Emergency",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <Tabcomponent
-                                    focused={focused}
-                                    iconFocused={require('../../assets/images/emergency2.png')}
-                                    iconUnfocused={require('../../assets/images/emergency.png')}
-                                    label="Emergency"
-                                    containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
-                                    texttStyle={{ color: "#000000" }}
-                                />
-
-
-                            );
-                        },
-                    }}
-
-                    name="Emergencyscreen" component={Emergency} />
-
-                <Tab.Screen
-                    options={{
-                        title: "Account",
-                        tabBarActiveTintColor: "#005091",
-                        headerShown: false,
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <Tabcomponent
-                                    focused={focused}
-                                    iconFocused={require('../../assets/images/Account2.png')}
-                                    iconUnfocused={require('../../assets/images/Account.png')}
-                                    label="Account"
-                                    containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
-                                    texttStyle={{ color: "#000000" }}
-                                />
-
-
-                            );
-                        },
-                    }}
-
-                    name="Account" component={Account} />
-            </Tab.Navigator >
-
-        </>
-
-    )
+            <Tab.Screen
+                name="Account"
+                component={Account}
+                options={{
+                    title: "Account",
+                    tabBarActiveTintColor: "#005091",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <Tabcomponent
+                            focused={focused}
+                            iconFocused={require('../../assets/images/Account2.png')}
+                            iconUnfocused={require('../../assets/images/Account.png')}
+                            label="Account"
+                            containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
+                            texttStyle={{ color: "#000000" }}
+                        />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
+    );
 }
 
-export default UserTabNavigation
-
-
-
-
-
-
-
-
-
-
-
-
+export default UserTabNavigation;
 
 const styles = StyleSheet.create({
     shadow: {
@@ -207,6 +156,5 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-
-    }
-})
+    },
+});

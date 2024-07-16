@@ -64,18 +64,18 @@ const UserClans = () => {
   // Effect to fetch user clans when the component mounts
 
   useEffect(() => {
-    dispatch(Get_User_Clans_Fun());
     dispatch(Get_User_Profle_Fun());
+    dispatch(Get_User_Clans_Fun());
     dispatch(Get_all_clan_User_Is_adminIN_Fun());
-
-    // if (get_user_profile_data?.AdmincurrentClanMeeting) {
-    // }
 
     return () => {};
   }, []);
 
   const SelectCLan_Mutation = useMutation(
     (data_info) => {
+      console.log({
+        data_info,
+      });
       let url = `${API_BASEURL}clan/select_user_clan/${data_info?.id}`;
 
       const config = {
@@ -106,14 +106,12 @@ const UserClans = () => {
         dispatch(Get_User_Profle_Fun());
         dispatch(Get_all_clan_User_Is_adminIN_Fun());
         Logout_fun();
-        // navigation.navigate("Home");
       },
 
       onError: (error) => {
         Toast.show({
           type: "error",
-          text1: `${error?.response?.data?.message} `,
-          //   text2: ` ${error?.response?.data?.errorMsg} `,
+          text1: `${error?.response?.data?.message}`,
         });
         dispatch(Get_User_Clans_Fun());
         dispatch(Get_User_Profle_Fun());
@@ -234,17 +232,13 @@ const UserClans = () => {
               }
         }
       >
-        {SelectCLan_Mutation.isLoading ? (
-          <ActivityIndicator size="small" color="white" />
-        ) : (
-          <View>
-            {get_user_profile_data?.currentClanMeeting?._id === item?._id ? (
-              <Text style={{ color: "white" }}>Leave</Text>
-            ) : (
-              <Text style={{ color: "white" }}>Join</Text>
-            )}
-          </View>
-        )}
+        <View>
+          {get_user_profile_data?.currentClanMeeting?._id === item?._id ? (
+            <Text style={{ color: "white" }}>Leave</Text>
+          ) : (
+            <Text style={{ color: "white" }}>Join</Text>
+          )}
+        </View>
       </TouchableOpacity>
       {/* Add more details as needed */}
     </View>
@@ -321,7 +315,10 @@ const UserClans = () => {
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
-      {refreshing && <ActivityIndicator size="large" color="#0C1401" />}
+      {refreshing ||
+        (SelectCLan_Mutation.isLoading && (
+          <ActivityIndicator size="large" color="#0C1401" />
+        ))}
 
       <View
         style={{

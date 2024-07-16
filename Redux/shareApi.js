@@ -6,8 +6,6 @@ import { Alert } from "react-native";
 export const handleApiError = (error) => {
   // const navigation = useNavigation();
 
-  console.log({ errorMessage_3: error?.response?.data });
-
   if (error?.response?.data) {
     // return error?.response?.data?.message;
 
