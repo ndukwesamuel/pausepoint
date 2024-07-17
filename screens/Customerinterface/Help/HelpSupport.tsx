@@ -68,7 +68,7 @@ const data: GeneralData[] = [
     {
         id: 6,
         icon: '',
-        label: 'Share this app with friends kaka',
+        label: 'Share this app with friends ',
         icon_type: 'Ionicons',
         link: 'button',
 

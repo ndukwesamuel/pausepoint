@@ -107,9 +107,7 @@ const Chats = () => {
     }));
   };
 
-  const submitdata = () => {
-    console.log({ kaka: "jsdjkjs" });
-  };
+  const submitdata = () => {};
   const handleSendMessage = () => {
     // e.preventDefault();
 

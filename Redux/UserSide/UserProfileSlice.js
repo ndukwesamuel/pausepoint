@@ -97,9 +97,6 @@ export const Get_All_User_Profle_Fun = createAsyncThunk(
       };
 
       const response = await axios.get(`${API_BASEURL}users`, config);
-      console.log({
-        kaka: response.data,
-      });
 
       return response.data;
     } catch (error) {
