@@ -34,6 +34,8 @@ const UserTabNavigation = () => {
         >
             <Tab.Screen
                 name="Guests"
+                component={Guests}
+
                 options={{
                     title: "Guests",
                     tabBarActiveTintColor: "#005091",
@@ -49,15 +51,17 @@ const UserTabNavigation = () => {
                         />
                     ),
                 }}
-            >
-                {props => (
+            />
+            {/* {props => (
                     <ClanRequiredScreen {...props}>
                         <Guests {...props} />
                     </ClanRequiredScreen>
                 )}
-            </Tab.Screen>
+            </Tab.Screen> */}
 
             <Tab.Screen
+                component={Neigborhood}
+
                 name="Neigborhood"
                 options={{
                     title: "Neigborhood",
@@ -74,13 +78,13 @@ const UserTabNavigation = () => {
                         />
                     ),
                 }}
-            >
-                {props => (
+            />
+            {/* {props => (
                     <ClanRequiredScreen {...props}>
                         <Neigborhood {...props} />
                     </ClanRequiredScreen>
                 )}
-            </Tab.Screen>
+            </Tab.Screen> */}
 
             <Tab.Screen
                 name="Home"
@@ -98,6 +102,8 @@ const UserTabNavigation = () => {
 
             <Tab.Screen
                 name="Emergencyscreen"
+                component={Emergency}
+
                 options={{
                     title: "Emergency",
                     tabBarActiveTintColor: "#005091",
@@ -113,13 +119,13 @@ const UserTabNavigation = () => {
                         />
                     ),
                 }}
-            >
-                {props => (
+            />
+            {/* {props => (
                     <ClanRequiredScreen {...props}>
                         <Emergency {...props} />
                     </ClanRequiredScreen>
                 )}
-            </Tab.Screen>
+            </Tab.Screen> */}
 
             <Tab.Screen
                 name="Account"

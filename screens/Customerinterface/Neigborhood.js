@@ -27,6 +27,7 @@ import {
 import { CenterReuseModals } from "../../components/shared/ReuseModals";
 import { useNavigation } from "@react-navigation/native";
 import AppScreen from "../../components/shared/AppScreen";
+import ClickToJoinCLan from "../../components/shared/ClickToJoinCLan";
 
 const Neigborhood = () => {
   const navigation = useNavigation();
@@ -87,189 +88,215 @@ const Neigborhood = () => {
 
   return (
     <AppScreen>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <View
-          style={{ flex: 1, backgroundColor: "white", paddingVertical: 20 }}
+      {get_user_profile_data?.currentClanMeeting ? (
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1 }}
         >
-          <TouchableOpacity
-            onPress={() => setModalVisible(true)}
-            style={{
-              marginLeft: 10,
-              borderWidth: 1,
-              padding: 10,
-              borderRadius: 5,
-              width: 100,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+          <View
+            style={{ flex: 1, backgroundColor: "white", paddingVertical: 20 }}
           >
-            {/* <AntDesign name="arrowleft" size={24} color="black" /> */}
-            <Text>Add user</Text>
-          </TouchableOpacity>
-
-          {get_user_profile_data?.currentClanMeeting?._id ? (
-            <>
-              <View style={{ flex: 1, paddingHorizontal: 20 }}>
-                <Forminput_Icon
-                  placeholder="Search for user..."
-                  containerstyle={{
-                    // borderWidth: 1,
-                    padding: 10,
-                    borderRadius: 5,
-                    backgroundColor: "#F3FFF3",
-                    // opacity: 0.4
-                    flexDirection: "row",
-                    gap: 10,
-                  }}
-                  textstyle={{
-                    fontSize: 16,
-                  }}
-                  onChangeText={(text) => handleInputChange("search", text)}
-                  value={formData.search}
-                  icon={<AntDesign name="search1" size={22} color="black" />}
-                />
-
-                <View style={{ flex: 1 }}>
-                  <FlatList
-                    data={get_all_user_data?.users}
-                    renderItem={({ item }) => (
-                      <TouchableOpacity
-                        onPress={() => navigation.navigate("Chats", { item })}
-                      >
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            gap: 10,
-                            marginVertical: 10,
-                          }}
-                        >
-                          <Image
-                            source={{
-                              uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                            }}
-                            style={{ width: 68, height: 68, borderRadius: 50 }}
-                          />
-
-                          <View>
-                            <MediumFontText
-                              data={item.name}
-                              textstyle={{ fontSize: 16, fontWeight: "500" }}
-                            />
-                            <RegularFontText
-                              data={item?.email}
-                              textstyle={{ fontSize: 14, fontWeight: "400" }}
-                            />
-                          </View>
-                        </View>
-
-                        <View
-                          style={{
-                            borderWidth: 1,
-                            borderColor: "#CFCDCD",
-                            borderRadius: 6,
-                            marginTop: 10,
-                          }}
-                        />
-                      </TouchableOpacity>
-                    )}
-                  />
-                </View>
-              </View>
-            </>
-          ) : null}
-
-          <CenterReuseModals
-            visible={modalVisible}
-            onClose={() => setModalVisible(false)}
-          >
-            <View
+            <TouchableOpacity
+              onPress={() => setModalVisible(true)}
               style={{
-                backgroundColor: "white",
-                padding: 20,
-                borderRadius: 10,
-                elevation: 5,
-                width: "80%",
+                marginLeft: 10,
+                borderWidth: 1,
+                padding: 10,
+                borderRadius: 5,
+                width: 100,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <TouchableOpacity
-                onPress={() => setModalVisible(false)}
-                style={{
-                  position: "absolute",
-                  bottom: 10,
-                  right: 10,
-                  backgroundColor: "red",
-                  padding: 10,
-                  borderRadius: 10,
-                }}
-              >
-                <Text>cancel</Text>
-              </TouchableOpacity>
+              {/* <AntDesign name="arrowleft" size={24} color="black" /> */}
+              <Text>Add user</Text>
+            </TouchableOpacity>
+
+            {get_user_profile_data?.currentClanMeeting?._id ? (
+              <>
+                <View style={{ flex: 1, paddingHorizontal: 20 }}>
+                  <Forminput_Icon
+                    placeholder="Search for user..."
+                    containerstyle={{
+                      // borderWidth: 1,
+                      padding: 10,
+                      borderRadius: 5,
+                      backgroundColor: "#F3FFF3",
+                      // opacity: 0.4
+                      flexDirection: "row",
+                      gap: 10,
+                    }}
+                    textstyle={{
+                      fontSize: 16,
+                    }}
+                    onChangeText={(text) => handleInputChange("search", text)}
+                    value={formData.search}
+                    icon={<AntDesign name="search1" size={22} color="black" />}
+                  />
+
+                  <View style={{ flex: 1 }}>
+                    <FlatList
+                      data={get_all_user_data?.users}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity
+                          onPress={() => navigation.navigate("Chats", { item })}
+                        >
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 10,
+                              marginVertical: 10,
+                            }}
+                          >
+                            <Image
+                              source={{
+                                uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                              }}
+                              style={{
+                                width: 68,
+                                height: 68,
+                                borderRadius: 50,
+                              }}
+                            />
+
+                            <View>
+                              <MediumFontText
+                                data={item.name}
+                                textstyle={{ fontSize: 16, fontWeight: "500" }}
+                              />
+                              <RegularFontText
+                                data={item?.email}
+                                textstyle={{ fontSize: 14, fontWeight: "400" }}
+                              />
+                            </View>
+                          </View>
+
+                          <View
+                            style={{
+                              borderWidth: 1,
+                              borderColor: "#CFCDCD",
+                              borderRadius: 6,
+                              marginTop: 10,
+                            }}
+                          />
+                        </TouchableOpacity>
+                      )}
+                    />
+                  </View>
+                </View>
+              </>
+            ) : null}
+
+            <CenterReuseModals
+              visible={modalVisible}
+              onClose={() => setModalVisible(false)}
+            >
               <View
                 style={{
                   backgroundColor: "white",
-                  // padding: 20,
-                  width: "100%",
-                  borderTopLeftRadius: 30,
-                  borderTopRightRadius: 30,
-                  height: "80%",
+                  padding: 20,
+                  borderRadius: 10,
+                  elevation: 5,
+                  width: "80%",
                 }}
               >
-                <View style={{ flex: 1 }}>
-                  <FlatList
-                    data={get_all_user_data?.users}
-                    renderItem={({ item }) => (
-                      <TouchableOpacity
-                        onPress={() => navigation.navigate("Chats", { item })}
-                      >
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            gap: 10,
-                            marginVertical: 10,
-                          }}
+                <TouchableOpacity
+                  onPress={() => setModalVisible(false)}
+                  style={{
+                    position: "absolute",
+                    bottom: 10,
+                    right: 10,
+                    backgroundColor: "red",
+                    padding: 10,
+                    borderRadius: 10,
+                  }}
+                >
+                  <Text>cancel</Text>
+                </TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: "white",
+                    // padding: 20,
+                    width: "100%",
+                    borderTopLeftRadius: 30,
+                    borderTopRightRadius: 30,
+                    height: "80%",
+                  }}
+                >
+                  <View style={{ flex: 1 }}>
+                    <FlatList
+                      data={get_all_user_data?.users}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity
+                          onPress={() => navigation.navigate("Chats", { item })}
                         >
-                          <Image
-                            source={{
-                              uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 10,
+                              marginVertical: 10,
                             }}
-                            style={{ width: 68, height: 68, borderRadius: 50 }}
-                          />
+                          >
+                            <Image
+                              source={{
+                                uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                              }}
+                              style={{
+                                width: 68,
+                                height: 68,
+                                borderRadius: 50,
+                              }}
+                            />
 
-                          <View>
-                            <MediumFontText
-                              data={item.name}
-                              textstyle={{ fontSize: 16, fontWeight: "500" }}
-                            />
-                            <RegularFontText
-                              data={item?.email}
-                              textstyle={{ fontSize: 14, fontWeight: "400" }}
-                            />
+                            <View>
+                              <MediumFontText
+                                data={item.name}
+                                textstyle={{ fontSize: 16, fontWeight: "500" }}
+                              />
+                              <RegularFontText
+                                data={item?.email}
+                                textstyle={{ fontSize: 14, fontWeight: "400" }}
+                              />
+                            </View>
                           </View>
-                        </View>
 
-                        <View
-                          style={{
-                            borderWidth: 1,
-                            borderColor: "#CFCDCD",
-                            borderRadius: 6,
-                            marginTop: 10,
-                          }}
-                        />
-                      </TouchableOpacity>
-                    )}
-                  />
+                          <View
+                            style={{
+                              borderWidth: 1,
+                              borderColor: "#CFCDCD",
+                              borderRadius: 6,
+                              marginTop: 10,
+                            }}
+                          />
+                        </TouchableOpacity>
+                      )}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
-          </CenterReuseModals>
-        </View>
-      </KeyboardAvoidingView>
+            </CenterReuseModals>
+          </View>
+        </KeyboardAvoidingView>
+      ) : (
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <ClickToJoinCLan />
+          <Text style={{ fontSize: 18 }}>
+            Join a clan to see a guest list and invite guests.
+          </Text>
+        </ScrollView>
+      )}
     </AppScreen>
   );
 };

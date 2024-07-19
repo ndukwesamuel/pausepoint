@@ -172,7 +172,7 @@ const Service = ({ navigation }) => {
             }}
             key={index}
           >
-            <View>
+            <View style={{}}>
               <Image source={image.source} style={styles.image} />
               <Text style={styles.text}>{image.text}</Text>
             </View>

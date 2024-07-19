@@ -12,6 +12,8 @@ import {
   Modal,
   TextInput,
   ActivityIndicator,
+  ScrollView,
+  RefreshControl,
 } from "react-native";
 import { Provider, useDispatch, useSelector } from "react-redux";
 
@@ -39,10 +41,15 @@ import {
   Formbutton,
   Forminput,
 } from "../../../components/shared/InputForm";
+import ClickToJoinCLan from "../../../components/shared/ClickToJoinCLan";
+import { UserProfile_data_Fun } from "../../../Redux/ProfileSlice";
 
 const Emergency = () => {
   const [modalformVisible, setModalFormVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const { get_user_profile_data } = useSelector(
+    (state) => state?.UserProfileSlice
+  );
 
   const { user_data } = useSelector((state) => state.AuthSlice);
   const closeFormModal = () => {
@@ -176,154 +183,187 @@ const Emergency = () => {
     );
   };
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    // Set the refreshing state to true
+    setRefreshing(true);
+    // dispatch(Get_All_User_Guest_Fun());
+    dispatch(UserProfile_data_Fun());
+
+    // Wait for 2 seconds
+    setRefreshing(false);
+  };
+
   return (
     <AppScreen>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <View
-          style={{
-            marginBottom: 20,
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomColor: "#CFCDCD",
-            borderBottomWidth: 1,
-            paddingBottom: 10,
-          }}
-        >
-          <MediumFontText data="Emergency" textstyle={{ fontSize: 18 }} />
-        </View>
-        <View style={{ flex: 1, paddingHorizontal: 20 }}>
-          <FlatList
-            data={emergencydata}
-            renderItem={({ item }) => <RenderItem item={item} />}
-          />
-        </View>
-
-        <CenterReuseModals
-          visible={modalformVisible}
-          onClose={() => setModalFormVisible(false)}
+      {get_user_profile_data?.currentClanMeeting ? (
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1 }}
         >
           <View
             style={{
-              backgroundColor: "white",
-              padding: 20,
-              borderRadius: 10,
-              elevation: 5,
-              width: "80%",
+              marginBottom: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              borderBottomColor: "#CFCDCD",
+              borderBottomWidth: 1,
+              paddingBottom: 10,
             }}
+          >
+            <MediumFontText data="Emergency" textstyle={{ fontSize: 18 }} />
+          </View>
+          <View style={{ flex: 1, paddingHorizontal: 20 }}>
+            <FlatList
+              data={emergencydata}
+              renderItem={({ item }) => <RenderItem item={item} />}
+            />
+          </View>
+
+          <CenterReuseModals
+            visible={modalformVisible}
+            onClose={() => setModalFormVisible(false)}
           >
             <View
               style={{
                 backgroundColor: "white",
-                // padding: 20,
-                width: "100%",
-                borderTopLeftRadius: 30,
-                borderTopRightRadius: 30,
-                height: "50%",
-                paddingTop: 30,
+                padding: 20,
+                borderRadius: 10,
+                elevation: 5,
+                width: "80%",
               }}
             >
-              <TouchableOpacity
+              <View
                 style={{
-                  // flexDirection: "row",
-                  // justifyContent: "flex-end",
-                  // marginTop: 10,
-                  // borderWidth: 1,
-                  // borderColor: "#CFCDCD",
-                  // borderRadius: 6,
-                  // paddingHorizontal: 10,
-                  // gap: 10,
-                  // width: 50,
-
-                  position: "absolute",
-                  top: 0,
-                  right: 1,
-                }}
-                onPress={() => setModalFormVisible(false)}
-              >
-                <MaterialIcons name="cancel" size={24} color="black" />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "500",
-                  fontFamily: "RobotoSlab-Medium",
-                  color: "black",
-                  textAlign: "center",
-                  marginBottom: 20,
+                  backgroundColor: "white",
+                  // padding: 20,
+                  width: "100%",
+                  borderTopLeftRadius: 30,
+                  borderTopRightRadius: 30,
+                  height: "50%",
+                  paddingTop: 30,
                 }}
               >
-                Make a Report About {selectedItem?.type} Emergency
-              </Text>
+                <TouchableOpacity
+                  style={{
+                    // flexDirection: "row",
+                    // justifyContent: "flex-end",
+                    // marginTop: 10,
+                    // borderWidth: 1,
+                    // borderColor: "#CFCDCD",
+                    // borderRadius: 6,
+                    // paddingHorizontal: 10,
+                    // gap: 10,
+                    // width: 50,
 
-              <View>
-                <MediumFontText data="Location" textstyle={{ fontSize: 14 }} />
-
-                <Forminput
-                  placeholder="Location Information"
-                  onChangeText={setHomeaddress}
-                  value={homeaddress}
-                />
-
-                <MediumFontText
-                  data="Additional Information"
-                  textstyle={{ fontSize: 14 }}
-                />
-
-                <CustomTextArea
-                  placeholder="Enter text here..."
-                  value={moreinfo}
-                  onChangeText={setMoreinfo}
-                  style={{ width: "80%" }}
-                  inputStyle={{
-                    backgroundColor: "#F6F8FAE5",
-                    paddingHorizontal: 10,
-                    paddingVertical: 20,
-                    height: 200,
-                    padding: 10,
-                    borderRadius: 6,
-                    fontSize: 16,
+                    position: "absolute",
+                    top: 0,
+                    right: 1,
                   }}
-                />
-              </View>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "#04973C",
-                  paddingHorizontal: 12,
-                  paddingVertical: 12,
-                  borderRadius: 6,
-                  marginTop: 20,
-                }}
-                onPress={() => {
-                  Emergency_Mutation.mutate({
-                    type: selectedItem?.type,
-                    address: homeaddress,
-                    additionalInfo: moreinfo,
-                  });
-                }}
-              >
-                {Emergency_Mutation.isLoading ? (
-                  <ActivityIndicator size="small" color="white" />
-                ) : (
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: "400",
-                      fontFamily: "RobotoSlab-Regular",
-                      color: "white",
-                      textAlign: "center",
+                  onPress={() => setModalFormVisible(false)}
+                >
+                  <MaterialIcons name="cancel" size={24} color="black" />
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "500",
+                    fontFamily: "RobotoSlab-Medium",
+                    color: "black",
+                    textAlign: "center",
+                    marginBottom: 20,
+                  }}
+                >
+                  Make a Report About {selectedItem?.type} Emergency
+                </Text>
+
+                <View>
+                  <MediumFontText
+                    data="Location"
+                    textstyle={{ fontSize: 14 }}
+                  />
+
+                  <Forminput
+                    placeholder="Location Information"
+                    onChangeText={setHomeaddress}
+                    value={homeaddress}
+                  />
+
+                  <MediumFontText
+                    data="Additional Information"
+                    textstyle={{ fontSize: 14 }}
+                  />
+
+                  <CustomTextArea
+                    placeholder="Enter text here..."
+                    value={moreinfo}
+                    onChangeText={setMoreinfo}
+                    style={{ width: "80%" }}
+                    inputStyle={{
+                      backgroundColor: "#F6F8FAE5",
+                      paddingHorizontal: 10,
+                      paddingVertical: 20,
+                      height: 200,
+                      padding: 10,
+                      borderRadius: 6,
+                      fontSize: 16,
                     }}
-                  >
-                    Submit
-                  </Text>
-                )}
-              </TouchableOpacity>
+                  />
+                </View>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#04973C",
+                    paddingHorizontal: 12,
+                    paddingVertical: 12,
+                    borderRadius: 6,
+                    marginTop: 20,
+                  }}
+                  onPress={() => {
+                    Emergency_Mutation.mutate({
+                      type: selectedItem?.type,
+                      address: homeaddress,
+                      additionalInfo: moreinfo,
+                    });
+                  }}
+                >
+                  {Emergency_Mutation.isLoading ? (
+                    <ActivityIndicator size="small" color="white" />
+                  ) : (
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: "400",
+                        fontFamily: "RobotoSlab-Regular",
+                        color: "white",
+                        textAlign: "center",
+                      }}
+                    >
+                      Submit
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </CenterReuseModals>
-      </KeyboardAvoidingView>
+          </CenterReuseModals>
+        </KeyboardAvoidingView>
+      ) : (
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <ClickToJoinCLan />
+          <Text style={{ fontSize: 18 }}>
+            Join a clan to see a guest list and invite guests.
+          </Text>
+        </ScrollView>
+      )}
     </AppScreen>
   );
 };
