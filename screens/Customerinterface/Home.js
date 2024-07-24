@@ -255,8 +255,10 @@ export default function App({ navigation }) {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
+              marginTop: 30,
+
               // marginTop: 40,
-              ...(Platform.OS === "ios" && { marginTop: 50 }),
+              // ...(Platform.OS === "android" && { marginTop: 50 }),
             }}
           >
             <TouchableOpacity

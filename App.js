@@ -1,7 +1,7 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Onboading from "./components/Onboard/Onboading ";
-import "react-native-gesture-handler";
 import AppNavigation, { RootStackParamList } from "./navigation/AppNavigation";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";

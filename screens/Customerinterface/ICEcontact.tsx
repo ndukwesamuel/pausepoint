@@ -17,34 +17,34 @@ const ICEcontact = () => {
         {
             id: "2", img: require("../../assets/images/police.png"),
             name: "LSG Ambulance Services",
-            phone: "08033011052"
+            phone: "08069594030"
         },
 
         {
             id: "3", img: require("../../assets/images/ncc.png"),
             name: "NCDC",
-            phone: "08033011052"
+            phone: "080097000010"
         },
 
 
         {
             id: "4", img: require("../../assets/images/lagoshe.png"),
             name: "LSG Ministry of Health ",
-            phone: "08033011052"
+            phone: "08033565529"
         },
 
 
         {
             id: "5", img: require("../../assets/images/rapid.png"),
             name: " Rapid Response Squad",
-            phone: "08033011052"
+            phone: "09053950347"
         },
 
 
         {
             id: "6", img: require("../../assets/images/cot.png"),
             name: "Distress Call",
-            phone: "08033011052"
+            phone: "112"
         },
 
 
@@ -52,7 +52,7 @@ const ICEcontact = () => {
         {
             id: "7", img: require("../../assets/images/fireserice.png"),
             name: "Lagos State Fire Services",
-            phone: "08033011052"
+            phone: "08033234943"
         },
 
 

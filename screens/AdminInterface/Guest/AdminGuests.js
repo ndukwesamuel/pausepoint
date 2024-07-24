@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
-
+import { MaterialIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -256,6 +256,9 @@ const AdminGuests = () => {
             height: "80%",
           }}
         >
+          <TouchableOpacity onPress={() => setModalVisible(false)}>
+            <MaterialIcons name="cancel" size={24} color="black" />
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 16,

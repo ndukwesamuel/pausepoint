@@ -25,14 +25,18 @@ import Calendar_light from "../../assets/Calendar_light.png";
 import qrcode from "../../assets/qrcode.png";
 
 import search from "../../assets/search.png";
-import color_swatch from "../../assets/color-swatch.png";
+import color_swatch from "../../assets/images/info-circle.png";
 
 import calendar from "../../assets/calendar.png";
-import guest_icon from "../../assets/guest.png";
+import guest_icon from "../../assets/user-tag.png";
 import service from "../../assets/customer-support.png";
+// import service from "../../assets/user-tag.png";
+
 import market from "../../assets/market.png";
 
-import emergencies_icon from "../../assets/images/info-circle.png";
+import emergencies_icon from "../../assets/warning-2.png";
+
+// warning-2
 import savepost from "../../assets/bookmark.png";
 import logout from "../../assets/logout.png";
 // Menu
@@ -136,7 +140,9 @@ export default function AdminHome() {
         >
           <Image
             source={{
-              uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              uri:
+                userProfile_data?.photo ||
+                "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             }}
             style={{ width: 68, height: 68, borderRadius: 50 }}
           />

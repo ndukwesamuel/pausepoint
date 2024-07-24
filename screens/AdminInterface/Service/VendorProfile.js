@@ -240,7 +240,7 @@ const VendorProfile = ({ navigation }) => {
         {CreateVendor_Mutation.isLoading ? (
           <ActivityIndicator color="white" />
         ) : (
-          <Text style={styles.buttonText}>Create Vendor Profile</Text>
+          <Text style={styles.buttonText}>Create Vendor Profile </Text>
         )}
       </TouchableOpacity>
     </View>

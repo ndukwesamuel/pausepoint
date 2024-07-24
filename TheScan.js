@@ -4,6 +4,7 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { DeleteAccountModal } from "./components/Account/Modal";
 import { CenterReuseModals } from "./components/shared/ReuseModals";
 import { formatDateandTime } from "./utils/DateTime";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import {
   NavigationContainer,
@@ -71,6 +72,21 @@ export default function TheScan() {
                   width: "80%",
                 }}
               >
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "white",
+                    padding: 20,
+                    borderRadius: 10,
+                    elevation: 5,
+                    width: "80%",
+                  }}
+                  onPress={() => {
+                    setScanned(false);
+                    setMaindata(null);
+                  }}
+                >
+                  <MaterialIcons name="cancel" size={24} color="black" />
+                </TouchableOpacity>
                 <View
                   style={{
                     backgroundColor: "white",
@@ -120,9 +136,6 @@ const COnveter = ({ data }) => {
   }
 
   return (
-    // <View>
-    //   <Text>Sam</Text>
-    // </View>
     <View>
       <View style={{ marginBottom: 10 }}>
         <Text
@@ -222,7 +235,7 @@ const COnveter = ({ data }) => {
           navigation.navigate("AdminGuestsDetail", { itemdata });
         }}
       >
-        <Text>Verify</Text>
+        <Text>Verify kkk</Text>
       </TouchableOpacity>
     </View>
   );

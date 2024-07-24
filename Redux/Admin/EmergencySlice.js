@@ -42,7 +42,9 @@ export const Admin_Get_ALl_Emergency_Report_Fun = createAsyncThunk(
       };
 
       const response = await axios.get(`${API_BASEURL}emargencyreport`, config);
-
+      console.log({
+        asas: response.data,
+      });
       return response.data;
     } catch (error) {
       const errorMessage = handleApiError(error);
