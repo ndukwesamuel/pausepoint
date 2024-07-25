@@ -3,7 +3,7 @@
     "name": "PausePoint",
     "slug": "PausePoint",
     "orientation": "portrait",
-    "version": "1.0.4",
+    "version": "1.0.1",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -33,12 +33,12 @@
       }
     },
     "android": {
-      "versionCode": 5,
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.PausePoint.PausePoint",
+      "package": "com.pause_point.PausePoint",
       "permissions": [
         "android.permission.CAMERA"
       ]

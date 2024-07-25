@@ -160,15 +160,42 @@ const CreateProduct = ({ navigation }) => {
 
   return (
     <>
-    <ScrollView style={styles.container}>
+    <View>
+      <Text>sam</Text>
 
+    </View>
+    {/* <View style={styles.container}>
+    <View style={styles.row}>
+          <View style={styles.column}>
+            <Text style={styles.label}>Name kaka</Text>
+            <TextInput
+              style={styles.smallInput}
+              placeholder="Enter Phone Number"
+              value={name}
+              onChangeText={setname}
+            />
+          </View>
+          <View style={styles.column}>
+            <Text style={styles.label}> Price</Text>
+            <TextInput
+              style={styles.smallInput}
+              placeholder="Enter Years of Experience"
+              value={price}
+              onChangeText={setprice}
+            />
+          </View>
+        </View>
+      {/* <View style={styles.imageContainer}>
+        <Image
+          source={require("../../../assets/user.png")}
+          style={styles.image}
+        />
+      </View> */}
 
-
-
-        <View style={styles.formContainer}>
+      <View style={styles.formContainer}>
         <View style={styles.row}>
           <View style={styles.column}>
-            <Text style={styles.label}>Name </Text>
+            <Text style={styles.label}>Name kaka</Text>
             <TextInput
               style={styles.smallInput}
               placeholder="Enter Phone Number"
@@ -261,7 +288,6 @@ const CreateProduct = ({ navigation }) => {
           )}
         </TouchableOpacity>
       </View>
-
       <TouchableOpacity
         style={styles.buttonContainer}
         // onPress={() => navigation.navigate("VendorList")}
@@ -273,9 +299,7 @@ const CreateProduct = ({ navigation }) => {
           <Text style={styles.buttonText}>Create Vendor Profile</Text>
         )}
       </TouchableOpacity>
-        
-    </ScrollView>
- 
+    </View> */}
   
   
     </>);
@@ -284,7 +308,7 @@ const CreateProduct = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    // paddingVertical: 30,
+    paddingVertical: 30,
   },
   imageContainer: {
     alignItems: "center",

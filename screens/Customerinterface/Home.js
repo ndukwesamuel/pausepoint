@@ -21,8 +21,8 @@ import bookmark from "../../assets/bookmark.png";
 import Calendar_light from "../../assets/Calendar_light.png";
 
 import qrcode from "../../assets/qrcode.png";
-import service from "../../assets/customer-support.png";
-import market from "../../assets/market.png";
+import service from "../../assets/settings.png";
+import market from "../../assets/mdi_marketplace-outline.png";
 import polling from "../../assets/polling.png";
 
 import search from "../../assets/search.png";
@@ -122,7 +122,7 @@ export default function App({ navigation }) {
           />
 
           <View>
-            <View style={{ flexGrow: 1, marginTop: 5 }}>
+            <ScrollView style={{ flexGrow: 1, marginTop: 5 }}>
               {TabButton(currentTab, setCurrentTab, "My Clans", clan, "myclan")}
               {TabButton(
                 currentTab,
@@ -169,15 +169,15 @@ export default function App({ navigation }) {
                 "icecontact"
               )}
 
-              {TabButton(
+              {/* {TabButton(
                 currentTab,
                 setCurrentTab,
                 "Directory",
                 bookmark,
                 "Neigborhood",
                 user_clan_info
-              )}
-            </View>
+              )} */}
+            </ScrollView>
 
             <View
               style={{ borderWidth: 1, borderColor: "black", borderRadius: 10 }}
