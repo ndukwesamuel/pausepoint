@@ -46,7 +46,9 @@ export const Market_data_Fun = createAsyncThunk(
           Authorization: `Bearer ${mydata?.token}`,
         },
       };
-
+      console.log({
+        url: `${API_BASEURL}market/product/${clan_id}/all`,
+      });
       const response = await axios.get(
         `${API_BASEURL}market/product/${clan_id}/all`,
         config

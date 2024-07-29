@@ -148,7 +148,7 @@ const Myclan = ({ navigation }) => {
         >
           <View style={{ marginVertical: 20 }}>
             <MediumFontText
-              data="All the estate you leave in"
+              data="All estate you live in"
               textstyle={{ fontSize: 18, fontWeight: "500" }}
             />
 

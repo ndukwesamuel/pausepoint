@@ -29,10 +29,11 @@ import color_swatch from "../../assets/images/info-circle.png";
 
 import calendar from "../../assets/calendar.png";
 import guest_icon from "../../assets/user-tag.png";
-import service from "../../assets/customer-support.png";
+// import service from "../../assets/customer-support.png";
 // import service from "../../assets/user-tag.png";
+import service from "../../assets/settings.png";
 
-import market from "../../assets/market.png";
+import market from "../../assets/marketPlace.png";
 
 import emergencies_icon from "../../assets/warning-2.png";
 

@@ -87,8 +87,8 @@ const UserTabNavigation = () => {
                             return (
                                 <Tabcomponent
                                     focused={focused}
-                                    iconFocused={require('../../assets/images/history.png')}
-                                    iconUnfocused={require('../../assets/images/historyhistory2.png')}
+                                    iconFocused={require('../../assets/message-text.png')}
+                                    iconUnfocused={require('../../assets/message-text.png')}
                                     label="Chat"
                                     containerStyle={{ alignItems: "center", justifyContent: "center", top: 10 }}
                                     texttStyle={{ color: "#000000" }}

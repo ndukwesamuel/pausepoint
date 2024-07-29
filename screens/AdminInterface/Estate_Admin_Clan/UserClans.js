@@ -731,40 +731,6 @@ const UserClans = () => {
           }
         />
       )}
-
-      <>
-        {unapprovedClans?.length <= 1 ? (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <LottieView
-              autoPlay
-              ref={animation}
-              style={{
-                width: 200,
-                height: 200,
-                // backgroundColor: "#eee",
-              }}
-              // Find more Lottie files at https://lottiefiles.com/featured
-              source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
-            />
-          </View>
-        ) : (
-          <FlatList
-            data={unapprovedClans}
-            keyExtractor={(item) => item._id}
-            renderItem={ApproverenderClanItem}
-            style={{ width: "100%" }}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-          />
-        )}
-      </>
     </View>
   );
 };

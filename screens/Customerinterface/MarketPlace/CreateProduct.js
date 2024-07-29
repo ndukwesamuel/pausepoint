@@ -25,56 +25,29 @@ const CreateProduct = ({ navigation }) => {
   const { marketcategory__data } = useSelector((state) => state.MarketSLice);
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [categoryValue, setCategoryValue] = useState(null);
-  const [categories, setCategories] = useState([
-    { label: "Category 1", value: "category1" },
-    { label: "Category 2", value: "category2" },
-    { label: "Category 3", value: "category3" },
-  ]);
-  console.log({
-    gggfg: marketcategory__data,
-  });
   const [subCategoryOpen, setSubCategoryOpen] = useState(false);
   const [subCategoryValue, setSubCategoryValue] = useState(null);
-  const [subCategories, setSubCategories] = useState([
-    { label: "Sub-Category 1", value: "subcategory1" },
-    { label: "Sub-Category 2", value: "subcategory2" },
-    { label: "Sub-Category 3", value: "subcategory3" },
-  ]);
-  const [profileImage, setProfileImage] = useState(""); // Replace with the user's actual data
+  const [profileImage, setProfileImage] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [description, setDescription] = useState("");
+  const [contact, setContact] = useState("");
 
   useEffect(() => {
     dispatch(Market_Category_Fun());
+  }, [dispatch]);
 
-    return () => {};
-  }, []);
-
-  const { get_all_admin_Service_data, categoryes_data } = useSelector(
-    (state) => state.AdminServiceSlice
-  );
-  const {
-    user_data,
-    user_isError,
-    user_isSuccess,
-    user_isLoading,
-    user_message,
-  } = useSelector((state) => state.AuthSlice);
+  const { user_data } = useSelector((state) => state.AuthSlice);
 
   const { userProfile_data } = useSelector((state) => state.ProfileSlice);
-
-  console.log({
-    dddd: marketcategory__data,
-  });
 
   const formattedCategories = marketcategory__data?.map((category) => ({
     label: category?.name,
     value: category._id,
   }));
 
-  console.log({
-    ewe: userProfile_data?.currentClanMeeting?._id,
-  });
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -87,33 +60,37 @@ const CreateProduct = ({ navigation }) => {
     }
   };
 
-  const [name, setname] = useState("");
-  const [price, setprice] = useState("");
-  const [quantity, setquantity] = useState("");
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Orange", value: "orange" },
+  ]);
 
-  const [phone_number, setphone_number] = useState("");
-  const [years_of_experience, setyears_of_experience] = useState("");
-  const [description, setdescription] = useState("");
-  const [opens, setopens] = useState("");
+  console.log({
+    name: name,
+    price: price,
+    quantity: quantity,
+    category: value,
+    description: description,
+    id: userProfile_data?.currentClanMeeting?._id,
+  });
 
   const handleSave = () => {
-    // Handle the saving of user data here (e.g., make API calls).
     const formData = new FormData();
-
     formData.append("name", name);
     formData.append("price", price);
     formData.append("quantity", quantity);
-    formData.append("category", subCategoryValue);
+    formData.append("category", value);
     formData.append("description", description);
-
+    formData.append("contact", contact);
     formData.append("clanId", userProfile_data?.currentClanMeeting?._id);
-    // formData.append("about_me", about_me);
-    // formData.append("gender", gender);
 
     if (profileImage) {
       const uri = profileImage;
-      const type = "image/jpeg"; // Adjust the type based on the file type
-      const name = "photo.jpg"; // Adjust the name as needed
+      const type = "image/jpeg";
+      const name = "photo.jpg";
       formData.append("images", { uri, type, name });
     }
 
@@ -122,6 +99,9 @@ const CreateProduct = ({ navigation }) => {
     CreateVendor_Mutation.mutate(formData);
   };
 
+  console.log({
+    rr: user_data?.token,
+  });
 
   const CreateVendor_Mutation = useMutation(
     (data_info) => {
@@ -137,15 +117,13 @@ const CreateProduct = ({ navigation }) => {
       return axios.post(url, data_info, config);
     },
     {
-      onSuccess: (success) => {
+      onSuccess: () => {
         Toast.show({
           type: "success",
           text1: "Event created successfully!",
         });
-
         navigation.goBack();
       },
-
       onError: (error) => {
         console.log({
           error: error?.response?.data,
@@ -158,73 +136,89 @@ const CreateProduct = ({ navigation }) => {
     }
   );
 
+  console.log({
+    value: value,
+  });
+
   return (
-    <>
     <ScrollView style={styles.container}>
-
-
-
-
-        <View style={styles.formContainer}>
+      <View style={styles.formContainer}>
         <View style={styles.row}>
           <View style={styles.column}>
-            <Text style={styles.label}>Name </Text>
+            <Text style={styles.label}>Name</Text>
             <TextInput
               style={styles.smallInput}
-              placeholder="Enter Phone Number"
+              placeholder="Enter Name"
               value={name}
-              onChangeText={setname}
+              onChangeText={setName}
             />
           </View>
           <View style={styles.column}>
-            <Text style={styles.label}> Price</Text>
+            <Text style={styles.label}>Price</Text>
             <TextInput
               style={styles.smallInput}
-              placeholder="Enter Years of Experience"
+              placeholder="Enter Price"
               value={price}
-              onChangeText={setprice}
+              onChangeText={setPrice}
+              keyboardType="numeric"
             />
           </View>
         </View>
-
         <View style={styles.row}>
           <View style={styles.column}>
-            <Text style={styles.label}> Quantity</Text>
+            <Text style={styles.label}>Quantity</Text>
             <TextInput
               style={styles.smallInput}
               placeholder="Enter Quantity"
               value={quantity}
-              onChangeText={setquantity}
+              onChangeText={setQuantity}
+              keyboardType="numeric"
             />
           </View>
           <View style={styles.column}>
             <Text style={styles.label}>Category</Text>
-            <DropDownPicker
+            {/* <DropDownPicker
               open={subCategoryOpen}
               value={subCategoryValue}
               items={formattedCategories}
               setOpen={setSubCategoryOpen}
               setValue={setSubCategoryValue}
-              setItems={setSubCategories}
               placeholder="Select"
               style={styles.dropdown}
-              containerStyle={{ height: 40, zIndex: 10000 }}
-              dropDownStyle={{ backgroundColor: "#eee", zIndex: 10000 }}
+              containerStyle={{ height: 40 }}
+              dropDownStyle={{ backgroundColor: "#eee" }}
+            /> */}
+
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={formattedCategories}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              style={styles.dropdown}
+              containerStyle={{ height: 40 }}
+              dropDownStyle={{ backgroundColor: "#eee" }}
             />
           </View>
         </View>
 
-        <View
-          style={{
-            marginTop: 10,
-          }}
-        >
+        <View style={styles.column}>
+          <Text style={styles.label}>Phone Number</Text>
+          <TextInput
+            style={styles.smallInput}
+            placeholder="Enter Quantity"
+            value={contact}
+            onChangeText={setContact}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={{ marginTop: 10, zIndex: -10000 }}>
           <Text style={styles.label}>Description</Text>
-
           <CustomTextArea
             placeholder="Write description..."
             value={description}
-            onChangeText={setdescription}
+            onChangeText={setDescription}
             style={styles.largeInput}
             inputStyle={{
               backgroundColor: "#F6F8FAE5",
@@ -237,7 +231,6 @@ const CreateProduct = ({ navigation }) => {
             }}
           />
         </View>
-
         <TouchableOpacity
           onPress={pickImage}
           style={{
@@ -257,43 +250,24 @@ const CreateProduct = ({ navigation }) => {
               style={{ width: 100, height: 100 }}
             />
           ) : (
-            <Text> Input Product Image</Text>
+            <Text>Input Product Image</Text>
           )}
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        // onPress={() => navigation.navigate("VendorList")}
-        onPress={handleSave}
-      >
+      <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
         {CreateVendor_Mutation.isLoading ? (
           <ActivityIndicator color="white" />
         ) : (
           <Text style={styles.buttonText}>Create Vendor Profile</Text>
         )}
       </TouchableOpacity>
-        
     </ScrollView>
- 
-  
-  
-    </>);
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    // paddingVertical: 30,
-  },
-  imageContainer: {
-    alignItems: "center",
-    marginTop: 10,
-  },
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 50,
   },
   formContainer: {
     paddingHorizontal: 20,
@@ -309,14 +283,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
   },
-  input: {
-    fontSize: 16,
-    padding: 15,
-    borderRadius: 5,
-    width: "100%",
-    backgroundColor: "#eee",
-    marginBottom: 15,
-  },
   smallInput: {
     fontSize: 16,
     padding: 15,
@@ -328,7 +294,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 15,
     borderRadius: 5,
-    width: "100%",
     backgroundColor: "#eee",
     paddingVertical: 35,
     marginBottom: 15,
@@ -355,6 +320,3 @@ const styles = StyleSheet.create({
 });
 
 export default CreateProduct;
-
-
-

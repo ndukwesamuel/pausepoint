@@ -23,7 +23,7 @@ import Calendar_light from "../../assets/Calendar_light.png";
 import qrcode from "../../assets/qrcode.png";
 import service from "../../assets/settings.png";
 import market from "../../assets/mdi_marketplace-outline.png";
-import polling from "../../assets/polling.png";
+import aboutusicon from "../../assets/Info_alt_light.png";
 
 import search from "../../assets/search.png";
 import color_swatch from "../../assets/color-swatch.png";
@@ -128,7 +128,7 @@ export default function App({ navigation }) {
                 currentTab,
                 setCurrentTab,
                 "Polls/Surveys",
-                polling,
+                color_swatch,
                 "userpolls",
                 user_clan_info
               )}
@@ -202,7 +202,8 @@ export default function App({ navigation }) {
                 currentTab,
                 setCurrentTab,
                 "About Us",
-                color_swatch,
+                // color_swatch,
+                aboutusicon,
 
                 "aboutus"
               )}

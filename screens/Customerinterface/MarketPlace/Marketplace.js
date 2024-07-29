@@ -20,9 +20,7 @@ import LottieView from "lottie-react-native";
 const MarketPlace = () => {
   const dispatch = useDispatch();
   const { Market_data } = useSelector((state) => state.MarketSLice);
-  console.log({
-    data: Market_data?.products,
-  });
+
   const animation = useRef(null);
 
   useEffect(() => {

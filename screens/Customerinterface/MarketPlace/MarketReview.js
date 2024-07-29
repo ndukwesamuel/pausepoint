@@ -1,15 +1,39 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
 
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Linking,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const MarketReview = () => {
   const navigation = useNavigation();
   const { item } = useRoute().params;
   console.log({
-    item: item,
+    item: item?.contact,
   });
+
+  const phoneNumber = item?.contact; //"1234567890"; // Replace with the phone number you want to call
+
+  const makePhoneCall = () => {
+    const url = `tel:${phoneNumber}`;
+    Linking.canOpenURL(url)
+      .then((supported) => {
+        if (supported) {
+          return Linking.openURL(url);
+        } else {
+          console.error(`Cannot open phone call: ${url}`);
+        }
+      })
+      .catch((error) => {
+        console.error(`Error making phone call: ${error}`);
+      });
+  };
 
   return (
     <>
@@ -50,15 +74,18 @@ const MarketReview = () => {
           <Text style={styles.sellerTitle}>Seller Details</Text>
           <Text style={styles.sellerInfo}>
             <Icon name="user" size={20} color="green" />
-            <Text> Jide Kosoko </Text>
+            <Text> {item?.seller?.name} </Text>
           </Text>
-          <Text style={styles.sellerInfo}>
+          {/* <Text style={styles.sellerInfo}>
             <Icon name="home" size={20} color="green" />
             <Text> House 24, Tinubu estate</Text>
-          </Text>
+          </Text> */}
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.approveButton}>
+          <TouchableOpacity
+            onPress={makePhoneCall}
+            style={styles.approveButton}
+          >
             <Text style={styles.buttonText}>Order now!</Text>
           </TouchableOpacity>
         </View>
