@@ -21,6 +21,12 @@ const About = () => {
             <Text style={{ marginBottom: 20 }}>
                 At Pause Point, our mission is to create a secure and connected world within communities. We aim to empower residents to build strong social connections, safeguard their valuable assets, and ensure the safety of their families. Through innovative technology and unwavering commitment to privacy and security, we strive to foster a sense of belonging and trust within every neighborhood.
             </Text>
+
+            <Text>
+
+
+                ssss
+            </Text>
         </ScrollView>
     )
 }
