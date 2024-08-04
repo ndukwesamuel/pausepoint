@@ -24,26 +24,12 @@ const Auth = () => {
     user_message,
   } = useSelector((state) => state.AuthSlice);
 
-  console.log({
-    ssssff: ss,
-  });
-
-  console.log({
-    ggg: user_message,
-  });
   useEffect(() => {
     if (user_message === "Email Not Verified") {
       dispatch(authScreenChange("OTP"));
     }
     return () => {};
   }, [user_data, user_message]);
-
-  //   useEffect(() => {
-  //     dispatch(reset_login());
-  //     dispatch(reset_isOnboardings());
-
-  //     return () => {};
-  //   }, []);
 
   return (
     <View style={{ flex: 1 }}>

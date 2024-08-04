@@ -289,6 +289,10 @@ export default function App({ navigation }) {
 
                 setShowMenu(!showMenu);
               }}
+              style={{
+                paddingHorizontal: 10,
+                paddingVertical: 20,
+              }}
             >
               <Image
                 source={showMenu ? close : menu}

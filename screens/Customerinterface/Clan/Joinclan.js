@@ -37,6 +37,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { Get_ALl_Clan_Fun } from "../../../Redux/UserSide/ClanSlice";
 import ReuseModals from "../../../components/shared/ReuseModals";
+import { formatDate, formatDateandTime } from "../../../utils/DateTime";
 
 const Joinclan = () => {
   const { get_all_clan_data } = useSelector((state) => state.ClanSlice);
@@ -215,7 +216,7 @@ const Joinclan = () => {
                   setModalVisible(true);
                 }}
               >
-                <Text style={{ color: "white" }}>View</Text>
+                <Text style={{ color: "white" }}>Join</Text>
               </TouchableOpacity>
 
               <ReuseModals visible={isModalVisible}>
@@ -234,7 +235,7 @@ const Joinclan = () => {
                 </TouchableOpacity>
                 <ScrollView showsVerticalScrollIndicator={false}>
                   <View style={styles.container}>
-                    <Text style={styles.title}>Esate</Text>
+                    <Text style={styles.title}>Estate</Text>
                     <Text
                       style={{
                         fontSize: 16,
@@ -254,30 +255,19 @@ const Joinclan = () => {
                     </Text>
 
                     <Text style={styles.createdAt}>
-                      Created At: {modalVisibility?.data?.createdAt}
+                      Created At:
+                      {formatDate(modalVisibility?.data?.createdAt)}
                     </Text>
 
                     <Text
                       style={{
                         fontSize: 16,
-                        marginBottom: 16,
                       }}
                     >
                       Creator Details
                     </Text>
                     <BoldFontText text={"Creator Details"} />
 
-                    {/* <Image
-                      source={{
-                        uri: modalVisibility?.data?.creatorData[0]?.photo,
-                      }}
-                      style={{
-                        width: 100,
-                        height: 100,
-                        //   borderRadius: 50,
-                        marginBottom: 16,
-                      }}
-                    /> */}
                     <Text
                       style={{
                         fontSize: 24,

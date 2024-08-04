@@ -291,7 +291,7 @@ const Myclan = ({ navigation }) => {
                 marginBottom: 20,
               }}
             >
-              Create Your Esate
+              Create Your Estate
             </Text>
 
             <View>
