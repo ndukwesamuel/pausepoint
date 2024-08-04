@@ -42,17 +42,34 @@ import {
 } from "../../../components/shared/InputForm";
 
 const ForumDetails = () => {
-  const {
-    _id: forumid,
-    content,
-    createdAt,
-    likes,
-    user,
-  } = useRoute()?.params?.forumid;
+  const maindata = useRoute()?.params;
+
+  const { get_user_profile_data } = useSelector(
+    (state) => state.UserProfileSlice
+  );
+
+  let forumid = maindata?._id;
   // const {gggggg} = useRoute()?.params?.forumid;
-  // console.log({
-  //   gggggg: gggggg,
-  // });
+  console.log({
+    bbb: maindata?.user,
+    aaa: get_user_profile_data?.user?._id,
+  });
+
+  const deleteDate = () => {
+    Delete_Mutation.mutate();
+  };
+
+  let dataDetails = [
+    {
+      id: "1",
+      title: "Delete this post",
+      description: "This announcement will be deleted instantly",
+      img: require("../../../assets/images/trash.png"),
+      action: () => deleteDate(), //Alert.alert("Post Deleted", "This announcement has been deleted."),
+    },
+  ];
+
+  // let forumid = 1;
 
   const {
     user_data,
@@ -61,9 +78,7 @@ const ForumDetails = () => {
     user_isLoading,
     user_message,
   } = useSelector((state) => state.AuthSlice);
-  console.log({
-    token: user_data?.token,
-  });
+
   const navigation = useNavigation();
   const animation = useRef(null);
   const dispatch = useDispatch();
@@ -94,15 +109,10 @@ const ForumDetails = () => {
     (state) => state?.ForumSlice
   );
 
-  console.log({
-    uuu: get_my_clan_single_forum_data,
-  });
-
   let item = {};
 
   const handleCommentSubmit = () => {
     // Step 4: Handle comment submission logic
-    console.log("User submitted comment:", commentInput);
     // You can dispatch an action or perform any other logic here to submit the comment
     // Clear the comment input after submission
     setCommentInput("");
@@ -168,6 +178,47 @@ const ForumDetails = () => {
     }
   );
 
+  const Delete_Mutation = useMutation(
+    (data_info) => {
+      let url = `${API_BASEURL}forum/user/${forumid}`;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          //   "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${user_data?.token}`,
+        },
+      };
+
+      return axios.delete(url, config);
+    },
+    {
+      onSuccess: (success) => {
+        Toast.show({
+          type: "success",
+          text1: " date deleted succesfully ",
+        });
+        // dispatch(Get_My_Clan_Single_Forum_Fun(forumid));
+        // setTurnmodal(false);
+        // navigate("")
+        navigation.goBack();
+      },
+
+      onError: (error) => {
+        Toast.show({
+          type: "error",
+          text1: `${error?.response?.data?.message} `,
+          //   text2: ` ${error?.response?.data?.errorMsg} `,
+        });
+
+        // dispatch(Get_User_Clans_Fun());
+        // dispatch(Get_User_Profle_Fun());
+        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
+      },
+    }
+  );
+
   const Comment_Mutation = useMutation(
     (data_info) => {
       let url = `${API_BASEURL}forum/comment`;
@@ -179,10 +230,6 @@ const ForumDetails = () => {
           Authorization: `Bearer ${user_data?.token}`,
         },
       };
-
-      console.log({
-        jdjd: data_info,
-      });
 
       return axios.post(url, data_info, config);
     },
@@ -259,16 +306,18 @@ const ForumDetails = () => {
             />
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            paddingHorizontal: 12,
-            paddingVertical: 2,
-            borderRadius: 6,
-          }}
-          onPress={toggleModal}
-        >
-          <Entypo name="dots-three-vertical" size={24} color="black" />
-        </TouchableOpacity>
+        {maindata?.user === get_user_profile_data?.user?._id && (
+          <TouchableOpacity
+            style={{
+              paddingHorizontal: 12,
+              paddingVertical: 2,
+              borderRadius: 6,
+            }}
+            onPress={toggleModal}
+          >
+            <Entypo name="dots-three-vertical" size={24} color="black" />
+          </TouchableOpacity>
+        )}
       </View>
 
       <View style={{ paddingHorizontal: 20 }}>
@@ -388,9 +437,6 @@ const ForumDetails = () => {
                   borderRadius: 10,
                 }}
               >
-                {console.log({
-                  comment: comment,
-                })}
                 <Text>{comment?.content}</Text>
                 {/* You can map through the comments array and render each comment */}
               </View>
@@ -495,7 +541,45 @@ const ForumDetails = () => {
       </CenterReuseModals>
 
       {/* // )} */}
-      <ForumModal visible={isModalVisible} onClose={toggleModal} />
+      <ForumModal visible={isModalVisible} onClose={toggleModal}>
+        <View
+          style={{
+            backgroundColor: "white",
+            padding: 20,
+            width: "100%",
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            height: "30%",
+          }}
+        >
+          {dataDetails.map((item) => (
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 10,
+                gap: 10,
+              }}
+              key={item.id}
+              onPress={item.action}
+            >
+              <Image
+                source={item?.img} // Replace with the correct path to your image
+                style={{ width: 30, height: 30, tintColor: "black" }}
+              />
+
+              <View>
+                <MediumFontText
+                  data="Hide this post"
+                  textstyle={{ fontSize: 16, fontWeight: "500" }}
+                />
+
+                <RegularFontText data="This announcement will be deleted instantly" />
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ForumModal>
     </ScrollView>
   );
 };

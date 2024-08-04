@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import {
   Modal,
   View,
@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { MediumFontText, RegularFontText } from "../shared/Paragrahp";
 
-function ForumModal({ visible, onClose }) {
+function ForumModal({ visible, onClose, children }) {
   let data = [
     {
       id: "1",
@@ -34,35 +34,7 @@ function ForumModal({ visible, onClose }) {
   return (
     <Modal transparent={true} animationType="slide" visible={visible}>
       <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            {data.map((item) => (
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginBottom: 10,
-                  gap: 10,
-                }}
-                key={item.id}
-              >
-                <Image
-                  source={item?.img} // Replace with the correct path to your image
-                  style={{ width: 30, height: 30, tintColor: "black" }}
-                />
-
-                <View>
-                  <MediumFontText
-                    data="Hide this post"
-                    textstyle={{ fontSize: 16, fontWeight: "500" }}
-                  />
-
-                  <RegularFontText data="This announcement will be deleted instantly" />
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
+        <View style={styles.modalContainer}>{children}</View>
       </TouchableWithoutFeedback>
     </Modal>
   );

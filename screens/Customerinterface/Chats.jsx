@@ -201,7 +201,7 @@ const Chats = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"} // Choose the behavior based on the platform
       style={{ flex: 1 }}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : -100} // Adjust the offset if needed
+      // keyboardVerticalOffset={Platform.OS === "ios" ? 0 : -100} // Adjust the offset if needed
     >
       <View style={{ flex: 1 }}>
         <View style={{ alignItems: "center", paddingVertical: 10 }}>

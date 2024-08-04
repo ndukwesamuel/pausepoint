@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  FlatList,
+  Modal,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import * as ImagePicker from "expo-image-picker";
@@ -47,6 +49,17 @@ const CreateProduct = ({ navigation }) => {
     value: category._id,
   }));
 
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const categories = [
+    { label: "Category 1", value: "cat1" },
+    { label: "Category 2", value: "cat2" },
+    { label: "Category 3", value: "cat3" },
+  ];
+
+  console.log({
+    formattedCategories: selectedCategory,
+  });
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -82,7 +95,7 @@ const CreateProduct = ({ navigation }) => {
     formData.append("name", name);
     formData.append("price", price);
     formData.append("quantity", quantity);
-    formData.append("category", value);
+    formData.append("category", selectedCategory?.value);
     formData.append("description", description);
     formData.append("contact", contact);
     formData.append("clanId", userProfile_data?.currentClanMeeting?._id);
@@ -177,28 +190,11 @@ const CreateProduct = ({ navigation }) => {
           </View>
           <View style={styles.column}>
             <Text style={styles.label}>Category</Text>
-            {/* <DropDownPicker
-              open={subCategoryOpen}
-              value={subCategoryValue}
-              items={formattedCategories}
-              setOpen={setSubCategoryOpen}
-              setValue={setSubCategoryValue}
-              placeholder="Select"
-              style={styles.dropdown}
-              containerStyle={{ height: 40 }}
-              dropDownStyle={{ backgroundColor: "#eee" }}
-            /> */}
 
-            <DropDownPicker
-              open={open}
-              value={value}
+            <CustomDropdown
               items={formattedCategories}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              style={styles.dropdown}
-              containerStyle={{ height: 40 }}
-              dropDownStyle={{ backgroundColor: "#eee" }}
+              selectedValue={selectedCategory}
+              onValueChange={setSelectedCategory}
             />
           </View>
         </View>
@@ -320,3 +316,76 @@ const styles = StyleSheet.create({
 });
 
 export default CreateProduct;
+
+const CustomDropdown = ({ items, selectedValue, onValueChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [value, setValue] = useState(selectedValue);
+
+  const handleSelect = (item) => {
+    setValue(item);
+    onValueChange(item);
+    setIsOpen(false);
+  };
+
+  return (
+    <View>
+      <TouchableOpacity
+        style={{
+          borderWidth: 1,
+          borderColor: "#ccc",
+          borderRadius: 5,
+          padding: 10,
+          backgroundColor: "#fff",
+        }}
+        onPress={() => setIsOpen(!isOpen)}
+      >
+        <Text style={{ fontSize: 16 }}>
+          {value ? value.label : "Select an option"}
+        </Text>
+      </TouchableOpacity>
+      {isOpen && (
+        <Modal
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setIsOpen(false)}
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "#fff",
+                borderRadius: 10,
+                width: "80%",
+                maxHeight: "50%",
+                padding: 10,
+              }}
+            >
+              <FlatList
+                data={items}
+                keyExtractor={(item) => item.value.toString()}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={{
+                      padding: 10,
+                      borderBottomWidth: 1,
+                      borderBottomColor: "#eee",
+                    }}
+                    onPress={() => handleSelect(item)}
+                  >
+                    <Text>{item.label}</Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+          </View>
+        </Modal>
+      )}
+    </View>
+  );
+};

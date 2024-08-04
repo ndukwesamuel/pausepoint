@@ -12,6 +12,7 @@ import {
   Image,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import {
   Get_Single_clan,
   Get_User_Clans_Fun,
@@ -478,8 +479,21 @@ const UserClans = () => {
               marginBottom: 20,
             }}
           >
-            Decide User MemberShip
+            Decide User Membership
           </Text>
+
+          <TouchableOpacity
+          style={{
+            position:"absolute",
+            top:10,
+            right:10
+          }}
+          onPress={() => setTurnmodal(false)}
+          >
+        <MaterialIcons name="cancel" size={24} color="black" />
+          </TouchableOpacity>
+
+      
           <View
             style={{
               // flexDirection: "row",
@@ -490,6 +504,8 @@ const UserClans = () => {
               alignItems: "center",
             }}
           >
+
+
             <TouchableOpacity
               style={{
                 backgroundColor: "#04973C",
@@ -610,6 +626,9 @@ const UserClans = () => {
                 Rejected
               </Text>
             </TouchableOpacity>
+
+
+            
           </View>
           {ApproveMember_Mutation.isLoading && (
             <ActivityIndicator size="Larger" color="green" />

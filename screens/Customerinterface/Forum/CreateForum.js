@@ -81,7 +81,7 @@ const CreateForum = () => {
 
   const Create_Forum_Mutation = useMutation(
     (data_info) => {
-      let url = `${API_BASEURL}forum/${get_user_profile_data?.currentClanMeeting?._id}`;
+      let url = `${API_BASEURL}forum`;
 
       //   console.log({
       //     hahaha: url,

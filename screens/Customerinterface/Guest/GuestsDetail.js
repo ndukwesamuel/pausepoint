@@ -144,11 +144,6 @@ const GuestsDetail = () => {
       <View style={styles.container}>
         <Text style={styles.title}>Invitation Details</Text>
         <View style={styles.detailsContainer}>
-          <Text style={styles.label}>Clan:</Text>
-          <Text style={styles.text}>
-            {get_user_guest_detail_data?.invitation?.clan}
-          </Text>
-
           <View>
             <Text style={styles.label}>Visitor Name:</Text>
             <Text style={styles.text}>
@@ -169,10 +164,7 @@ const GuestsDetail = () => {
               {get_user_guest_detail_data?.invitation?.phone_number}
             </Text>
           </View>
-          <Text style={styles.label}>Creator:</Text>
-          <Text style={styles.text}>
-            {get_user_guest_detail_data?.invitation?.creator}
-          </Text>
+
           <Text style={styles.label}>Access Code:</Text>
           <Text style={styles.text}>
             {get_user_guest_detail_data?.invitation?.access_code}

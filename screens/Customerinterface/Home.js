@@ -19,6 +19,7 @@ import clan from "../../assets/clan.png";
 
 import bookmark from "../../assets/bookmark.png";
 import Calendar_light from "../../assets/Calendar_light.png";
+import Contact from "../../assets/Desk_light.png";
 
 import qrcode from "../../assets/qrcode.png";
 import service from "../../assets/settings.png";
@@ -165,7 +166,7 @@ export default function App({ navigation }) {
                 currentTab,
                 setCurrentTab,
                 "ICE Contacts",
-                Calendar_light,
+                Contact,
                 "icecontact"
               )}
 

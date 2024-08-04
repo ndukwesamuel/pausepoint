@@ -235,7 +235,7 @@ const COnveter = ({ data }) => {
           navigation.navigate("AdminGuestsDetail", { itemdata });
         }}
       >
-        <Text>Verify kkk</Text>
+        <Text>Verify </Text>
       </TouchableOpacity>
     </View>
   );

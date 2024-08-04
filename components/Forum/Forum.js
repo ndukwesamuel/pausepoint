@@ -16,7 +16,8 @@ import {
   MediumFontText,
   RegularFontText,
 } from "../shared/Paragrahp";
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import { Entypo, AntDesign, MaterialIcons } from "@expo/vector-icons";
+
 import ForumModal from "./ForumModal";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +37,7 @@ const data = [
   // Add more items as needed
 ];
 
+// createforum
 const Forum = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
@@ -192,7 +194,7 @@ const Forum = () => {
                     }}
                     onPress={() => {
                       console.log({
-                        j: "dddd",
+                        j: item,
                       });
                       navigation.navigate("forumdetail", item);
                     }}
@@ -221,7 +223,7 @@ const Forum = () => {
                   </TouchableOpacity>
 
                   {/* uncmment later */}
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     style={{
                       paddingHorizontal: 12,
                       paddingVertical: 2,
@@ -234,7 +236,7 @@ const Forum = () => {
                       size={24}
                       color="black"
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
 
                 <View style={{ paddingHorizontal: 20 }}>
@@ -311,6 +313,34 @@ const Forum = () => {
               </View>
             )}
           />
+
+          <View
+            style={{ position: "absolute", right: 10, top: 570, zIndex: 1 }}
+          >
+            <TouchableOpacity
+              style={{
+                backgroundColor: "green",
+                // paddingHorizontal: 20,
+                // paddingVertical: 10,
+                borderRadius: 50,
+                width: 50,
+                height: 50,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              // navigation.navigate("guestsdetail", { itemdata });
+
+              onPress={() => navigation.navigate("createforum")}
+            >
+              <AntDesign
+                name="plus"
+                size={24}
+                color="white"
+                // style={{ width: 25, height: 25 }}
+              />
+              {/* <MaterialIcons name="mode-edit" size={24} color="black" /> */}
+            </TouchableOpacity>
+          </View>
         </>
       ) : (
         <ScrollView

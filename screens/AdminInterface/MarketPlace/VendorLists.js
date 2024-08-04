@@ -43,7 +43,7 @@ const VendorLists = () => {
           }}
         >
           <MediumFontText
-            data="ApprovedGoods"
+            data="Approved Goods"
             textstyle={{
               fontSize: 20,
               fontWeight: "500",
@@ -65,7 +65,7 @@ const VendorLists = () => {
           onPress={() => setforumlist(false)}
         >
           <MediumFontText
-            data="PendingGoods"
+            data="Pending Goods"
             textstyle={{
               fontSize: 20,
               fontWeight: "500",
