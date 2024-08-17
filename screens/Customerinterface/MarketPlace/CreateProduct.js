@@ -203,7 +203,7 @@ const CreateProduct = ({ navigation }) => {
           <Text style={styles.label}>Phone Number</Text>
           <TextInput
             style={styles.smallInput}
-            placeholder="Enter Quantity"
+            placeholder="Enter Phone Number"
             value={contact}
             onChangeText={setContact}
             keyboardType="numeric"
@@ -211,17 +211,21 @@ const CreateProduct = ({ navigation }) => {
         </View>
         <View style={{ marginTop: 10, zIndex: -10000 }}>
           <Text style={styles.label}>Description</Text>
+
           <CustomTextArea
             placeholder="Write description..."
             value={description}
             onChangeText={setDescription}
             style={styles.largeInput}
             inputStyle={{
+              textAlignVertical: "top", // Ensures text starts from the top
+              paddingTop: 10, // Add paddingTop to control vertical padding
+              paddingBottom: 10, // Add paddingBottom to balance padding
               backgroundColor: "#F6F8FAE5",
               paddingHorizontal: 10,
-              paddingVertical: 20,
-              height: 200,
-              padding: 10,
+              paddingTop: 10, // Add paddingTop to control the vertical padding
+              paddingBottom: 10, // Add paddingBottom to balance the padding
+              height: 100,
               borderRadius: 6,
               fontSize: 16,
             }}

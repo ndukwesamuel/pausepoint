@@ -26,6 +26,12 @@ const initialState = {
   get_user_guest_detail_isSuccess: false,
   get_user_guest_detail_isLoading: false,
   get_user_guest_detail_message: null,
+
+  get_all_domestic_data: null,
+  get_all_domestic_isError: false,
+  get_all_domestic_isSuccess: false,
+  get_all_domestic_isLoading: false,
+  get_all_domestic_message: null,
 };
 
 export const Get_All_User_Guest_Fun = createAsyncThunk(
@@ -46,6 +52,42 @@ export const Get_All_User_Guest_Fun = createAsyncThunk(
       };
 
       const response = await axios.get(`${API_BASEURL}visitor/invites`, config);
+
+      return response.data;
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: `${error?.response?.data?.message} `,
+      });
+      return thunkAPI.rejectWithValue(error?.response?.data?.message);
+    }
+  }
+);
+
+export const Get_All_Domestic_Fun = createAsyncThunk(
+  "GuestSlice/Get_All_Domestic_Fun",
+  async (_, thunkAPI) => {
+    console.log({
+      fggg: "this is working ",
+    });
+    try {
+      let token_Data = thunkAPI.getState()?.AuthSlice.user_data?.token;
+      let clan_id =
+        thunkAPI.getState()?.UserProfileSlice?.get_user_profile_data
+          ?.currentClanMeeting?._id;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token_Data}`,
+        },
+      };
+
+      const response = await axios.get(`${API_BASEURL}domesticstaff`, config);
+      console.log({
+        fff: response.data,
+      });
 
       return response.data;
     } catch (error) {
@@ -136,6 +178,24 @@ export const GuestSlice = createSlice({
       state.get_user_guest_detail_message = action.payload;
       state.get_user_guest_detail_data = null;
       state.get_user_guest_detail_isSuccess = false;
+    });
+
+    builder.addCase(Get_All_Domestic_Fun.pending, (state) => {
+      state.get_all_domestic_isLoading = true;
+    });
+    builder.addCase(Get_All_Domestic_Fun.fulfilled, (state, action) => {
+      state.get_all_domestic_isLoading = false;
+      state.get_all_domestic_isSuccess = true;
+      state.get_all_domestic_data = action.payload;
+      state.get_all_domestic_message = null;
+      state.get_all_domestic_isError = false;
+    });
+    builder.addCase(Get_All_Domestic_Fun.rejected, (state, action) => {
+      state.get_all_domestic_isLoading = false;
+      state.get_all_domestic_isError = true;
+      state.get_all_domestic_message = action.payload;
+      state.get_user_guest_detail_data = null;
+      state.get_all_domestic_isSuccess = false;
     });
   },
 });

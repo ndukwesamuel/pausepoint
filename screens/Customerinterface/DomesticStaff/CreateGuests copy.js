@@ -6,7 +6,7 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  ScrollView
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -61,7 +61,6 @@ const CreateGuests = () => {
     visitor_name: "",
     gender: selectedOption,
     phone_number: "",
-    location: "",
   });
 
   const [showArrivalDatePicker, setShowArrivalDatePicker] = useState(false);
@@ -89,19 +88,19 @@ const CreateGuests = () => {
   };
 
   const handleDateChange = (event, selectedDate, field, type) => {
+    if (selectedDate) {
+      setFormData({
+        ...formData,
+        [field]: new Date(
+          formData[field].setFullYear(
+            selectedDate.getFullYear(),
+            selectedDate.getMonth(),
+            selectedDate.getDate()
+          )
+        ),
+      });
+    }
     if (type === "date") {
-      if (selectedDate) {
-        setFormData({
-          ...formData,
-          [field]: new Date(
-            formData[field].setFullYear(
-              selectedDate.getFullYear(),
-              selectedDate.getMonth(),
-              selectedDate.getDate()
-            )
-          ),
-        });
-      }
       if (field === "arrivalDate") {
         setShowArrivalDatePicker(false);
       } else {
@@ -141,7 +140,6 @@ const CreateGuests = () => {
       visitor_name: formData?.visitor_name,
       gender: formData?.gender,
       phone_number: formData?.phone_number,
-      location: formData?.location,
     });
   };
 
@@ -181,9 +179,6 @@ const CreateGuests = () => {
       },
 
       onError: (error) => {
-        console.log({
-          dfdf: error?.response?.data,
-        });
         Toast.show({
           type: "error",
           text1: `${error?.response?.data?.message} `,
@@ -213,152 +208,130 @@ const CreateGuests = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View style={{ paddingHorizontal: 20 }}>
-            <View style={{ marginBottom: 15 }}>
-              <FormLabel data="Name" />
-              <Forminput
-                placeholder="Visitor Name"
-                value={formData.visitor_name}
-                onChangeText={(value) =>
-                  handleInputChange("visitor_name", value)
-                }
-              />
-            </View>
-
-            <View style={{ marginBottom: 15 }}>
-              <FormLabel data="Phone Number" />
-              <Forminput
-                placeholder="Phone Number"
-                value={formData.phone_number}
-                onChangeText={(value) =>
-                  handleInputChange("phone_number", value)
-                }
-              />
-            </View>
-
-            <View style={{ marginTop: 15 }}>
-              <Text>Choose an option:</Text>
-              <RadioButton
-                label="Male"
-                selected={selectedOption === 1}
-                onSelect={() => handleRadioSelect(1)}
-              />
-              <RadioButton
-                label="Female"
-                selected={selectedOption === 2}
-                onSelect={() => handleRadioSelect(2)}
-                inputStyle={styles.radioButton}
-              />
-            </View>
-
-            <View style={{ marginTop: 20 }}>
-              <RegularFontText data="Arrival Date" />
-              <TouchableOpacity
-                style={styles.dateButton}
-                onPress={() => showDatePickerModal("arrivalDate", "date")}
-              >
-                <Text>{formData.arrivalDate.toLocaleDateString()}</Text>
-              </TouchableOpacity>
-              {showArrivalDatePicker && (
-                <DateTimePicker
-                  value={formData.arrivalDate}
-                  mode="date"
-                  display="default"
-                  onChange={(event, selectedDate) =>
-                    handleDateChange(event, selectedDate, "arrivalDate", "date")
-                  }
-                />
-              )}
-            </View>
-
-            <View style={{ marginTop: 20 }}>
-              <RegularFontText data="Arrival Time" />
-              <TouchableOpacity
-                style={styles.dateButton}
-                onPress={() => showDatePickerModal("arrivalDate", "time")}
-              >
-                <Text>{formData.arrivalDate.toLocaleTimeString()}</Text>
-              </TouchableOpacity>
-              {showArrivalTimePicker && (
-                <DateTimePicker
-                  value={formData.arrivalDate}
-                  mode="time"
-                  display="default"
-                  onChange={(event, selectedDate) =>
-                    handleDateChange(event, selectedDate, "arrivalDate", "time")
-                  }
-                />
-              )}
-            </View>
-
-            <View style={{ marginTop: 20 }}>
-              <RegularFontText data="Departure Date" />
-              <TouchableOpacity
-                style={styles.dateButton}
-                onPress={() => showDatePickerModal("departureDate", "date")}
-              >
-                <Text>{formData.departureDate.toLocaleDateString()}</Text>
-              </TouchableOpacity>
-              {showDepartureDatePicker && (
-                <DateTimePicker
-                  value={formData.departureDate}
-                  mode="date"
-                  display="default"
-                  onChange={(event, selectedDate) =>
-                    handleDateChange(
-                      event,
-                      selectedDate,
-                      "departureDate",
-                      "date"
-                    )
-                  }
-                />
-              )}
-            </View>
-
-            <View style={{ marginTop: 20 }}>
-              <RegularFontText data="Departure Time" />
-              <TouchableOpacity
-                style={styles.dateButton}
-                onPress={() => showDatePickerModal("departureDate", "time")}
-              >
-                <Text>{formData.departureDate.toLocaleTimeString()}</Text>
-              </TouchableOpacity>
-              {showDepartureTimePicker && (
-                <DateTimePicker
-                  value={formData.departureDate}
-                  mode="time"
-                  display="default"
-                  onChange={(event, selectedDate) =>
-                    handleDateChange(
-                      event,
-                      selectedDate,
-                      "departureDate",
-                      "time"
-                    )
-                  }
-                />
-              )}
-            </View>
-
-            <View style={{ marginBottom: 15 }}>
-              <FormLabel data="Location" />
-              <Forminput
-                placeholder="Enter Your Address Of invite"
-                value={formData.location}
-                onChangeText={(value) => handleInputChange("location", value)}
-              />
-            </View>
-
-            <Formbutton
-              buttonStyle={styles.submitButton}
-              textStyle={styles.submitButtonText}
-              data="Submit"
-              onPress={handleSubmit}
-              isLoading={Guests_Mutation?.isLoading}
+              <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={{ paddingHorizontal: 20 }}>
+          <View style={{ marginBottom: 15 }}>
+            <FormLabel data="Name" />
+            <Forminput
+              placeholder="Visitor Name"
+              value={formData.visitor_name}
+              onChangeText={(value) => handleInputChange("visitor_name", value)}
             />
           </View>
+
+          <View style={{ marginBottom: 15 }}>
+            <FormLabel data="Phone Number" />
+            <Forminput
+              placeholder="Phone Number"
+              value={formData.phone_number}
+              onChangeText={(value) => handleInputChange("phone_number", value)}
+            />
+          </View>
+
+          <View style={{ marginTop: 15 }}>
+            <Text>Choose an option:</Text>
+            <RadioButton
+              label="Male"
+              selected={selectedOption === 1}
+              onSelect={() => handleRadioSelect(1)}
+            />
+            <RadioButton
+              label="Female"
+              selected={selectedOption === 2}
+              onSelect={() => handleRadioSelect(2)}
+              inputStyle={styles.radioButton}
+            />
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <RegularFontText data="Arrival Date" />
+            <TouchableOpacity
+              style={styles.dateButton}
+              onPress={() => showDatePickerModal("arrivalDate", "date")}
+            >
+              <Text>{formData.arrivalDate.toLocaleDateString()}</Text>
+            </TouchableOpacity>
+            {showArrivalDatePicker && (
+              <DateTimePicker
+                value={formData.arrivalDate}
+                mode="date"
+                display="default"
+                onChange={(event, selectedDate) =>
+                  handleDateChange(event, selectedDate, "arrivalDate", "date")
+                }
+              />
+            )}
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <RegularFontText data="Arrival Time" />
+            <TouchableOpacity
+              style={styles.dateButton}
+              onPress={() => showDatePickerModal("arrivalDate", "time")}
+            >
+              <Text>{formData.arrivalDate.toLocaleTimeString()}</Text>
+            </TouchableOpacity>
+            {showArrivalTimePicker && (
+              <DateTimePicker
+                value={formData.arrivalDate}
+                mode="time"
+                display="default"
+                onChange={(event, selectedDate) =>
+                  handleDateChange(event, selectedDate, "arrivalDate", "time")
+                }
+              />
+            )}
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <RegularFontText data="Departure Date" />
+            <TouchableOpacity
+              style={styles.dateButton}
+              onPress={() => showDatePickerModal("departureDate", "date")}
+            >
+              <Text>{formData.departureDate.toLocaleDateString()}</Text>
+            </TouchableOpacity>
+            {showDepartureDatePicker && (
+              <DateTimePicker
+                value={formData.departureDate}
+                mode="date"
+                display="default"
+                onChange={(event, selectedDate) =>
+                  handleDateChange(event, selectedDate, "departureDate", "date")
+                }
+              />
+            )}
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <RegularFontText data="Departure Time" />
+            <TouchableOpacity
+              style={styles.dateButton}
+              onPress={() => showDatePickerModal("departureDate", "time")}
+            >
+              <Text>{formData.departureDate.toLocaleTimeString()}</Text>
+            </TouchableOpacity>
+            {showDepartureTimePicker && (
+              <DateTimePicker
+                value={formData.departureDate}
+                mode="time"
+                display="default"
+                onChange={(event, selectedDate) =>
+                  handleDateChange(event, selectedDate, "departureDate", "time")
+                }
+              />
+            )}
+          </View>
+
+          <Formbutton
+            buttonStyle={styles.submitButton}
+            textStyle={styles.submitButtonText}
+            data="Submit"
+            onPress={handleSubmit}
+            isLoading={Guests_Mutation?.isLoading}
+          />
+        </View>
+
         </ScrollView>
       </KeyboardAvoidingView>
     </AppScreen>

@@ -3,7 +3,7 @@
     "name": "PausePoint",
     "slug": "PausePoint",
     "orientation": "portrait",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -30,7 +30,7 @@
       }
     },
     "android": {
-      "versionCode": 4,
+      "versionCode": 6,
       "targetSdkVersion": 34,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

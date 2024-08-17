@@ -256,7 +256,7 @@ export default function AdminHome() {
             )}
           </View>
 
-          <View>{TabButton(currentTab, setCurrentTab, "LogOut", logout)}</View>
+          {/* <View>{TabButton(currentTab, setCurrentTab, "LogOut", logout)}</View> */}
         </View>
 
         {

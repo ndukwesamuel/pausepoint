@@ -166,10 +166,10 @@ export const MainScreen = ({}) => {
 
     const foregroundSubscription =
       Notifications.addNotificationReceivedListener(async (notification) => {
-        console.log({ notification });
-        console.log({ yyynotification2: notification?.request });
+        // console.log({ notification });
+        // console.log({ yyynotification2: notification?.request });
 
-        console.log({ zzznotification2: notification?.request?.content?.data });
+        // console.log({ zzznotification2: notification?.request?.content?.data });
 
         // if (Platform.OS === "android") {
         //   console.log({ andriod: notification });
@@ -188,10 +188,10 @@ export const MainScreen = ({}) => {
     };
   }, []);
 
-  console.log({
-    ddd: user_data,
-    API_BASEURL,
-  });
+  // console.log({
+  //   ddd: user_data,
+  //   API_BASEURL,
+  // });
 
   useEffect(() => {
     const socketConnection = io(API_BASEURL, {
@@ -201,11 +201,9 @@ export const MainScreen = ({}) => {
     });
 
     socketConnection.on("onlineUser", (data) => {
-      console.log(data);
       dispatch(setOnlineUser(data));
     });
 
-    console.log({ yyy: socketConnection });
     dispatch(setSocketConnection(socketConnection));
 
     return () => {
@@ -265,7 +263,7 @@ export const NavigationScreen = () => {
       }
       if (status !== "granted") {
         // Handle the case where the user declines permission
-        console.log("Failed to get push token for push notification!");
+        // console.log("Failed to get push token for push notification!");
         return;
       }
       let token;
@@ -280,12 +278,12 @@ export const NavigationScreen = () => {
       //   })
       // ).data;
 
-      console.log({ first_token: token });
+      // console.log({ first_token: token });
       // Permission granted, handle accordingly
       await AsyncStorage.setItem("PushToken", token);
       const value = await AsyncStorage.getItem("PushToken");
 
-      console.log({ value });
+      // console.log({ value });
       // setPushToken(value);
     }
 
@@ -296,7 +294,7 @@ export const NavigationScreen = () => {
   useEffect(() => {
     const backgroundSubscription =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log({ response });
+        // console.log({ response });
 
         const data = response.notification.request.content.data;
         // dispatch(NotificationDataModalFunC(true));
@@ -306,7 +304,7 @@ export const NavigationScreen = () => {
 
     const foregroundSubscription =
       Notifications.addNotificationReceivedListener((notification) => {
-        console.log({ notification });
+        // console.log({ notification });
         // dispatch(NotificationDataModalFunC(true));
         // dispatch(NotificationDataFunC(notification));
       });
@@ -317,7 +315,7 @@ export const NavigationScreen = () => {
     };
   }, []);
 
-  console.log({ user_data });
+  // console.log({ user_data });
   return (
     <NavigationContainer>
       {/* <StartScreen /> */}

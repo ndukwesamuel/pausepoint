@@ -33,37 +33,48 @@ import {
   NavigationProp,
   useNavigation,
 } from "@react-navigation/native";
-import { Get_All_User_Guest_Fun } from "../../../Redux/UserSide/GuestSlice";
-import { formatDateandTime } from "../../../utils/DateTime";
+import {
+  Get_All_Domestic_Fun,
+  Get_All_User_Guest_Fun,
+} from "../../../Redux/UserSide/GuestSlice";
+import {
+  formatDate,
+  formatDateString,
+  formatDateandTime,
+} from "../../../utils/DateTime";
 import { UserProfile_data_Fun } from "../../../Redux/ProfileSlice";
 import ClickToJoinCLan from "../../../components/shared/ClickToJoinCLan";
 
-const Guests = () => {
+const DomesticStaff = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const animation = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { get_all_user_guest_data } = useSelector((state) => state?.GuestSlice);
+  const { get_all_user_guest_data, get_all_domestic_data } = useSelector(
+    (state) => state?.GuestSlice
+  );
   const { get_user_profile_data } = useSelector(
     (state) => state?.UserProfileSlice
   );
   console.log({
-    ss: get_user_profile_data?.currentClanMeeting,
+    ss: get_all_domestic_data?.domesticStaff[0],
   });
 
   useEffect(() => {
+    dispatch(Get_All_Domestic_Fun());
+
     return () => {};
   }, [dispatch]);
 
-  const filteredData = get_all_user_guest_data?.userInvites?.filter((item) =>
-    item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
+  const filteredData = get_all_domestic_data?.domesticStaff?.filter((item) =>
+    item.staffName?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
     // Set the refreshing state to true
     setRefreshing(true);
-    dispatch(Get_All_User_Guest_Fun());
+    dispatch(Get_All_Domestic_Fun());
     dispatch(UserProfile_data_Fun());
 
     // Wait for 2 seconds
@@ -173,6 +184,24 @@ const Guests = () => {
     );
   };
 
+  const renderItem = ({ item }) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.staffName}>{item.staffName}</Text>
+      <Text style={styles.staffDetails}>
+        Role: {item.Role} | Gender: {item.gender}
+      </Text>
+      {console.log({
+        item: item,
+      })}
+      <Text style={styles.staffDetails}>
+        Phone: {item.phone} | Working Hours: {item.workingHours}
+      </Text>
+      <Text style={styles.staffDetails}>
+        DOB: {formatDate(item.dateOfBirth)}
+      </Text>
+    </View>
+  );
+
   return (
     <AppScreen>
       {get_user_profile_data?.currentClanMeeting ? (
@@ -184,16 +213,10 @@ const Guests = () => {
           }}
         >
           <TextInput
-            style={{
-              height: 40,
-              borderColor: "gray",
-              borderWidth: 1,
-              marginBottom: 10,
-              paddingLeft: 10,
-            }}
-            placeholder="Search by Visitor Name"
+            style={styles.searchInput}
+            placeholder="Search by staff name"
             value={searchQuery}
-            onChangeText={(text) => setSearchQuery(text)}
+            onChangeText={setSearchQuery}
           />
 
           <View
@@ -212,7 +235,7 @@ const Guests = () => {
               }}
               // navigation.navigate("guestsdetail", { itemdata });
 
-              onPress={() => navigation.navigate("inviteguest")}
+              onPress={() => navigation.navigate("creatdomestic")}
             >
               <MaterialIcons name="mode-edit" size={24} color="black" />
             </TouchableOpacity>
@@ -240,15 +263,39 @@ const Guests = () => {
               />
             </View>
           ) : (
-            <FlatList
-              data={filteredData}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-              }
-              renderItem={({ item }) => <HistoryItem itemdata={item} />}
-            />
+            <>
+              <FlatList
+                data={filteredData}
+                renderItem={renderItem}
+                keyExtractor={(item) => item._id}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />
+                }
+                ListEmptyComponent={() => (
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <LottieView
+                      autoPlay
+                      ref={animation}
+                      style={{
+                        width: 200,
+                        height: 200,
+                      }}
+                      // Find more Lottie files at https://lottiefiles.com/featured
+                      source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
+                    />
+                  </View>
+                )}
+              />
+            </>
           )}
         </View>
       ) : (
@@ -272,6 +319,48 @@ const Guests = () => {
   );
 };
 
-export default Guests;
+export default DomesticStaff;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  searchInput: {
+    height: 40,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 16,
+  },
+  itemContainer: {
+    backgroundColor: "#fff",
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  staffName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  staffDetails: {
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  emptyContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 50,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: "#777",
+  },
+});

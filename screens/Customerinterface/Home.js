@@ -20,6 +20,7 @@ import clan from "../../assets/clan.png";
 import bookmark from "../../assets/bookmark.png";
 import Calendar_light from "../../assets/Calendar_light.png";
 import Contact from "../../assets/Desk_light.png";
+import teamwork from "../../assets/teamwork.png";
 
 import qrcode from "../../assets/qrcode.png";
 import service from "../../assets/settings.png";
@@ -31,7 +32,7 @@ import color_swatch from "../../assets/color-swatch.png";
 
 import notifications from "../../assets/bell.png";
 import settings from "../../assets/settings.png";
-import logout from "../../assets/logout.png";
+import homes from "../../assets/homes.png";
 // Menu
 import menu from "../../assets/menu.png";
 import close from "../../assets/close.png";
@@ -168,6 +169,14 @@ export default function App({ navigation }) {
                 "ICE Contacts",
                 Contact,
                 "icecontact"
+              )}
+
+              {TabButton(
+                currentTab,
+                setCurrentTab,
+                "Domestic Staff",
+                teamwork,
+                "domestic"
               )}
 
               {/* {TabButton(

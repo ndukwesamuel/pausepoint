@@ -31,7 +31,7 @@ import {
   setOtpEmail,
 } from "../Redux/DontwantToResetSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Login_Fun } from "../Redux/AuthSlice";
+import { Login_Fun, reset_other_login } from "../Redux/AuthSlice";
 import { authScreenChange, changeauthscreen } from "../Redux/OnboardingSlice";
 import { useNavigation } from "@react-navigation/native";
 
@@ -46,6 +46,10 @@ const LoginScreen = ({}) => {
     user_isLoading,
     user_message,
   } = useSelector((state) => state.AuthSlice);
+
+  console.log({
+    ff: user_isLoading,
+  });
 
   const [inputValue, setInputValue] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -109,6 +113,12 @@ const LoginScreen = ({}) => {
 
     dispatch(Login_Fun(data));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(reset_other_login());
+    };
+  }, []);
 
   return (
     <AppScreen>

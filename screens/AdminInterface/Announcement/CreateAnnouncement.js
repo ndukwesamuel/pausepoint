@@ -135,11 +135,14 @@ const CreateAnnouncement = () => {
               onChangeText={handleTextChange}
               style={{ width: "80%" }}
               inputStyle={{
+                textAlignVertical: "top", // Ensures text starts from the top
+                paddingTop: 10, // Add paddingTop to control vertical padding
+                paddingBottom: 10, // Add paddingBottom to balance padding
                 backgroundColor: "#F6F8FAE5",
                 paddingHorizontal: 10,
-                paddingVertical: 20,
-                height: 200,
-                padding: 10,
+                paddingTop: 10, // Add paddingTop to control the vertical padding
+                paddingBottom: 10, // Add paddingBottom to balance the padding
+                height: 100,
                 borderRadius: 6,
                 fontSize: 16,
               }}

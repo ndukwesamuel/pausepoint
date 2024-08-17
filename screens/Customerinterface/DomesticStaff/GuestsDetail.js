@@ -12,7 +12,6 @@ import {
   StyleSheet,
   TextInput,
   ActivityIndicator,
-  RefreshControl,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
@@ -45,29 +44,21 @@ import QRCode from "react-native-qrcode-svg";
 import ViewShot from "react-native-view-shot";
 // import Share from "react-nat
 import { CenterReuseModals } from "../../../components/shared/ReuseModals";
-import {
-  Get_Single_UserEvent_Fun,
-  Get_UserEvent_Fun,
-  reset_MainEventSlice,
-} from "../../../Redux/UserSide/MainEventSlice";
 
-const AdminEventDetals = () => {
+const GuestsDetail = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const { itemdata } = useRoute().params;
+  const route = useRoute();
+  const { itemdata } = route.params;
 
   const animation = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { singleEvent_Data, singleEvent_isLoading } = useSelector(
-    (state) => state?.MainEventSlice
+  const { get_all_user_guest_data, get_user_guest_detail_data } = useSelector(
+    (state) => state?.GuestSlice
   );
-
-  console.log({
-    ooo: singleEvent_Data,
-  });
 
   const {
     user_data,
@@ -78,16 +69,14 @@ const AdminEventDetals = () => {
   } = useSelector((state) => state.AuthSlice);
 
   useEffect(() => {
-    dispatch(Get_Single_UserEvent_Fun(itemdata?._id));
+    dispatch(Get__User_Guest_detail_Fun(itemdata?._id));
 
-    return () => {
-      // dispatch(reset_MainEventSlice());
-    };
+    return () => {};
   }, [dispatch]);
 
-  // const filteredData = get_all_user_guest_data?.userInvites?.filter((item) =>
-  //   item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
-  // );
+  const filteredData = get_all_user_guest_data?.userInvites?.filter((item) =>
+    item.visitor_name?.toLowerCase().includes(searchQuery?.toLowerCase())
+  );
 
   const Cancle_Guests_Mutation = useMutation(
     (data_info) => {
@@ -100,9 +89,9 @@ const AdminEventDetals = () => {
         },
       };
 
-      let url = `${API_BASEURL}resident-event/${singleEvent_Data?.events?._id}`;
+      let url = `${API_BASEURL}visitor/cancel/${get_user_guest_detail_data?.invitation?._id}`;
 
-      return axios.delete(url, data_info, config);
+      return axios.post(url, data_info, config);
     },
     {
       onSuccess: (success) => {
@@ -111,7 +100,7 @@ const AdminEventDetals = () => {
           text1: " successfully ",
         });
 
-        dispatch(Get_UserEvent_Fun());
+        dispatch(Get_All_User_Guest_Fun());
 
         navigation.goBack();
       },
@@ -122,6 +111,10 @@ const AdminEventDetals = () => {
           text1: `${error?.response?.data?.message} `,
           //   text2: ` ${error?.response?.data?.errorMsg} `,
         });
+
+        // dispatch(Get_User_Clans_Fun());
+        // dispatch(Get_User_Profle_Fun());
+        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
       },
     }
   );
@@ -146,172 +139,133 @@ const AdminEventDetals = () => {
     }
   };
 
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = () => {
-    // Set the refreshing state to true
-    setRefreshing(true);
-
-    // Fetch the updated data
-    dispatch(Get_Single_UserEvent_Fun(itemdata?._id));
-
-    // After fetching the data, set the refreshing state back to false
-    setRefreshing(false);
-  };
-
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
-      }}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      {singleEvent_isLoading && (
-        <View>
-          <ActivityIndicator
-            animating={user_isLoading}
-            size="large"
-            color="green"
-          />
-        </View>
-      )}
-
+    <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.title}>Invitation Details </Text>
+        <Text style={styles.title}>Invitation Details</Text>
         <View style={styles.detailsContainer}>
-          <Text style={styles.label}>Clan:</Text>
-          <Text style={styles.text}>
-            {singleEvent_Data?.events?.clan?.name}
-          </Text>
-
           <View>
-            <Text style={styles.label}>Event Name:</Text>
-            <Text style={styles.text}>{singleEvent_Data?.events?.name}</Text>
-          </View>
-
-          <View>
-            <Text style={styles.label}>Number Of Guest :</Text>
+            <Text style={styles.label}>Visitor Name:</Text>
             <Text style={styles.text}>
-              {singleEvent_Data?.events?.guestNumber}
+              {get_user_guest_detail_data?.invitation?.visitor_name}
             </Text>
           </View>
 
           <View>
-            <Text style={styles.label}>Date :</Text>
-            <Text style={styles.text}>{singleEvent_Data?.events?.date}</Text>
+            <Text style={styles.label}>Gender:</Text>
+            <Text style={styles.text}>
+              {get_user_guest_detail_data?.invitation?.gender}
+            </Text>
           </View>
 
           <View>
-            <Text style={styles.label}>Time :</Text>
-            <Text style={styles.text}>{singleEvent_Data?.events?.time}</Text>
+            <Text style={styles.label}>Phone Number:</Text>
+            <Text style={styles.text}>
+              {get_user_guest_detail_data?.invitation?.phone_number}
+            </Text>
           </View>
 
-          {!singleEvent_Data?.events?.isAdmin && (
-            <>
-              <View
+          <Text style={styles.label}>Access Code:</Text>
+          <Text style={styles.text}>
+            {get_user_guest_detail_data?.invitation?.access_code}
+          </Text>
+
+          <Text style={styles.label}>Expires Date:</Text>
+          <Text style={styles.text}>
+            {formatDateandTime(get_user_guest_detail_data?.invitation?.expires)}
+            {/* {get_user_guest_detail_data?.invitation?.expires} */}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              backgroundColor: "red",
+              // paddingHorizontal: 20,
+              // paddingVertical: 10,
+              borderRadius: 10,
+              width: "40%",
+              // height: 50
+              paddingVertical: 10,
+            }}
+            onPress={() => {
+              Cancle_Guests_Mutation.mutate();
+            }}
+          >
+            {Cancle_Guests_Mutation.isLoading ? (
+              <ActivityIndicator size="small" color="white" />
+            ) : (
+              <Text
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  marginBottom: 5,
+                  color: "white",
+                  textAlign: "center",
                 }}
               >
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "red",
-                    // paddingHorizontal: 20,
-                    // paddingVertical: 10,
-                    borderRadius: 10,
-                    width: "40%",
-                    // height: 50
-                    paddingVertical: 10,
-                  }}
-                  onPress={() => {
-                    Cancle_Guests_Mutation.mutate();
-                  }}
-                >
-                  {Cancle_Guests_Mutation.isLoading ? (
-                    <ActivityIndicator size="small" color="white" />
-                  ) : (
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                        marginBottom: 5,
-                        color: "white",
-                        textAlign: "center",
-                      }}
-                    >
-                      Cancel Event
-                    </Text>
-                  )}
-                </TouchableOpacity>
+                Cancel Visitor
+              </Text>
+            )}
+          </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "green",
-                    // paddingHorizontal: 20,
-                    // paddingVertical: 10,
-                    borderRadius: 10,
-                    width: "40%",
-                    // height: 50
-                    paddingVertical: 10,
-                  }}
-                  onPress={() => {
-                    // Cancle_Guests_Mutation.mutate();
-                    setModalVisible(true);
-                    const jsonString = JSON.stringify(singleEvent_Data?.events);
-                    setQRCodeValue(jsonString);
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                      marginBottom: 5,
-                      color: "white",
-                      textAlign: "center",
-                    }}
-                  >
-                    Qrcode
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </>
-          )}
-
-          {singleEvent_Data?.events?.isAdmin && (
-            <View>
-              <Text style={styles.label}>Creator:</Text>
-              <Text style={styles.text}>Admin</Text>
-            </View>
-          )}
-        </View>
-      </View>
-
-      {!singleEvent_Data?.events?.isAdmin && (
-        <View style={{ position: "absolute", right: 20, top: 320, zIndex: 1 }}>
           <TouchableOpacity
             style={{
               backgroundColor: "green",
               // paddingHorizontal: 20,
               // paddingVertical: 10,
-              borderRadius: 50,
-              width: 50,
-              height: 50,
-              justifyContent: "center",
-              alignItems: "center",
+              borderRadius: 10,
+              width: "40%",
+              // height: 50
+              paddingVertical: 10,
             }}
             onPress={() => {
-              navigation.navigate("inviteguest", { itemdata });
+              // Cancle_Guests_Mutation.mutate();
+              setModalVisible(true);
+              const jsonString = JSON.stringify(
+                get_user_guest_detail_data?.invitation
+              );
+              setQRCodeValue(jsonString);
             }}
           >
-            <MaterialIcons name="mode-edit" size={24} color="black" />
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                marginBottom: 5,
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Qrcode
+            </Text>
           </TouchableOpacity>
         </View>
-      )}
+      </View>
+
+      <View style={{ position: "absolute", right: 20, top: 320, zIndex: 1 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "green",
+            // paddingHorizontal: 20,
+            // paddingVertical: 10,
+            borderRadius: 50,
+            width: 50,
+            height: 50,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPress={() => {
+            navigation.navigate("inviteguest", { itemdata });
+          }}
+        >
+          <MaterialIcons name="mode-edit" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
 
       <CenterReuseModals
         visible={modalVisible}
@@ -351,6 +305,9 @@ const AdminEventDetals = () => {
                 alignItems: "center",
               }}
             >
+              {console.log({
+                sssdd: qrCodeValue,
+              })}
               <QRCode
                 value={qrCodeValue}
                 size={200}
@@ -387,11 +344,11 @@ const AdminEventDetals = () => {
           </TouchableOpacity> */}
         </View>
       </CenterReuseModals>
-    </ScrollView>
+    </View>
   );
 };
 
-export default AdminEventDetals;
+export default GuestsDetail;
 
 const styles = StyleSheet.create({
   container: {

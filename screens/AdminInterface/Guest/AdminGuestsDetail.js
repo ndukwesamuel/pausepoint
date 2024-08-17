@@ -124,11 +124,8 @@ const AdminGuestsDetail = () => {
     <ScrollView>
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
-          <Text style={styles.title}>Invitation Details</Text>
+          <Text style={styles.title}>Invitation Details </Text>
           <View style={styles.detailsContainer}>
-            <Text style={styles.label}>Clan:</Text>
-            <Text style={styles.text}>{itemdata?.clan}</Text>
-
             <View>
               <Text style={styles.label}>Visitor Name:</Text>
               <Text style={styles.text}>{itemdata?.visitor_name}</Text>

@@ -32,7 +32,7 @@ import {
   Forminput_Icon,
 } from "../../../components/shared/InputForm";
 import { userFile } from "../../../utils/fakedata";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { HalfScreenModal } from "../../../components/shared/ReuseableModal";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -45,9 +45,11 @@ const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
 
 import axios from "axios";
 import Toast from "react-native-toast-message";
-export default function EmergencyDetails({ navigation }) {
+export default function EmergencyDetails({}) {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const navigation = useNavigation();
 
   const { Admin_Get_Single_Emergency_Report } = useSelector(
     (state) => state.EmergencySlice
@@ -184,6 +186,7 @@ export default function EmergencyDetails({ navigation }) {
         });
         dispatch(Admin_Get_Single_Emergency_Report_Fun(item));
         dispatch(Admin_Get_ALl_Emergency_Report_Fun());
+        navigation.goBack();
 
         // setTurnmodal(false);
       },

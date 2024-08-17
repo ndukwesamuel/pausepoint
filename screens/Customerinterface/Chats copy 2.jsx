@@ -25,6 +25,11 @@ const Chats = () => {
 
   let otheruser_id = item?._id;
 
+  console.log({
+    item,
+    otheruser_id,
+  });
+
   const [isUserScrolling, setIsUserScrolling] = useState(false);
   const flatListRef = useRef(null);
   const socketConnection = useSelector(
@@ -41,10 +46,54 @@ const Chats = () => {
     online: false,
     _id: "",
   });
+  console.log({ user_data });
 
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      text: "Hello, how are you?",
+      sender: "User2",
+    },
+    {
+      id: 2,
+      image:
+        "https://prod-media.beinsports.com/image/1699134009745_8beaa0e5-ac0b-4663-b620-658912531c03.jpg",
+      sender: "User2",
+    },
+    {
+      id: 3,
+      text: "I'm doing well, thanks!",
+      sender: "User1",
+    },
+    {
+      id: 4,
+      text: "What have you been up to?",
+      sender: "User2",
+    },
+  ]);
 
   const [newMessage, setNewMessage] = useState("");
+
+  const onSendMessage = () => {
+    if (newMessage.trim() !== "") {
+      const message = {
+        id: messages.length + 1,
+        text: newMessage,
+        sender: "User1", // You can replace this with the sender's username
+      };
+      setMessages([...messages, message]);
+      setNewMessage("");
+    }
+  };
+
+  const onSendImage = (imageURL) => {
+    const message = {
+      id: messages.length + 1,
+      image: imageURL,
+      sender: "User1", // You can replace this with the sender's username
+    };
+    setMessages([...messages, message]);
+  };
 
   const [message, setMessage] = useState({
     text: "",
@@ -59,9 +108,15 @@ const Chats = () => {
     }));
   };
 
+  const submitdata = () => {};
   const handleSendMessage = () => {
     let user_Sender_id = user_data?.user?.id;
     let user_Receiver_id = otheruser_id;
+
+    console.log({
+      user_Sender_id,
+      user_Receiver_id,
+    });
 
     if (message.text || message.imageUrl || message.videoUrl) {
       if (socketConnection) {
@@ -95,6 +150,9 @@ const Chats = () => {
       socketConnection.emit("seen", otheruser_id);
 
       socketConnection.on("message-user", (data) => {
+        console.log({
+          ememe: data,
+        });
         setDataUser(data);
       });
 
@@ -103,6 +161,7 @@ const Chats = () => {
       });
 
       socketConnection.on("message", (data) => {
+        console.log("message data", data);
         setAllMessage(data);
       });
     }
@@ -124,7 +183,7 @@ const Chats = () => {
   };
 
   const getItemLayout = (data, index) => ({
-    length: 70,
+    length: 70, // Adjust this based on the height of your message items
     offset: 70 * index,
     index,
   });
@@ -140,7 +199,6 @@ const Chats = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 70}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={{ flex: 1 }}>
@@ -160,6 +218,9 @@ const Chats = () => {
               <Text>{dataUser?.online ? "Online" : "Offline"}</Text>
             </View>
           </View>
+          {console.log({
+            fire: allMessage,
+          })}
           <FlatList
             ref={flatListRef}
             data={allMessage}
@@ -177,6 +238,9 @@ const Chats = () => {
                       : "flex-start",
                 }}
               >
+                {console.log({
+                  fire: item,
+                })}
                 {item.text && (
                   <Text
                     style={{
