@@ -31,6 +31,9 @@ export const Admin_Get_My_Clan_Announcement_Fun = createAsyncThunk(
         thunkAPI.getState()?.UserProfileSlice?.get_user_profile_data
           ?.AdmincurrentClanMeeting;
 
+      console.log({
+        token_Data,
+      });
       const config = {
         headers: {
           "Content-Type": "application/json",
