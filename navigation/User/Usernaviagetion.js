@@ -45,6 +45,7 @@ import MarketReview from "../../screens/Customerinterface/MarketPlace/MarketRevi
 import CreateProduct from "../../screens/Customerinterface/MarketPlace/CreateProduct";
 import DomesticStaff from "../../screens/Customerinterface/DomesticStaff/DomesticStaff";
 import CreateDomesticStaff from "../../screens/Customerinterface/DomesticStaff/CreateDomesticStaff";
+import DomesticDetail from "../../screens/Customerinterface/DomesticStaff/DomesticDetail";
 const Stack = createNativeStackNavigator();
 
 const SingleScreenWithBackButton = (screenName, component, title) => {
@@ -214,6 +215,12 @@ export const Usernaviagetion = () => {
       title: "Domestic Staff",
       component: DomesticStaff,
       name: "domestic",
+    },
+
+    {
+      title: "Domestic Staff Details",
+      component: DomesticDetail,
+      name: "domesticDetail",
     },
 
     {

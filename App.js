@@ -252,6 +252,10 @@ export const NavigationScreen = () => {
   } = useSelector((state) => state.AuthSlice);
   const dispatch = useDispatch();
 
+  console.log({
+    ffggg: user_data,
+  });
+
   useEffect(() => {
     // dispatch(UserProfile_data_Fun());
     // dispatch(Get_User_Profle_Fun());

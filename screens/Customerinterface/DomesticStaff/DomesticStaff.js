@@ -56,9 +56,6 @@ const DomesticStaff = () => {
   const { get_user_profile_data } = useSelector(
     (state) => state?.UserProfileSlice
   );
-  console.log({
-    ss: get_all_domestic_data?.domesticStaff[0],
-  });
 
   useEffect(() => {
     dispatch(Get_All_Domestic_Fun());
@@ -183,27 +180,35 @@ const DomesticStaff = () => {
       </TouchableOpacity>
     );
   };
-
+  //
   const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity
+      style={styles.itemContainer}
+      onPress={() => {
+        navigation.navigate("domesticDetail", { itemdata: item });
+      }}
+    >
       <Text style={styles.staffName}>{item.staffName}</Text>
       <Text style={styles.staffDetails}>
         Role: {item.Role} | Gender: {item.gender}
       </Text>
-      {console.log({
-        item: item,
-      })}
+
       <Text style={styles.staffDetails}>
         Phone: {item.phone} | Working Hours: {item.workingHours}
       </Text>
       <Text style={styles.staffDetails}>
         DOB: {formatDate(item.dateOfBirth)}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
-    <AppScreen>
+    <View
+      style={{
+        flex: 1,
+        paddingVertical: 10,
+      }}
+    >
       {get_user_profile_data?.currentClanMeeting ? (
         <View
           style={{
@@ -237,7 +242,7 @@ const DomesticStaff = () => {
 
               onPress={() => navigation.navigate("creatdomestic")}
             >
-              <MaterialIcons name="mode-edit" size={24} color="black" />
+              <MaterialIcons name="mode-edit" size={24} color="white" />
             </TouchableOpacity>
           </View>
 
@@ -315,7 +320,7 @@ const DomesticStaff = () => {
           </Text>
         </ScrollView>
       )}
-    </AppScreen>
+    </View>
   );
 };
 

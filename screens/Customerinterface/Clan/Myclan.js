@@ -111,9 +111,6 @@ const Myclan = ({ navigation }) => {
           error: error?.response,
         });
 
-        console.log({
-          error: error?.response?.data?.error,
-        });
         setModalVisible(false);
 
         // setModalVisible(false);
@@ -133,9 +130,6 @@ const Myclan = ({ navigation }) => {
       description: text,
     };
     Crate_Estate_Mutation.mutate(data);
-    console.log({
-      data,
-    });
   };
 
   return (

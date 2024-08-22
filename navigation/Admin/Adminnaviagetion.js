@@ -41,6 +41,8 @@ import VendorProfile from "../../screens/AdminInterface/Service/VendorProfile";
 import VendorList from "../../screens/AdminInterface/Service/VendorList";
 import VendorLists from "../../screens/AdminInterface/MarketPlace/VendorLists";
 import ProductDetails from "../../screens/AdminInterface/MarketPlace/ProductDetails";
+import DomesticStaff from "../../screens/AdminInterface/Domestic/DomesticStaff";
+import DomesticDetail from "../../screens/AdminInterface/Domestic/DomesticDetail";
 
 const Stack = createStackNavigator();
 
@@ -84,6 +86,14 @@ const Adminnaviagetion = () => {
           "AdminUserPolls",
           AdminUserPolls,
           "User Polls"
+        )}
+      />
+
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "domestic",
+          DomesticStaff,
+          "Domestic Staff"
         )}
       />
       <Stack.Screen
@@ -187,6 +197,14 @@ const Adminnaviagetion = () => {
           "AdminGuestsDetail",
           AdminGuestsDetail,
           "Guest Details"
+        )}
+      />
+
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "AdmindomesticDetail",
+          DomesticDetail,
+          "Domestic Staff Details"
         )}
       />
 

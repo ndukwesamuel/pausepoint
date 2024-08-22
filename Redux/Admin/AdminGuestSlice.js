@@ -26,6 +26,13 @@ const initialState = {
   get_user_guest_detail_isSuccess: false,
   get_user_guest_detail_isLoading: false,
   get_user_guest_detail_message: null,
+
+  Admin_get_all_domestic_staff_data: null,
+
+  Admin_get_all_domestic_staff_isError: false,
+  Admin_get_all_domestic_staff_isSuccess: false,
+  Admin_get_all_domestic_staff_isLoading: false,
+  Admin_get_all_domestic_staff_message: null,
 };
 
 export const Admin_Get_All_User_Guest_Fun = createAsyncThunk(
@@ -55,6 +62,49 @@ export const Admin_Get_All_User_Guest_Fun = createAsyncThunk(
       Toast.show({
         type: "error",
         text1: `${error?.response?.data?.message} `,
+      });
+      return thunkAPI.rejectWithValue(error?.response?.data?.message);
+    }
+  }
+);
+
+export const Admin_Get_All_DomesticStaff_Fun = createAsyncThunk(
+  "AdminGuestSlice/Admin_Get_All_DomesticStaff_Fun",
+  async (_, thunkAPI) => {
+    try {
+      let token_Data = thunkAPI.getState()?.AuthSlice.user_data?.token;
+      let clan_id =
+        thunkAPI.getState()?.UserProfileSlice?.get_user_profile_data
+          ?.AdmincurrentClanMeeting;
+      console.log({
+        fff: token_Data,
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token_Data}`,
+        },
+      };
+
+      const response = await axios.get(
+        `${API_BASEURL}domesticstaff/admin`,
+        config
+      );
+
+      console.log({
+        fff: response.data,
+      });
+
+      return response.data;
+    } catch (error) {
+      console.log({
+        ggg: error?.response.data,
+      });
+      Toast.show({
+        type: "error",
+        text1: `${error?.response?.data?.error} `,
       });
       return thunkAPI.rejectWithValue(error?.response?.data?.message);
     }
@@ -140,6 +190,30 @@ export const AdminGuestSlice = createSlice({
       state.get_user_guest_detail_data = null;
       state.get_user_guest_detail_isSuccess = false;
     });
+
+    builder.addCase(Admin_Get_All_DomesticStaff_Fun.pending, (state) => {
+      state.Admin_get_all_domestic_staff_isLoading = true;
+    });
+    builder.addCase(
+      Admin_Get_All_DomesticStaff_Fun.fulfilled,
+      (state, action) => {
+        state.Admin_get_all_domestic_staff_isLoading = false;
+        state.Admin_get_all_domestic_staff_isSuccess = true;
+        state.Admin_get_all_domestic_staff_data = action.payload;
+        state.Admin_get_all_domestic_staff_message = null;
+        state.Admin_get_all_domestic_staff_isError = false;
+      }
+    );
+    builder.addCase(
+      Admin_Get_All_DomesticStaff_Fun.rejected,
+      (state, action) => {
+        state.Admin_get_all_domestic_staff_isLoading = false;
+        state.Admin_get_all_domestic_staff_isError = true;
+        state.Admin_get_all_domestic_staff_message = action.payload;
+        state.Admin_get_all_domestic_staff_data = null;
+        state.Admin_get_all_domestic_staff_isSuccess = false;
+      }
+    );
   },
 });
 

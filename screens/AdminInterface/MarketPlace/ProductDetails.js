@@ -92,7 +92,7 @@ const ProductDetails = ({ navigation }) => {
             </View>
             <View>
               <Text style={styles.productPrice}>₦{item?.price}</Text>
-              <Text style={styles.productStock}>{item?.quantity} quntity</Text>
+              <Text style={styles.productStock}>{item?.quantity} Quantity</Text>
             </View>
           </View>
           <Text style={styles.description}>{item?.description}</Text>

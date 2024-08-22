@@ -36,6 +36,9 @@ const Neigborhood = () => {
     (state) => state.UserProfileSlice
   );
 
+  console.log({
+    ccc: get_all_user_data?.data[0]?.user?.name,
+  });
   const { user_data } = useSelector((state) => state.AuthSlice);
 
   useEffect(() => {
@@ -96,7 +99,7 @@ const Neigborhood = () => {
           <View
             style={{ flex: 1, backgroundColor: "white", paddingVertical: 20 }}
           >
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setModalVisible(true)}
               style={{
                 marginLeft: 10,
@@ -109,9 +112,9 @@ const Neigborhood = () => {
                 justifyContent: "center",
               }}
             >
-              {/* <AntDesign name="arrowleft" size={24} color="black" /> */}
+              <AntDesign name="arrowleft" size={24} color="black" />
               <Text>Add user</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             {get_user_profile_data?.currentClanMeeting?._id ? (
               <>
@@ -137,7 +140,7 @@ const Neigborhood = () => {
 
                   <View style={{ flex: 1 }}>
                     <FlatList
-                      data={get_all_user_data?.users}
+                      data={get_all_user_data?.data}
                       renderItem={({ item }) => (
                         <TouchableOpacity
                           onPress={() => navigation.navigate("Chats", { item })}
@@ -150,7 +153,7 @@ const Neigborhood = () => {
                               marginVertical: 10,
                             }}
                           >
-                            <Image
+                            {/* <Image
                               source={{
                                 uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                               }}
@@ -159,17 +162,17 @@ const Neigborhood = () => {
                                 height: 68,
                                 borderRadius: 50,
                               }}
-                            />
+                            /> */}
 
                             <View>
                               <MediumFontText
-                                data={item.name}
+                                data={item.user?.name}
                                 textstyle={{ fontSize: 16, fontWeight: "500" }}
                               />
-                              <RegularFontText
+                              {/* <RegularFontText
                                 data={item?.email}
                                 textstyle={{ fontSize: 14, fontWeight: "400" }}
-                              />
+                              /> */}
                             </View>
                           </View>
 
@@ -227,7 +230,7 @@ const Neigborhood = () => {
                 >
                   <View style={{ flex: 1 }}>
                     <FlatList
-                      data={get_all_user_data?.users}
+                      data={get_all_user_data?.data}
                       renderItem={({ item }) => (
                         <TouchableOpacity
                           onPress={() => navigation.navigate("Chats", { item })}
@@ -253,13 +256,13 @@ const Neigborhood = () => {
 
                             <View>
                               <MediumFontText
-                                data={item.name}
+                                data={item?.user?.name}
                                 textstyle={{ fontSize: 16, fontWeight: "500" }}
                               />
-                              <RegularFontText
+                              {/* <RegularFontText
                                 data={item?.email}
                                 textstyle={{ fontSize: 14, fontWeight: "400" }}
-                              />
+                              /> */}
                             </View>
                           </View>
 

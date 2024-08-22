@@ -20,6 +20,8 @@ import home from "../../assets/home.png";
 
 import clan from "../../assets/clan.png";
 import bookmark from "../../assets/bookmark.png";
+import teamwork from "../../assets/teamwork.png";
+
 import Calendar_light from "../../assets/Calendar_light.png";
 
 import qrcode from "../../assets/qrcode.png";
@@ -253,6 +255,14 @@ export default function AdminHome() {
 
               bookmark,
               "AdminUserPolls"
+            )}
+
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Domestic Staff",
+              teamwork,
+              "domestic"
             )}
           </View>
 

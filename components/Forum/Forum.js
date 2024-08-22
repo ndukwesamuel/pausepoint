@@ -314,9 +314,7 @@ const Forum = () => {
             )}
           />
 
-          <View
-            style={{ position: "absolute", right: 10, top: 570, zIndex: 1 }}
-          >
+          <View style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}>
             <TouchableOpacity
               style={{
                 backgroundColor: "green",

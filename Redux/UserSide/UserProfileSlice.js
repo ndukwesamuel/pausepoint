@@ -54,7 +54,6 @@ export const Get_User_Profle_Fun = createAsyncThunk(
 export const Profle_Fun = createAsyncThunk(
   "UserProfileSlice/Profle_Fun",
   async (_, thunkAPI) => {
-    console.log("thhjsjdhsdjh");
     try {
       let mydata = thunkAPI.getState().AuthSlice.user_data;
 
@@ -96,8 +95,14 @@ export const Get_All_User_Profle_Fun = createAsyncThunk(
         },
       };
 
-      const response = await axios.get(`${API_BASEURL}users`, config);
+      const response = await axios.get(
+        `${API_BASEURL}clan/usergetMember`,
+        config
+      );
 
+      console.log({
+        kff: response.data,
+      });
       return response.data;
     } catch (error) {
       const errorMessage = handleApiError(error);

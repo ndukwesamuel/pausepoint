@@ -114,11 +114,6 @@ const CreateDomesticStaff = () => {
         },
       };
 
-      console.log({
-        data_info,
-        ss: user_data?.token,
-      });
-
       let url = `${API_BASEURL}domesticstaff`;
 
       return axios.post(url, data_info, config);
@@ -136,9 +131,6 @@ const CreateDomesticStaff = () => {
       },
 
       onError: (error) => {
-        console.log({
-          aaa: error?.response?.data,
-        });
         Toast.show({
           type: "error",
           text1: `${error?.response?.data?.message} `,
@@ -150,7 +142,7 @@ const CreateDomesticStaff = () => {
   return (
     <AppScreen>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "padding" : "10"}
         style={{ flex: 1 }}
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
