@@ -47,7 +47,7 @@ const AdminGuestsDetail = () => {
   const route = useRoute();
   const { itemdata } = route.params;
   console.log({
-    ww: itemdata,
+    fire: itemdata,
   });
 
   const animation = useRef(null);
@@ -140,8 +140,8 @@ const AdminGuestsDetail = () => {
               <Text style={styles.label}>Phone Number:</Text>
               <Text style={styles.text}>{itemdata?.phone_number}</Text>
             </View>
-            <Text style={styles.label}>Creator:</Text>
-            <Text style={styles.text}>{itemdata?.creator}</Text>
+            <Text style={styles.label}>Address:</Text>
+            <Text style={styles.text}>{itemdata?.location}</Text>
             <Text style={styles.label}>Access Code:</Text>
             <Text style={styles.text}>{itemdata?.access_code}</Text>
 

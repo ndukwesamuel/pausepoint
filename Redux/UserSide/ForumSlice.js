@@ -80,6 +80,10 @@ export const Get_My_Clan_Forum_Fun = createAsyncThunk(
 
         const response = await axios.get(`${API_BASEURL}forum`, config);
 
+        console.log({
+          kAKAKAKAL: response?.data?.forums?.[0],
+        });
+
         return response.data;
       }
     } catch (error) {

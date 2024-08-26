@@ -193,12 +193,12 @@ const Forum = () => {
                       gap: 10,
                     }}
                     onPress={() => {
-                      console.log({
-                        j: item,
-                      });
                       navigation.navigate("forumdetail", item);
                     }}
                   >
+                    {console.log({
+                      ememka: item?.user?.photo,
+                    })}
                     <Image
                       source={{
                         uri:

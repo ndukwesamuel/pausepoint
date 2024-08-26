@@ -295,11 +295,34 @@ export default function EmergencyDetails({}) {
             }}
           >
             <RegularFontText
-              data="House Address:"
+              data="Additional Information:"
               textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
+
+              // address
             />
             <MediumFontText
               data={Admin_Get_Single_Emergency_Report?.report?.additionalInfo}
+              textstyle={{ fontSize: 14 }}
+            />
+          </View>
+
+          <View
+            style={{
+              marginBottom: 5,
+              paddingBottom: 10,
+              flexDirection: "row",
+              gap: 20,
+            }}
+          >
+            <RegularFontText
+              data="House Address:"
+              textstyle={{ fontSize: 14, color: "#696969", width: "30%" }}
+
+              // address
+            />
+            <MediumFontText
+              // data={Admin_Get_Single_Emergency_Report?.report?.additionalInfo}
+              data={Admin_Get_Single_Emergency_Report?.report?.address}
               textstyle={{ fontSize: 14 }}
             />
           </View>
