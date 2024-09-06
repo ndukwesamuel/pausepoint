@@ -48,7 +48,10 @@ const ForumDetails = () => {
     (state) => state.UserProfileSlice
   );
 
-  let forumid = maindata?._id;
+  console.log({
+    jhhhh: maindata?.forumid?._id,
+  });
+  let forumid = maindata?.forumid?._id;
   // const {gggggg} = useRoute()?.params?.forumid;
   console.log({
     bbb: maindata?.user,
@@ -129,6 +132,9 @@ const ForumDetails = () => {
     setRefreshing(false);
   };
 
+  console.log({
+    jjj: forumid,
+  });
   useEffect(() => {
     // Check if forumid is available before dispatching the action
     dispatch(Get_My_Clan_Single_Forum_Fun(forumid));

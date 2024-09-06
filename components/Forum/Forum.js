@@ -196,9 +196,6 @@ const Forum = () => {
                       navigation.navigate("forumdetail", item);
                     }}
                   >
-                    {console.log({
-                      ememka: item?.user?.photo,
-                    })}
                     <Image
                       source={{
                         uri:

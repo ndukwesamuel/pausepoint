@@ -20,6 +20,12 @@ const initialState = {
   Market_isLoading: false,
   Market_message: null,
 
+  MyProduct_data: null,
+  MyProduct_data_isError: false,
+  MyProduct_data_isSuccess: false,
+  MyProduct_data_isLoading: false,
+  MyProduct_data_message: null,
+
   marketcategory__data: null,
   marketcategory__isError: false,
   marketcategory__isSuccess: false,
@@ -35,9 +41,6 @@ export const Market_data_Fun = createAsyncThunk(
       let clan_id =
         thunkAPI.getState()?.ProfileSlice?.userProfile_data?.currentClanMeeting
           ?._id;
-      console.log({
-        fdfdf: clan_id,
-      });
 
       const config = {
         headers: {
@@ -46,11 +49,39 @@ export const Market_data_Fun = createAsyncThunk(
           Authorization: `Bearer ${mydata?.token}`,
         },
       };
+
+      const response = await axios.get(`${API_BASEURL}market/products`, config);
+
+      return response.data;
+    } catch (error) {
       console.log({
-        url: `${API_BASEURL}market/product/${clan_id}/all`,
+        fdf: error?.response,
       });
+      const errorMessage = handleApiError(error);
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const myProductFun = createAsyncThunk(
+  "MarketSLice/myProductFun",
+  async (data, thunkAPI) => {
+    try {
+      let mydata = thunkAPI.getState().AuthSlice.user_data;
+      let clan_id =
+        thunkAPI.getState()?.ProfileSlice?.userProfile_data?.currentClanMeeting
+          ?._id;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${mydata?.token}`,
+        },
+      };
+
       const response = await axios.get(
-        `${API_BASEURL}market/product/${clan_id}/all`,
+        `${API_BASEURL}market/myproduct`,
         config
       );
 
@@ -79,9 +110,6 @@ export const Market_Category_Fun = createAsyncThunk(
         `${API_BASEURL}market/category/all`,
         config
       );
-      console.log({
-        response: response.data,
-      });
 
       return response.data;
     } catch (error) {
@@ -124,6 +152,24 @@ export const MarketSLice = createSlice({
         state.Market_message = action.payload;
         state.Market_data = null;
         state.Market_isSuccess = false;
+      })
+
+      .addCase(myProductFun.pending, (state) => {
+        state.MyProduct_data_isLoading = true;
+      })
+      .addCase(myProductFun.fulfilled, (state, action) => {
+        state.MyProduct_data_isLoading = false;
+        state.MyProduct_data_isSuccess = true;
+        state.MyProduct_data_isError = false;
+        state.MyProduct_data_message = null;
+        state.MyProduct_data = action.payload;
+      })
+      .addCase(myProductFun.rejected, (state, action) => {
+        state.MyProduct_data_isLoading = false;
+        state.MyProduct_data_isError = true;
+        state.MyProduct_data_message = action.payload;
+        state.MyProduct_data = null;
+        state.MyProduct_data_isSuccess = false;
       })
       .addCase(Market_Category_Fun.pending, (state) => {
         state.marketcategory__isLoading = true;

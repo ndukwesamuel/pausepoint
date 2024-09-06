@@ -303,7 +303,7 @@ const MyEvent = () => {
 
   const { userevent_data } = useSelector((state) => state?.MainEventSlice);
   console.log({
-    fdf: userevent_data?.events[0],
+    kakfdf: userevent_data?.events[0],
   });
 
   const animation = useRef(null);

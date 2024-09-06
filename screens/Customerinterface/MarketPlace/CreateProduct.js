@@ -95,7 +95,6 @@ const CreateProduct = ({ navigation }) => {
     formData.append("name", name);
     formData.append("price", price);
     formData.append("quantity", quantity);
-    formData.append("category", selectedCategory?.value);
     formData.append("description", description);
     formData.append("contact", contact);
     formData.append("clanId", userProfile_data?.currentClanMeeting?._id);
@@ -106,8 +105,6 @@ const CreateProduct = ({ navigation }) => {
       const name = "photo.jpg";
       formData.append("images", { uri, type, name });
     }
-
-    formData.append("condition", "Brand New");
 
     CreateVendor_Mutation.mutate(formData);
   };
@@ -189,26 +186,18 @@ const CreateProduct = ({ navigation }) => {
             />
           </View>
           <View style={styles.column}>
-            <Text style={styles.label}>Category</Text>
+            <Text style={styles.label}>Phone Number</Text>
 
-            <CustomDropdown
-              items={formattedCategories}
-              selectedValue={selectedCategory}
-              onValueChange={setSelectedCategory}
+            <TextInput
+              style={styles.smallInput}
+              placeholder="Enter Phone Number"
+              value={contact}
+              onChangeText={setContact}
+              keyboardType="numeric"
             />
           </View>
         </View>
 
-        <View style={styles.column}>
-          <Text style={styles.label}>Phone Number</Text>
-          <TextInput
-            style={styles.smallInput}
-            placeholder="Enter Phone Number"
-            value={contact}
-            onChangeText={setContact}
-            keyboardType="numeric"
-          />
-        </View>
         <View style={{ marginTop: 10, zIndex: -10000 }}>
           <Text style={styles.label}>Description</Text>
 

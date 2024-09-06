@@ -26,6 +26,8 @@ import Calendar_light from "../../assets/Calendar_light.png";
 
 import qrcode from "../../assets/qrcode.png";
 
+import amenicon from "../../assets/amenities_8084617.png";
+
 import search from "../../assets/search.png";
 import color_swatch from "../../assets/images/info-circle.png";
 
@@ -263,6 +265,14 @@ export default function AdminHome() {
               "Domestic Staff",
               teamwork,
               "domestic"
+            )}
+
+            {TabButton(
+              currentTab,
+              setCurrentTab,
+              "Amenities",
+              amenicon,
+              "amentities"
             )}
           </View>
 

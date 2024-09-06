@@ -37,7 +37,7 @@ const Neigborhood = () => {
   );
 
   console.log({
-    ccc: get_all_user_data?.data[0]?.user?.name,
+    ccc: get_all_user_data?.data[0]?.user?.userProfile?.photo,
   });
   const { user_data } = useSelector((state) => state.AuthSlice);
 
@@ -153,16 +153,18 @@ const Neigborhood = () => {
                               marginVertical: 10,
                             }}
                           >
-                            {/* <Image
+                            <Image
                               source={{
-                                uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                                uri:
+                                  item.user?.userProfile?.photo ||
+                                  "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                               }}
                               style={{
                                 width: 68,
                                 height: 68,
                                 borderRadius: 50,
                               }}
-                            /> */}
+                            />
 
                             <View>
                               <MediumFontText

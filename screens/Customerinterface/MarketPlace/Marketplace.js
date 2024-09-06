@@ -13,18 +13,25 @@ import {
   FlatList,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Market_data_Fun } from "../../../Redux/UserSide/MarketSLice";
+import {
+  Market_data_Fun,
+  myProductFun,
+} from "../../../Redux/UserSide/MarketSLice";
 import { MaterialIcons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 
 const MarketPlace = () => {
   const dispatch = useDispatch();
-  const { Market_data } = useSelector((state) => state.MarketSLice);
+  const { Market_data, MyProduct_data } = useSelector(
+    (state) => state.MarketSLice
+  );
+  const [productType, setproductType] = useState("allProduct");
 
   const animation = useRef(null);
 
   useEffect(() => {
     dispatch(Market_data_Fun());
+    dispatch(myProductFun());
 
     return () => {};
   }, [dispatch]);
@@ -37,6 +44,7 @@ const MarketPlace = () => {
     // Set the refreshing state to true
     setRefreshing(true);
     dispatch(Market_data_Fun());
+    dispatch(myProductFun());
 
     // Wait for 2 seconds
     setRefreshing(false);
@@ -48,6 +56,7 @@ const MarketPlace = () => {
         onPress={() => {
           navigation.navigate("MarketReview", {
             item,
+            productType,
           });
         }}
         key={item?.id}
@@ -62,8 +71,9 @@ const MarketPlace = () => {
         </View>
         <View style={styles.cardContent}>
           <Text style={styles.cardName}>{item.name}</Text>
-          <Text style={styles.cardSubtitle}>{item.title}</Text>
           <Text style={styles.price}>{item.price}</Text>
+
+          <Text style={styles.cardSubtitle}>{item?.status}</Text>
         </View>
       </Pressable>
     </View>
@@ -92,29 +102,93 @@ const MarketPlace = () => {
     </ScrollView>
   );
 
+  const [mart, setMart] = useState(false);
+
   return (
     <View style={styles.container}>
-      <FlatList
-        data={Market_data?.products}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        ListEmptyComponent={renderEmptyList}
-        numColumns={2}
-        contentContainerStyle={styles.listContainer}
-        columnWrapperStyle={styles.columnWrapper}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
-
-      <View style={{ position: "absolute", right: 20, bottom: 20, zIndex: 1 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "flex-end",
+          paddingRight: 20,
+          paddingTop: 10,
+        }}
+      >
         <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => navigation.navigate("CreateProduct")}
+          style={{
+            backgroundColor: productType === "myproduct" ? "green" : "grey",
+            padding: 5,
+            paddingHorizontal: 10,
+          }}
+          onPress={() => setproductType("myproduct")}
         >
-          <MaterialIcons name="mode-edit" size={24} color="white" />
+          <Text
+            style={{
+              color: "white",
+            }}
+          >
+            My Product
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: productType === "allProduct" ? "green" : "grey",
+
+            padding: 5,
+            paddingHorizontal: 10,
+          }}
+          onPress={() => setproductType("allProduct")}
+        >
+          <Text
+            style={{
+              color: "white",
+            }}
+          >
+            All Product
+          </Text>
         </TouchableOpacity>
       </View>
+
+      {productType === "myproduct" ? (
+        <View>
+          <FlatList
+            data={MyProduct_data?.products}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            ListEmptyComponent={renderEmptyList}
+            numColumns={2}
+            contentContainerStyle={styles.listContainer}
+            columnWrapperStyle={styles.columnWrapper}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+
+          <View style={{ position: "absolute", right: 20, top: 20, zIndex: 1 }}>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => navigation.navigate("CreateProduct")}
+            >
+              <MaterialIcons name="mode-edit" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : (
+        <FlatList
+          data={Market_data?.products}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          ListEmptyComponent={renderEmptyList}
+          numColumns={2}
+          contentContainerStyle={styles.listContainer}
+          columnWrapperStyle={styles.columnWrapper}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      )}
     </View>
   );
 };

@@ -8,15 +8,41 @@ import {
   Image,
   StyleSheet,
   Linking,
+  ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+import { useMutation } from "react-query";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
+import axios from "axios";
+import Toast from "react-native-toast-message";
+import LottieView from "lottie-react-native";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Market_data_Fun,
+  myProductFun,
+} from "../../../Redux/UserSide/MarketSLice";
+
 const MarketReview = () => {
   const navigation = useNavigation();
-  const { item } = useRoute().params;
+  const { item, productType } = useRoute().params;
+  const dispatch = useDispatch();
   console.log({
-    item: item?.contact,
+    ddd: productType,
   });
+
+  // console.log({
+  //   item: item,
+  // });
+
+  const {
+    user_data,
+    user_isError,
+    user_isSuccess,
+    user_isLoading,
+    user_message,
+  } = useSelector((state) => state.AuthSlice);
 
   const phoneNumber = item?.contact; //"1234567890"; // Replace with the phone number you want to call
 
@@ -34,6 +60,64 @@ const MarketReview = () => {
         console.error(`Error making phone call: ${error}`);
       });
   };
+
+  const DeleteProductMutation = useMutation(
+    (data_info) => {
+      let url = `${API_BASEURL}market/myproduct/${item?._id}`;
+      console.log({
+        data_info: url,
+      });
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          //   "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${user_data?.token}`,
+        },
+      };
+
+      //   if (data_info?.method == "GET") {
+      //     return axios.get(url, config);
+      //   }
+
+      // if (data_info?.method == "DELETE") {
+      return axios.delete(url, config);
+      // }
+    },
+    {
+      onSuccess: (success) => {
+        Toast.show({
+          type: "success",
+          text1: "Request To Join Estate successfully ",
+        });
+
+        dispatch(Market_data_Fun());
+        dispatch(myProductFun());
+
+        navigation.goBack();
+        // dispatch(Get_User_Clans_Fun());
+        // dispatch(Get_User_Profle_Fun());
+        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
+        // dispatch(reset_login());
+        // dispatch(reset_isOnboarding());
+
+        // onClose();
+      },
+
+      onError: (error) => {
+        Toast.show({
+          type: "error",
+          text1: `${error?.response?.data?.message} `,
+          //   text2: ` ${error?.response?.data?.errorMsg} `,
+        });
+
+        // onClose();
+        // dispatch(Get_User_Clans_Fun());
+        // dispatch(Get_User_Profle_Fun());
+        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
+      },
+    }
+  );
 
   return (
     <>
@@ -70,6 +154,21 @@ const MarketReview = () => {
           </View>
           <Text style={styles.description}>{item?.description}</Text>
         </View>
+
+        <View
+          style={{
+            paddingLeft: 15,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "400",
+            }}
+          >
+            Status : {item?.status}
+          </Text>
+        </View>
         <View style={styles.downContainer}>
           <Text style={styles.sellerTitle}>Seller Details</Text>
           <Text style={styles.sellerInfo}>
@@ -82,6 +181,31 @@ const MarketReview = () => {
           </Text> */}
         </View>
         <View style={styles.buttonContainer}>
+          {productType === "myproduct" && (
+            <>
+              {DeleteProductMutation.isLoading ? (
+                <ActivityIndicator size="small" color="red" />
+              ) : (
+                <TouchableOpacity
+                  // onPress={DelteItem}
+
+                  onPress={() => {
+                    DeleteProductMutation.mutate({});
+                  }}
+                  style={{
+                    backgroundColor: "red",
+                    padding: 15,
+                    borderRadius: 5,
+                    alignItems: "center",
+                    marginBottom: 10,
+                  }}
+                >
+                  <Text style={styles.buttonText}>Delete </Text>
+                </TouchableOpacity>
+              )}
+            </>
+          )}
+
           <TouchableOpacity
             onPress={makePhoneCall}
             style={styles.approveButton}

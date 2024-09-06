@@ -23,6 +23,10 @@ const Chats = () => {
   const route = useRoute();
   const { item } = route.params;
 
+  console.log({
+    ooooooooo: item?.user?.userProfile?.photo,
+  });
+
   let otheruser_id = item?._id;
 
   const [isUserScrolling, setIsUserScrolling] = useState(false);
@@ -147,7 +151,9 @@ const Chats = () => {
           <View style={{ alignItems: "center", paddingVertical: 10 }}>
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                uri:
+                  item?.user?.userProfile?.photo ||
+                  "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               }}
               style={{ width: 68, height: 68, borderRadius: 50 }}
             />
