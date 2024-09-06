@@ -31,6 +31,7 @@ import { useRoute } from "@react-navigation/native";
 import { Admin_Get_My_Clan_Announcement_Fun } from "../../../Redux/Admin/AdminForumSlice";
 import { formatDateandTime } from "../../../utils/DateTime";
 import { useNavigation } from "@react-navigation/native";
+import { UserProfile_data_Fun } from "../../../Redux/ProfileSlice";
 
 export default function Announcement({}) {
   const navigation = useNavigation();
@@ -44,9 +45,10 @@ export default function Announcement({}) {
   const { Admin_get_my_clan_Announcement_data } = useSelector(
     (state) => state.AdminForumSlice
   );
-
+  const {userProfile_data} = useSelector((state)=> state.ProfileSlice)
   useEffect(() => {
     dispatch(Admin_Get_My_Clan_Announcement_Fun({}));
+    dispatch(UserProfile_data_Fun())
     return () => {};
   }, []);
 
@@ -221,8 +223,7 @@ export default function Announcement({}) {
                         <Image
                           source={{
                             uri:
-                              item?.user?.photo ||
-                              "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            userProfile_data?.photo
                           }}
                           style={{ width: 40, height: 40, borderRadius: 50 }}
                         />
