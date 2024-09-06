@@ -26,7 +26,7 @@ const DomesticDetail = ({ route }) => {
   };
 
   return (
-    <AppScreen>
+    // <AppScreen>
       <ScrollView contentContainerStyle={styles.container}>
         {/* <View style={styles.item}>
           <Text style={styles.label}>Staff ID:</Text>
@@ -83,7 +83,7 @@ const DomesticDetail = ({ route }) => {
           <Text style={styles.value}>{formatDate(updatedAt)}</Text>
         </View>
       </ScrollView>
-    </AppScreen>
+  // {/* </AppScreen> */}
   );
 };
 
@@ -92,7 +92,7 @@ export default DomesticDetail;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 25,
   },
   item: {
     marginBottom: 15,

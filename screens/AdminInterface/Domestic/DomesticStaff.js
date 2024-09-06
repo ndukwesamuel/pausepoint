@@ -108,12 +108,13 @@ const DomesticStaff = () => {
   );
 
   return (
-    <AppScreen>
+    // <AppScreen>
       <View
         style={{
           flex: 1,
           justifyContent: "center",
           paddingHorizontal: 20,
+          paddingTop:25
         }}
       >
         <TextInput
@@ -175,7 +176,7 @@ const DomesticStaff = () => {
           </>
         )}
       </View>
-    </AppScreen>
+    // </AppScreen>
   );
 };
 
