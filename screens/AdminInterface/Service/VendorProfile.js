@@ -75,6 +75,8 @@ const VendorProfile = ({ navigation }) => {
   const [address, setaddress] = useState("");
   const [opens, setopens] = useState("");
 
+  const [about_me, setAbout_me] = useState("");
+
   const handleSave = () => {
     // Handle the saving of user data here (e.g., make API calls).
     const formData = new FormData();
@@ -85,7 +87,7 @@ const VendorProfile = ({ navigation }) => {
     formData.append("category", subCategoryValue);
 
     // formData.append("photo", description);
-    // formData.append("about_me", about_me);
+    formData.append("about_me", about_me);
     formData.append("address", address);
     // formData.append("gender", gender);
     formData.append("opens", opens);
@@ -221,6 +223,14 @@ const VendorProfile = ({ navigation }) => {
           placeholder="55, Kennedy Lane, Whales Avenue, Lagos"
           value={address}
           onChangeText={setaddress}
+        />
+
+        <Text style={styles.label}>Service</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Service to Render"
+          value={about_me}
+          onChangeText={setAbout_me}
         />
 
         <Text style={styles.label}>Working Hours</Text>
