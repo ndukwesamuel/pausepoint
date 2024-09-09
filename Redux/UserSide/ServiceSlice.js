@@ -73,6 +73,9 @@ export const All_service__data_Fun = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      console.log({
+        kkk: error?.data,
+      });
       const errorMessage = handleApiError(error);
       return thunkAPI.rejectWithValue(errorMessage);
     }
