@@ -41,15 +41,6 @@ const VendorList = ({ navigation }) => {
 
   const [refreshing, setRefreshing] = useState(false);
 
-  // const onRefresh = () => {
-  //   console.log({
-  //     qqemem: categoryes_data,
-  //   });
-  //   // Set the refreshing state to true
-  //   setRefreshing(true);
-  //   dispatch(Get_all_admin_Service__Fun());
-  //   dispatch(Get_all_Categoryes__Fun());
-
   //   // Wait for 2 seconds
   //   setRefreshing(false);
   // };
