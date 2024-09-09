@@ -81,7 +81,7 @@ const DomesticDetail = ({ route }) => {
   );
 
   return (
-    <View>
+    // <AppScreen>
       <ScrollView contentContainerStyle={styles.container}>
         {/* <View style={styles.item}>
           <Text style={styles.label}>Staff ID:</Text>
@@ -138,6 +138,7 @@ const DomesticDetail = ({ route }) => {
             flexDirection: "row",
             justifyContent: "center",
             gap: 10,
+            paddingTop:30
           }}
         >
           <TouchableOpacity
@@ -182,7 +183,7 @@ const DomesticDetail = ({ route }) => {
           )}
         </View>
       </ScrollView>
-    </View>
+    // </AppScreen>
   );
 };
 
@@ -191,7 +192,7 @@ export default DomesticDetail;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 40,
   },
   item: {
     marginBottom: 15,

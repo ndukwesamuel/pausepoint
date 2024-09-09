@@ -45,7 +45,7 @@ export const Get_all_admin_Service__Fun = createAsyncThunk(
         `${API_BASEURL}services/vendors/estate-admin`,
         config
       );
-
+      console.log({sss:response.data})
       return response.data;
     } catch (error) {
       const errorMessage = handleApiError(error);

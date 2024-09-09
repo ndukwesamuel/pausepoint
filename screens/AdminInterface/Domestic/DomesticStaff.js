@@ -68,9 +68,9 @@ const DomesticStaff = () => {
 
     return () => {};
   }, [dispatch]);
-
+  console.log({item:Admin_get_all_domestic_staff_data.data})
   const filteredData = Admin_get_all_domestic_staff_data?.data?.filter((item) =>
-    item.staffName?.toLowerCase().includes(searchQuery?.toLowerCase())
+    item.staffCode?.toLowerCase().includes(searchQuery?.toLowerCase()) 
   );
   const [refreshing, setRefreshing] = useState(false);
 
@@ -84,7 +84,7 @@ const DomesticStaff = () => {
     // Wait for 2 seconds
     setRefreshing(false);
   };
-
+  
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.itemContainer}
@@ -103,21 +103,23 @@ const DomesticStaff = () => {
       <Text style={styles.staffDetails}>
         DOB: {formatDate(item.dateOfBirth)}
       </Text>
+      <Text>Staff Code: {item.staffCode}</Text>
     </TouchableOpacity>
   );
 
   return (
-    <AppScreen>
+    // <AppScreen>
       <View
         style={{
           flex: 1,
           justifyContent: "center",
           paddingHorizontal: 20,
+          paddingTop:25
         }}
       >
         <TextInput
           style={styles.searchInput}
-          placeholder="Search by staff name"
+          placeholder="Search by staff code"
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
@@ -174,7 +176,7 @@ const DomesticStaff = () => {
           </>
         )}
       </View>
-    </AppScreen>
+    // </AppScreen>
   );
 };
 
