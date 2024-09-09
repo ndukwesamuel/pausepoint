@@ -138,54 +138,55 @@ const VendorProfile = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
-      {/* <View style={styles.imageContainer}>
+    <View  style={styles.container}>
+      <ScrollView style={{paddingTop:20, paddingHorizontal:20}}>
+        {/* <View style={styles.imageContainer}>
         <Image
           source={require("../../../assets/user.png")}
           style={styles.image}
         />
       </View> */}
-      <TouchableOpacity
-        onPress={pickImage}
-        style={{ alignItems: "center", justifyContent: "center" }}
-      >
-        <Image
-          source={{ uri: profileImage }}
-          style={{ width: 100, height: 100, borderRadius: 50 }}
-        />
-      </TouchableOpacity>
-      <View style={styles.formContainer}>
-        <Text style={styles.label}>Full Name</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter Full Name"
-          value={FullName}
-          onChangeText={setFullName}
-        />
+        <TouchableOpacity
+          onPress={pickImage}
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
+          <Image
+            source={{ uri: profileImage }}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+          />
+        </TouchableOpacity>
+        <View style={styles.formContainer}>
+          <Text style={styles.label}>Full Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Full Name"
+            value={FullName}
+            onChangeText={setFullName}
+          />
 
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.label}>Phone Number</Text>
-            <TextInput
-              style={styles.smallInput}
-              placeholder="Enter Phone Number"
-              value={phone_number}
-              onChangeText={setphone_number}
-            />
+          <View style={styles.row}>
+            <View style={styles.column}>
+              <Text style={styles.label}>Phone Number</Text>
+              <TextInput
+                style={styles.smallInput}
+                placeholder="Enter Phone Number"
+                value={phone_number}
+                onChangeText={setphone_number}
+              />
+            </View>
+            <View style={styles.column}>
+              <Text style={styles.label}>Years of Experience</Text>
+              <TextInput
+                style={styles.smallInput}
+                placeholder="Enter Years of Experience"
+                value={years_of_experience}
+                onChangeText={setyears_of_experience}
+              />
+            </View>
           </View>
-          <View style={styles.column}>
-            <Text style={styles.label}>Years of Experience</Text>
-            <TextInput
-              style={styles.smallInput}
-              placeholder="Enter Years of Experience"
-              value={years_of_experience}
-              onChangeText={setyears_of_experience}
-            />
-          </View>
-        </View>
 
-        <View style={styles.row}>
-          {/* <View style={styles.column}>
+          <View style={styles.row}>
+            {/* <View style={styles.column}>
             <Text style={styles.label}>Category</Text>
             <DropDownPicker
               open={subCategoryOpen}
@@ -200,7 +201,7 @@ const VendorProfile = ({ navigation }) => {
               dropDownStyle={{ backgroundColor: "#eee" }}
             />
           </View> */}
-          {/* <View style={styles.column}>
+            {/* <View style={styles.column}>
             <Text style={styles.label}>Sub-Category</Text>
             <DropDownPicker
               open={categoryOpen}
@@ -215,51 +216,53 @@ const VendorProfile = ({ navigation }) => {
               dropDownStyle={{ backgroundColor: "#fafafa" }}
             />
           </View> */}
+          </View>
+
+          <Text style={styles.label}>Address</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="55, Kennedy Lane, Whales Avenue, Lagos"
+            value={address}
+            onChangeText={setaddress}
+          />
+
+          <Text style={styles.label}>Service</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Service to Render"
+            value={about_me}
+            onChangeText={setAbout_me}
+          />
+
+          <Text style={styles.label}>Working Hours</Text>
+          <TextInput
+            style={styles.largeInput}
+            placeholder="Monday-Friday, 08:00am - 09:00pm"
+            multiline
+            value={opens}
+            onChangeText={setopens}
+          />
         </View>
-
-        <Text style={styles.label}>Address</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="55, Kennedy Lane, Whales Avenue, Lagos"
-          value={address}
-          onChangeText={setaddress}
-        />
-
-        <Text style={styles.label}>Service</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Service to Render"
-          value={about_me}
-          onChangeText={setAbout_me}
-        />
-
-        <Text style={styles.label}>Working Hours</Text>
-        <TextInput
-          style={styles.largeInput}
-          placeholder="Monday-Friday, 08:00am - 09:00pm"
-          multiline
-          value={opens}
-          onChangeText={setopens}
-        />
-      </View>
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        // onPress={() => navigation.navigate("VendorList")}
-        onPress={handleSave}
-      >
-        {CreateVendor_Mutation.isLoading ? (
-          <ActivityIndicator color="white" />
-        ) : (
-          <Text style={styles.buttonText}>Create Vendor Profile </Text>
-        )}
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          // onPress={() => navigation.navigate("VendorList")}
+          onPress={handleSave}
+        >
+          {CreateVendor_Mutation.isLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={styles.buttonText}>Create Vendor Profile </Text>
+          )}
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
+    // paddingTop: 50,
   },
   imageContainer: {
     alignItems: "center",
@@ -320,6 +323,8 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: "center",
     borderRadius: 5,
+    marginTop: 20,
+    marginBottom:30
   },
   buttonText: {
     fontSize: 16,

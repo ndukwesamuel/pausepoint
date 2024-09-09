@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
@@ -74,7 +75,7 @@ const ProductDetails = ({ navigation }) => {
   );
   return (
     <>
-      <View>
+      <ScrollView style={{paddingVertical:20}}>
         <Image
           source={{
             uri: item.images[0]?.url,
@@ -104,8 +105,8 @@ const ProductDetails = ({ navigation }) => {
             <Text> Jide Kosoko </Text>
           </Text>
           <Text style={styles.sellerInfo}>
-            <Icon name="home" size={20} color="black" />
-            <Text> House 24, Tinubu estate</Text>
+            {/* <Icon name="home" size={20} color="black" /> */}
+            {/* <Text> House 24, Tinubu estate</Text> */}
           </Text>
         </View>
 
@@ -140,7 +141,7 @@ const ProductDetails = ({ navigation }) => {
             </>
           )}
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 };
@@ -151,6 +152,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
+    paddingTop:50,
   },
   headerContainer: {
     flexDirection: "row",
@@ -161,15 +163,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   productCategory: {
-    fontSize: 14,
+    fontSize: 18,
     color: "gray",
   },
   productPrice: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
   },
   productStock: {
-    fontSize: 14,
+    fontSize: 18,
     color: "gray",
   },
   description: {
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
   },
   sellerTitle: {
     fontSize: 20,
-    fontWeight: "400",
+    fontWeight: "700",
     paddingBottom: 5,
   },
   sellerInfo: {
@@ -198,7 +200,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop:60,
   },
   approveButton: {
     backgroundColor: "green",
