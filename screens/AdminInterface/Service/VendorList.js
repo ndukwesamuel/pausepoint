@@ -59,7 +59,7 @@ const VendorList = ({ navigation }) => {
       : get_all_admin_Service_data?.vendors.filter(
           (vendor) => vendor?.category?.slug === category
         );
-
+  console.log({item:filteredVendors[1].ratings})
   const renderItem = ({ item, index }) => (
     <View style={styles.serviceItem}>
       <View key={index} style={styles.itemContainer}>
@@ -73,10 +73,10 @@ const VendorList = ({ navigation }) => {
           <Text style={styles.itemName}>{item?.FullName}</Text>
           <View style={styles.itemDetails}>
             <Text>{item?.category?.slug}</Text>
-            <Text>23 reviews</Text>
+            <Text>{item?.ratings.length} reviews</Text>
             <View style={styles.ratingContainer}>
               <Icon name="star" size={15} color="#04973C" />
-              <Text style={styles.ratingText}>5</Text>
+              <Text style={styles.ratingText}>{item?.avgRating}</Text>
             </View>
           </View>
         </View>
