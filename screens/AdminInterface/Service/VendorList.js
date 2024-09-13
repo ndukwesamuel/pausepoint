@@ -26,9 +26,6 @@ const VendorList = ({ navigation }) => {
     (state) => state.AdminServiceSlice
   );
 
-  console.log({
-    s: get_all_admin_Service_data,
-  });
   const [category, setCategory] = useState("All");
   const animation = useRef(null);
 
@@ -59,7 +56,6 @@ const VendorList = ({ navigation }) => {
       : get_all_admin_Service_data?.vendors.filter(
           (vendor) => vendor?.category?.slug === category
         );
-  console.log({item:filteredVendors[1].ratings})
   const renderItem = ({ item, index }) => (
     <View style={styles.serviceItem}>
       <View key={index} style={styles.itemContainer}>
@@ -185,6 +181,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#969696",
     color: "#969696",
+    marginBottom:10,
   },
   itemContainer: {
     paddingVertical: 18,
