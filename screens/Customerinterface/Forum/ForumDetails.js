@@ -291,8 +291,7 @@ const ForumDetails = () => {
           <Image
             source={{
               uri:
-                forumid?.user?.photo ||
-                "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                forumid?.user?.photo,
             }}
             style={{ width: 40, height: 40, borderRadius: 50 }}
           />

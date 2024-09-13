@@ -26,9 +26,6 @@ const VendorList = ({ navigation }) => {
     (state) => state.AdminServiceSlice
   );
 
-  console.log({
-    s: get_all_admin_Service_data,
-  });
   const [category, setCategory] = useState("All");
   const animation = useRef(null);
 
@@ -40,15 +37,6 @@ const VendorList = ({ navigation }) => {
   }, [dispatch]);
 
   const [refreshing, setRefreshing] = useState(false);
-
-  // const onRefresh = () => {
-  //   console.log({
-  //     qqemem: categoryes_data,
-  //   });
-  //   // Set the refreshing state to true
-  //   setRefreshing(true);
-  //   dispatch(Get_all_admin_Service__Fun());
-  //   dispatch(Get_all_Categoryes__Fun());
 
   //   // Wait for 2 seconds
   //   setRefreshing(false);
@@ -68,7 +56,6 @@ const VendorList = ({ navigation }) => {
       : get_all_admin_Service_data?.vendors.filter(
           (vendor) => vendor?.category?.slug === category
         );
-
   const renderItem = ({ item, index }) => (
     <View style={styles.serviceItem}>
       <View key={index} style={styles.itemContainer}>
@@ -82,10 +69,10 @@ const VendorList = ({ navigation }) => {
           <Text style={styles.itemName}>{item?.FullName}</Text>
           <View style={styles.itemDetails}>
             <Text>{item?.category?.slug}</Text>
-            <Text>23 reviews</Text>
+            <Text>{item?.ratings.length} reviews</Text>
             <View style={styles.ratingContainer}>
               <Icon name="star" size={15} color="#04973C" />
-              <Text style={styles.ratingText}>5</Text>
+              <Text style={styles.ratingText}>{item?.avgRating}</Text>
             </View>
           </View>
         </View>
@@ -194,6 +181,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#969696",
     color: "#969696",
+    marginBottom:10,
   },
   itemContainer: {
     paddingVertical: 18,
