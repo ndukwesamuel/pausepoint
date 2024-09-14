@@ -75,7 +75,7 @@ const ProductDetails = ({ navigation }) => {
   );
   return (
     <>
-      <ScrollView style={{paddingVertical:20}}>
+      <ScrollView style={{ paddingVertical: 20 }}>
         <Image
           source={{
             uri: item.images[0]?.url,
@@ -93,7 +93,6 @@ const ProductDetails = ({ navigation }) => {
             </View>
             <View>
               <Text style={styles.productPrice}>₦{item?.price}</Text>
-              <Text style={styles.productStock}>{item?.quantity} Quantity</Text>
             </View>
           </View>
           <Text style={styles.description}>{item?.description}</Text>
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
-    paddingTop:50,
+    paddingTop: 50,
   },
   headerContainer: {
     flexDirection: "row",
@@ -200,7 +199,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingHorizontal: 20,
-    paddingTop:60,
+    paddingTop: 60,
   },
   approveButton: {
     backgroundColor: "green",

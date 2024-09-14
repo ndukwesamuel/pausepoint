@@ -19,6 +19,7 @@ import {
   Get_all_Categoryes__Fun,
 } from "../../../Redux/Admin/AdminServiceSlice";
 import LottieView from "lottie-react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const VendorList = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -57,19 +58,59 @@ const VendorList = ({ navigation }) => {
           (vendor) => vendor?.category?.slug === category
         );
   const renderItem = ({ item, index }) => (
-    <View style={styles.serviceItem}>
-      <View key={index} style={styles.itemContainer}>
-        <Image
-          source={{
-            uri: item?.photo?.url,
+    <Pressable
+      onPress={() => {
+        navigation.navigate("vendorServiceDetails", { item: item });
+      }}
+      key={item?.id}
+    >
+      <View
+        style={{
+          backgroundColor: "#fff",
+          margin: 10,
+          shadowOpacity: 0.1,
+          shadowOffset: { width: 0, height: 2 },
+          width: 170,
+          borderBottomRightRadius: 10,
+          borderBottomLeftRadius: 10,
+        }}
+      >
+        <View
+          key={index}
+          style={{
+            width: "100%",
+            height: 150,
           }}
-          style={{ width: 56, height: 56, borderRadius: 50 }}
-        />
-        <View>
-          <Text style={styles.itemName}>{item?.FullName}</Text>
-          <View style={styles.itemDetails}>
-            <Text>{item?.category?.slug}</Text>
-            <Text>{item?.ratings.length} reviews</Text>
+        >
+          <Image
+            source={{
+              uri: item?.photo?.url,
+            }}
+            style={{
+              width: "100%",
+              height: 150,
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+            }}
+          />
+          {/* <Image
+            source={{
+              uri: item?.photo?.url,
+            }}
+            style={{ width: 56, height: 56, borderRadius: 50 }}
+          /> */}
+          <View
+            style={{
+              padding: 10,
+              backgroundColor: "#F3FFF3",
+              borderWidth: 1,
+              borderColor: "#C5F3C5",
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+            }}
+          >
+            <Text style={styles.cardName}>{item?.FullName}</Text>
+            <Text style={styles.cardSubtitle}>{item.about_me}</Text>
             <View style={styles.ratingContainer}>
               <Icon name="star" size={15} color="#04973C" />
               <Text style={styles.ratingText}>{item?.avgRating}</Text>
@@ -77,7 +118,7 @@ const VendorList = ({ navigation }) => {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 
   const renderEmptyList = () => (
@@ -127,7 +168,10 @@ const VendorList = ({ navigation }) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        key={2}
+        numColumns={2}
       />
+
       {/* </ScrollView> */}
 
       <Pressable
@@ -181,7 +225,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#969696",
     color: "#969696",
-    marginBottom:10,
+    marginBottom: 10,
   },
   itemContainer: {
     paddingVertical: 18,

@@ -195,7 +195,7 @@ const UserClans = () => {
       <View style={{ width: "75%" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item?.name}</Text>
         <Text>{item?.description}</Text>
-        <Text>Creator: {item?.creator._id}</Text>
+        {/* <Text>Creator: {item?.creator._id}</Text> */}
         <Text>Status: {item?.status}</Text>
         <Text>Email: {item?.email}</Text>
         {/* <Text>Status: {item?._id}</Text> */}
@@ -262,7 +262,7 @@ const UserClans = () => {
       <View style={{ width: "75%" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item?.name}</Text>
         <Text>{item?.description}</Text>
-        <Text>Creator: {item?.creator._id}</Text>
+        {/* <Text>Creator: {item?.creator._id}</Text> */}
         <Text>Status: {item?.status}</Text>
         <Text>Email: {item?.email}</Text>
         {/* <Text>Status: {item?._id}</Text> */}

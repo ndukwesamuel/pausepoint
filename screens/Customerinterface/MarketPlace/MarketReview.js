@@ -148,8 +148,7 @@ const MarketReview = () => {
                 width: "30%",
               }}
             >
-              <Text style={styles.productPrice}>{item?.price}</Text>
-              <Text style={styles.productStock}>{item?.quantity} ty</Text>
+              <Text style={styles.productPrice}>₦{item?.price}</Text>
             </View>
           </View>
           <Text style={styles.description}>{item?.description}</Text>

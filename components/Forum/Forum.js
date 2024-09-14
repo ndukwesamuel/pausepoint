@@ -198,13 +198,12 @@ const Forum = () => {
                   >
                     <Image
                       source={{
-                        uri:
-                          item?.user?.photo ||
-                          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                        uri: item?.user?.photo,
+                        // ||
+                        // "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                       }}
                       style={{ width: 40, height: 40, borderRadius: 50 }}
                     />
-
                     <View>
                       <MediumFontText
                         data={item?.user?.name}
@@ -309,6 +308,22 @@ const Forum = () => {
                 </View>
               </View>
             )}
+            ListEmptyComponent={
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <LottieView
+                  autoPlay
+                  ref={animation}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    // backgroundColor: "#eee",
+                  }}
+                  // Find more Lottie files at https://lottiefiles.com/featured
+                  source={require("../../assets/Lottie/notFund.json")}
+                />
+                <Text>{get_my_clan_forum_message}</Text>
+              </View>
+            }
           />
 
           <View style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}>

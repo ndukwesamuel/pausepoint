@@ -253,13 +253,14 @@ const UserClans = () => {
         alignItems: "center",
       }}
     >
+      {console.log({
+        item,
+      })}
       <View style={{ width: "75%" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item?.name}</Text>
         <Text>{item?.description}</Text>
-        <Text>Creator: {item?.creator._id}</Text>
+        <Text>Creator: {item?.email}</Text>
         <Text>Status: {item?.status}</Text>
-        <Text>Status: {item?._id}</Text>
-        <Text>Status: {get_user_profile_data?.currentClanMeeting?._id}</Text>
       </View>
 
       <TouchableOpacity
@@ -322,13 +323,14 @@ const UserClans = () => {
         alignItems: "center",
       }}
     >
+      {console.log({
+        kk: item,
+      })}
       <View style={{ width: "75%" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item?.name}</Text>
         <Text>{item?.description}</Text>
-        <Text>Creator: {item?.creator._id}</Text>
+        <Text>Creator: {item?.email}</Text>
         <Text>Status: {item?.status}</Text>
-        <Text>Status: {item?._id}</Text>
-        <Text>Status: {get_user_profile_data?.AdmincurrentClanMeeting}</Text>
       </View>
 
       <TouchableOpacity

@@ -25,6 +25,12 @@ const initialState = {
   all_service__isSuccess: false,
   all_service__isLoading: false,
   all_service__message: null,
+
+  review_service__data: null,
+  review__service__isError: false,
+  review__service__isSuccess: false,
+  review__service__isLoading: false,
+  review__service__message: null,
 };
 
 export const All_service_category_data_Fun = createAsyncThunk(
@@ -45,6 +51,39 @@ export const All_service_category_data_Fun = createAsyncThunk(
         config
       );
 
+      return response.data;
+    } catch (error) {
+      const errorMessage = handleApiError(error);
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const All_serviceReview_data_Fun = createAsyncThunk(
+  "ServiceSlice/All_serviceReview_data_Fun",
+  async (data, thunkAPI) => {
+    try {
+      let mydata = thunkAPI.getState().AuthSlice.user_data;
+
+      console.log({
+        mydata: data,
+      });
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${mydata?.token}`,
+        },
+      };
+
+      const response = await axios.get(
+        `${API_BASEURL}services/vendors/review-rate-service?vendorid=${data}`,
+        config
+      );
+
+      console.log({
+        kakaka: response.data,
+      });
       return response.data;
     } catch (error) {
       const errorMessage = handleApiError(error);
@@ -132,6 +171,23 @@ export const ServiceSlice = createSlice({
         state.all_service__message = action.payload;
         state.all_service__data = null;
         state.all_service__isSuccess = false;
+      })
+      .addCase(All_serviceReview_data_Fun.pending, (state) => {
+        state.review__service__isLoading = true;
+      })
+      .addCase(All_serviceReview_data_Fun.fulfilled, (state, action) => {
+        state.review__service__isLoading = false;
+        state.review__service__isSuccess = true;
+        state.review__service__isError = false;
+        state.review__service__message = null;
+        state.review_service__data = action.payload;
+      })
+      .addCase(All_serviceReview_data_Fun.rejected, (state, action) => {
+        state.review__service__isLoading = false;
+        state.review__service__isError = true;
+        state.review__service__message = action.payload;
+        state.review_service__data = null;
+        state.review__service__isSuccess = false;
       });
   },
 });

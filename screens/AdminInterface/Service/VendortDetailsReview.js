@@ -1,3 +1,5 @@
+import { All_serviceReview_data_Fun } from "../../../Redux/UserSide/ServiceSlice";
+
 import React, { useEffect } from "react";
 import {
   View,
@@ -10,10 +12,9 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
-import { All_serviceReview_data_Fun } from "../../Redux/UserSide/ServiceSlice";
 import { useRoute } from "@react-navigation/native";
 
-const Review = ({ navigation }) => {
+const VendortDetailsReview = () => {
   const dispatch = useDispatch();
   const { item } = useRoute().params;
 
@@ -32,7 +33,6 @@ const Review = ({ navigation }) => {
 
     return () => {};
   }, []);
-
   return (
     <View
       style={{
@@ -57,7 +57,7 @@ const Review = ({ navigation }) => {
                   gap: 10,
                 }}
               >
-                <Image source={require("../../assets/sevImg/review.png")} />
+                <Image source={require("../../../assets/sevImg/review.png")} />
                 <Text style={styles.nameText}>{item?.user?.name}</Text>
               </View>
               <View
@@ -91,7 +91,7 @@ const Review = ({ navigation }) => {
           </View>
         ))}
       </ScrollView>
-      <View>
+      {/* <View>
         <TouchableOpacity
           style={styles.buttonContainer}
           onPress={() => {
@@ -102,7 +102,7 @@ const Review = ({ navigation }) => {
         >
           <Text style={styles.text}>Create your Review</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -151,5 +151,4 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
-
-export default Review;
+export default VendortDetailsReview;

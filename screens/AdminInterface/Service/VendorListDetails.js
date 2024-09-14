@@ -17,12 +17,13 @@ const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
 
 import axios from "axios";
 import Toast from "react-native-toast-message";
-import { All_service__data_Fun } from "../../Redux/UserSide/ServiceSlice";
+// import { All_service__data_Fun } from "../../Redux/UserSide/ServiceSlice";
 import { useDispatch, useSelector } from "react-redux";
-const VendorService = ({ navigation }) => {
+
+const VendorListDetails = ({ navigation }) => {
   const item = useRoute().params?.item;
   console.log({
-    kaka2: item?._id,
+    kaka2: item,
   });
 
   const dispatch = useDispatch();
@@ -33,50 +34,6 @@ const VendorService = ({ navigation }) => {
     user_isLoading,
     user_message,
   } = useSelector((state) => state.AuthSlice);
-  const Like_Mutation = useMutation(
-    (data_info) => {
-      let url = `${API_BASEURL}services/vendors/like-dislike/${item?._id}`;
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          //   "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${user_data?.token}`,
-        },
-      };
-
-      return axios.get(url, config);
-    },
-    {
-      onSuccess: (success) => {
-        Toast.show({
-          type: "success",
-          text1: " successfully ",
-        });
-        dispatch(All_service__data_Fun());
-
-        // setTurnmodal(false);
-      },
-
-      onError: (error) => {
-        console.log({
-          jjjL: error?.response,
-        });
-        Toast.show({
-          type: "error",
-
-          text1: `${error?.response?.data?.message} `,
-          //   text2: ` ${error?.response?.data?.errorMsg} `,
-        });
-
-        // dispatch(Get_User_Clans_Fun());
-        // dispatch(Get_User_Profle_Fun());
-        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
-      },
-    }
-  );
-
   const makePhoneCall = () => {
     // Alert.alert("Call Support", "Are you sure you want to call support?");
     // Linking.openURL(
@@ -108,12 +65,12 @@ const VendorService = ({ navigation }) => {
           <View>
             <Pressable
               onPress={() => {
-                navigation.navigate("review", { item });
+                navigation.navigate("VendortDetailsReview", { item });
               }}
               style={{ alignItems: "center" }}
             >
               <Image
-                source={require("../../assets/sevImg/revIcon.png")}
+                source={require("../../../assets/sevImg/revIcon.png")}
                 style={{ marginBottom: 5 }}
               />
               <Text>Reviews</Text>
@@ -121,7 +78,7 @@ const VendorService = ({ navigation }) => {
           </View>
           <TouchableOpacity
             style={{ alignItems: "center" }}
-            onPress={() => Like_Mutation.mutate()}
+            // onPress={() => Like_Mutation.mutate()}
           >
             <Icon
               name="heart"
@@ -137,7 +94,7 @@ const VendorService = ({ navigation }) => {
           <Pressable
             style={{ alignItems: "center" }}
             onPress={() => {
-              navigation.navigate("review", { item });
+              navigation.navigate("VendortDetailsReview", { item });
             }}
           >
             <Rating
@@ -164,6 +121,7 @@ const VendorService = ({ navigation }) => {
           </Pressable>
         </View>
       </View>
+
       <View style={{ padding: 30, height: "50%" }}>
         <View style={styles.downContainer}>
           <Text style={{ fontSize: 20, fontWeight: "400", paddingBottom: 5 }}>
@@ -243,5 +201,4 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-
-export default VendorService;
+export default VendorListDetails;
