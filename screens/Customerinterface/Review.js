@@ -57,7 +57,7 @@ const Review = ({ navigation }) => {
                   gap: 10,
                 }}
               >
-                <Image source={require("../../assets/sevImg/review.png")} />
+                {/* <Image source={require("../../assets/sevImg/review.png")} /> */}
                 <Text style={styles.nameText}>{item?.user?.name}</Text>
               </View>
               <View
@@ -100,7 +100,7 @@ const Review = ({ navigation }) => {
             });
           }}
         >
-          <Text style={styles.text}>Create your Review</Text>
+          <Text style={styles.text}> Create your Review </Text>
         </TouchableOpacity>
       </View>
     </View>

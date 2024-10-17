@@ -13,6 +13,9 @@ import {
   TextInput,
   ActivityIndicator,
 } from "react-native";
+
+import * as Clipboard from "expo-clipboard"; // Import the Clipboard API
+import { Share } from "react-native"; // Import the Share API
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
 import { useMutation } from "react-query";
@@ -21,7 +24,12 @@ const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import * as ImagePicker from "expo-image-picker";
-import { Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  AntDesign,
+  MaterialIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -59,6 +67,65 @@ const GuestsDetail = () => {
   const { get_all_user_guest_data, get_user_guest_detail_data } = useSelector(
     (state) => state?.GuestSlice
   );
+
+  const [qrCodeValue, setQRCodeValue] = useState("");
+  const viewShotRef = useRef();
+
+  // Function to copy access code to clipboard
+  const copyToClipboard = async (code) => {
+    await Clipboard.setStringAsync(code);
+    Toast.show({
+      type: "success",
+      text1: "Access code copied to clipboard!",
+    });
+  };
+
+  // Function to share access code via WhatsApp or other apps
+  const shareAccessCode = async (code) => {
+    try {
+      const result = await Share.share({
+        message: `Here is the access code: ${code}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log("Shared with activity type: ", result.activityType);
+        } else {
+          console.log("Shared successfully");
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log("Share dismissed");
+      }
+    } catch (error) {
+      console.error("Error sharing access code: ", error.message);
+    }
+  };
+
+  const copyAndShareAccessCode = async (code) => {
+    try {
+      // Copy to clipboard
+      await Clipboard.setStringAsync(code);
+      Toast.show({
+        type: "success",
+        text1: "Access code copied to clipboard!",
+      });
+
+      // Share the code
+      const result = await Share.share({
+        message: `Here is the access code: ${code}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log("Shared with activity type: ", result.activityType);
+        } else {
+          console.log("Shared successfully");
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log("Share dismissed");
+      }
+    } catch (error) {
+      console.error("Error sharing access code: ", error.message);
+    }
+  };
 
   const {
     user_data,
@@ -119,8 +186,6 @@ const GuestsDetail = () => {
     }
   );
 
-  const [qrCodeValue, setQRCodeValue] = useState("");
-  const viewShotRef = useRef();
   const captureAndShare = async () => {
     try {
       const uri = await captureQRCodeAsImage();
@@ -165,10 +230,60 @@ const GuestsDetail = () => {
             </Text>
           </View>
 
-          <Text style={styles.label}>Access Code:</Text>
-          <Text style={styles.text}>
-            {get_user_guest_detail_data?.invitation?.access_code}
-          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View>
+              <Text style={styles.label}>Access Code:</Text>
+
+              <Text style={styles.text}>
+                {get_user_guest_detail_data?.invitation?.access_code}
+              </Text>
+            </View>
+
+            <TouchableOpacity
+              style={
+                {
+                  // backgroundColor: "blue",
+                  // padding: 10,
+                  // borderRadius: 5,
+                  // marginTop: 10,
+                }
+              }
+              onPress={() =>
+                copyAndShareAccessCode(
+                  get_user_guest_detail_data?.invitation?.access_code
+                )
+              }
+            >
+              <FontAwesome name="copy" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
+
+          {/* // In your return statement */}
+          <TouchableOpacity
+            style={
+              {
+                // backgroundColor: "blue",
+                // padding: 10,
+                // borderRadius: 5,
+                // marginTop: 10,
+              }
+            }
+            onPress={() =>
+              copyAndShareAccessCode(
+                get_user_guest_detail_data?.invitation?.access_code
+              )
+            }
+          >
+            <Text style={{ color: "white", textAlign: "center" }}>
+              Copy and Share Access Code
+            </Text>
+          </TouchableOpacity>
 
           <Text style={styles.label}>Expires Date:</Text>
           <Text style={styles.text}>

@@ -8,6 +8,8 @@ import {
   Pressable,
   TouchableOpacity,
   Linking,
+  ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { Rating } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -19,11 +21,12 @@ import axios from "axios";
 import Toast from "react-native-toast-message";
 // import { All_service__data_Fun } from "../../Redux/UserSide/ServiceSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Get_all_admin_Service__Fun } from "../../../Redux/Admin/AdminServiceSlice";
 
 const VendorListDetails = ({ navigation }) => {
   const item = useRoute().params?.item;
   console.log({
-    kaka2: item,
+    kaka2: item?._id,
   });
 
   const dispatch = useDispatch();
@@ -41,8 +44,50 @@ const VendorListDetails = ({ navigation }) => {
     // );
     Linking.openURL(`tel:${item?.phone_number}`);
   };
+
+  console.log({
+    fghhh: user_data?.token,
+  });
+  const Delete_Mutation = useMutation(
+    (data_info) => {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          //   "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${user_data?.token}`,
+        },
+      };
+
+      let url = `${API_BASEURL}services/vendors/estate-admin?vendorId=${item?._id}`;
+
+      return axios.delete(url, config);
+    },
+    {
+      onSuccess: (success) => {
+        Toast.show({
+          type: "success",
+          text1: "successfully ",
+        });
+        dispatch(Get_all_admin_Service__Fun());
+
+        navigation.goBack();
+      },
+
+      onError: (error) => {
+        console.log({
+          jjjjj: error?.response?.data,
+        });
+        Toast.show({
+          type: "error",
+          text1: `${error?.response?.data?.message} `,
+          //   text2: ` ${error?.response?.data?.errorMsg} `,
+        });
+      },
+    }
+  );
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <ScrollView style={{ backgroundColor: "white", paddingBottom: 20 }}>
       <View style={styles.container}>
         <View style={styles.container1}>
           <Image
@@ -146,22 +191,60 @@ const VendorListDetails = ({ navigation }) => {
           }}
         >
           <Text style={{ fontSize: 20, fontWeight: "400", paddingBottom: 5 }}>
-            Working Time
+            Working Time kaka
           </Text>
           <Text>Monday-Friday 08:00am - 09:00pm</Text>
           <Text>Weekends 09:00am - 08:00pm</Text>
         </View>
-        <View>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={makePhoneCall}
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            gap: 10,
+          }}
+        >
+          <View
+            style={{
+              width: "50%",
+            }}
           >
-            <Icon name="phone" size={30} color="white" style={styles.icon} />
-            <Text style={styles.text}>Call Now</Text>
-          </TouchableOpacity>
+            {Delete_Mutation.isLoading ? (
+              <ActivityIndicator color="green" size="large" />
+            ) : (
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  padding: 10,
+                  backgroundColor: "red",
+                  borderRadius: 5,
+                  justifyContent: "center",
+                  marginTop: 40,
+                  marginBottom: 40,
+                }}
+                onPress={() => Delete_Mutation.mutate()}
+              >
+                <Text style={styles.text}>Delete</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+          <View
+            style={{
+              width: "50%",
+            }}
+          >
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={makePhoneCall}
+            >
+              <Icon name="phone" size={30} color="white" style={styles.icon} />
+              <Text style={styles.text}>Call Now</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -192,6 +275,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     marginTop: 40,
+    marginBottom: 40,
   },
   icon: {
     marginRight: 10,

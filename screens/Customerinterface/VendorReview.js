@@ -7,18 +7,22 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  ScrollView,
+  Button,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Rating } from "react-native-elements";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import { useMutation } from "react-query";
+import { AirbnbRating } from "react-native-ratings";
 const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
 
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import { useDispatch, useSelector } from "react-redux";
 import { All_serviceReview_data_Fun } from "../../Redux/UserSide/ServiceSlice";
+import CustomStarRating from "../../components/shared/CustomStarRating";
 
 const VendorReview = () => {
   const [comment, setComment] = useState("");
@@ -30,7 +34,7 @@ const VendorReview = () => {
 
   const { item } = useRoute().params;
   console.log({
-    cry: item,
+    cry: rating,
   });
 
   let vendorId = item;
@@ -41,7 +45,7 @@ const VendorReview = () => {
 
       let data = {
         vendorId: item, //"66dd2bad6414556b14a212fa",
-        rating: rating, // "4",
+        rating: userRating, // "4",
         comment: comment, //"Cry me  a rive",
       };
       const config = {
@@ -97,49 +101,127 @@ const VendorReview = () => {
 
     console.log(data);
   };
-  return (
-    <View style={styles.container}>
-      <Text>{item?.vendor?.FullName}</Text>
-      <View style={styles.input}>
-        <TextInput
-          multiline={true}
-          numberOfLines={4}
-          placeholder="Write description..."
-          value={comment}
-          onChangeText={setComment}
-        />
-      </View>
 
-      <View style={styles.rating}>
-        <View style={{ justifyContent: "center" }}>
-          <Text style={styles.text}>Select Star rating</Text>
-          <Text>
-            <Rating
-              type="custom"
-              ratingCount={5}
-              imageSize={20}
-              startingValue={rating}
-              ratingBackgroundColor="white"
-              ratingColor="green"
-              onFinishRating={(value) => setRating(value)} // Set the rating value
-              style={{ paddingBottom: 5 }}
-            />
-          </Text>
+  const [userRating, setUserRating] = useState(0); // Store the rating selected by the user
+
+  console.log({
+    kaka: userRating,
+  });
+  // This function will be passed as a prop to CustomStarRating
+  const handleRatingSelected = (rating) => {
+    setUserRating(rating); // Update the state with the selected rating
+  };
+
+  const submitReview = () => {
+    console.log("User rated:", userRating);
+    // Submit the review with the userRating value
+  };
+  return (
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      style={styles.container}
+    >
+      <View
+        style={{
+          flex: 1, // This will now take up the entire available space
+        }}
+      >
+        <Text>{item?.vendor?.FullName}</Text>
+        <View style={styles.input}>
+          <TextInput
+            multiline={true}
+            numberOfLines={4}
+            placeholder="Write description..."
+            value={comment}
+            onChangeText={setComment}
+          />
         </View>
-      </View>
-      <View>
+
+        <View style={styles.input}>
+          <Text style={styles.text}>Select Star rating</Text>
+          <CustomStarRating
+            maxStars={5}
+            onRatingSelected={handleRatingSelected}
+          />
+        </View>
+
         {Review_Mutation.isLoading ? (
           <ActivityIndicator size="large" color="green" />
         ) : (
           <TouchableOpacity
-            style={styles.buttonContainer}
+            style={{
+              alignItems: "center",
+              padding: 15,
+              backgroundColor: "green",
+              borderRadius: 5,
+            }}
             onPress={() => Review_Mutation.mutate()}
           >
-            <Text style={styles.buttonText}>Create your Review</Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 20,
+              }}
+            >
+              Submit
+            </Text>
           </TouchableOpacity>
         )}
       </View>
-    </View>
+    </ScrollView>
+
+    // <ScrollView style={styles.container}>
+    //   <View
+    //     style={{
+    //       flex: 1,
+    //       borderWidth: 2,
+    //       borderColor: "red",
+    //       height: "auto",
+    //     }}
+    //   >
+    //     <Text>{item?.vendor?.FullName}</Text>
+    //     <View style={styles.input}>
+    //       <TextInput
+    //         multiline={true}
+    //         numberOfLines={4}
+    //         placeholder="Write description..."
+    //         value={comment}
+    //         onChangeText={setComment}
+    //       />
+    //     </View>
+
+    //     <View style={styles.input}>
+    //       <Text style={styles.text}>Select Star rating</Text>
+    //       <CustomStarRating
+    //         maxStars={5}
+    //         onRatingSelected={handleRatingSelected}
+    //       />
+    //     </View>
+
+    //     {Review_Mutation.isLoading ? (
+    //       <ActivityIndicator size="large" color="green" />
+    //     ) : (
+    //       <TouchableOpacity
+    //         style={{
+    //           alignItems: "center",
+    //           padding: 15,
+    //           backgroundColor: "green",
+    //           borderRadius: 5,
+    //         }}
+    //         onPress={() => Review_Mutation.mutate()}
+    //       >
+    //         <Text
+    //           style={{
+    //             color: "white",
+    //             fontSize: 20,
+    //           }}
+    //         >
+    //           Submit
+    //         </Text>
+    //       </TouchableOpacity>
+    //     )}
+    //   </View>
+    // </ScrollView>
   );
 };
 
@@ -152,9 +234,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: "center",
     padding: 15,
-    backgroundColor: "#04973C",
+    backgroundColor: "green",
     borderRadius: 5,
-    marginTop: 180,
+    // marginTop: 180,
   },
 
   buttonText: {

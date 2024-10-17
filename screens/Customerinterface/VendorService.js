@@ -8,6 +8,7 @@ import {
   Pressable,
   TouchableOpacity,
   Linking,
+  ScrollView,
 } from "react-native";
 import { Rating } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -85,7 +86,7 @@ const VendorService = ({ navigation }) => {
     Linking.openURL(`tel:${item?.phone_number}`);
   };
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.container}>
         <View style={styles.container1}>
           <Image
@@ -203,14 +204,14 @@ const VendorService = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F3FFF3",
-    height: "52%",
+    // height: "52%",
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
   },
@@ -234,6 +235,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     marginTop: 40,
+    paddingBottom: 20,
   },
   icon: {
     marginRight: 10,

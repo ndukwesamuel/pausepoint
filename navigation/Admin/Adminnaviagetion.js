@@ -112,7 +112,7 @@ const Adminnaviagetion = () => {
         {...SingleScreenWithBackButton(
           "VendortDetailsReview",
           VendortDetailsReview,
-          "all Review"
+          "All Review"
         )}
       />
 

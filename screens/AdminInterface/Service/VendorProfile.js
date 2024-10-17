@@ -138,8 +138,8 @@ const VendorProfile = ({ navigation }) => {
   );
 
   return (
-    <View  style={styles.container}>
-      <ScrollView style={{paddingTop:20, paddingHorizontal:20}}>
+    <View style={styles.container}>
+      <ScrollView style={{ paddingTop: 20, paddingHorizontal: 20 }}>
         {/* <View style={styles.imageContainer}>
         <Image
           source={require("../../../assets/user.png")}
@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
     marginTop: 20,
-    marginBottom:30
+    marginBottom: 30,
   },
   buttonText: {
     fontSize: 16,

@@ -49,6 +49,11 @@ const ServiceView = ({ navigation }) => {
         navigation.navigate("vendorService", { item: item });
       }}
       key={item?.id}
+      style={{
+        flex: 1, // Take equal space
+        marginBottom: 10,
+        padding: 5, // Add some padding to avoid overlap
+      }}
     >
       <View style={styles.cards}>
         <View style={styles.cardImage}>
@@ -144,11 +149,13 @@ const ServiceView = ({ navigation }) => {
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={renderEmptyList}
-          key={2}
           numColumns={2}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          columnWrapperStyle={{
+            justifyContent: "space-between", // Ensure even spacing
+          }}
         />
       </View>
     </View>

@@ -68,9 +68,8 @@ const DomesticStaff = () => {
 
     return () => {};
   }, [dispatch]);
-  console.log({item:Admin_get_all_domestic_staff_data.data})
   const filteredData = Admin_get_all_domestic_staff_data?.data?.filter((item) =>
-    item.staffCode?.toLowerCase().includes(searchQuery?.toLowerCase()) 
+    item.staffCode?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
   const [refreshing, setRefreshing] = useState(false);
 
@@ -84,7 +83,7 @@ const DomesticStaff = () => {
     // Wait for 2 seconds
     setRefreshing(false);
   };
-  
+
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.itemContainer}
@@ -109,73 +108,73 @@ const DomesticStaff = () => {
 
   return (
     // <AppScreen>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          paddingHorizontal: 20,
-          paddingTop:25
-        }}
-      >
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search by staff code"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        paddingHorizontal: 20,
+        paddingTop: 25,
+      }}
+    >
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search by staff code"
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
 
-        {filteredData?.length === 0 ? (
-          <View
+      {filteredData?.length === 0 ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <LottieView
+            autoPlay
+            ref={animation}
             style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
+              width: 200,
+              height: 200,
             }}
-          >
-            <LottieView
-              autoPlay
-              ref={animation}
-              style={{
-                width: 200,
-                height: 200,
-              }}
-              // Find more Lottie files at https://lottiefiles.com/featured
-              source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
-            />
-          </View>
-        ) : (
-          <>
-            <FlatList
-              data={filteredData}
-              renderItem={renderItem}
-              keyExtractor={(item) => item._id}
-              refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-              }
-              ListEmptyComponent={() => (
-                <View
+            // Find more Lottie files at https://lottiefiles.com/featured
+            source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
+          />
+        </View>
+      ) : (
+        <>
+          <FlatList
+            data={filteredData}
+            renderItem={renderItem}
+            keyExtractor={(item) => item._id}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            ListEmptyComponent={() => (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <LottieView
+                  autoPlay
+                  ref={animation}
                   style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
+                    width: 200,
+                    height: 200,
                   }}
-                >
-                  <LottieView
-                    autoPlay
-                    ref={animation}
-                    style={{
-                      width: 200,
-                      height: 200,
-                    }}
-                    // Find more Lottie files at https://lottiefiles.com/featured
-                    source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
-                  />
-                </View>
-              )}
-            />
-          </>
-        )}
-      </View>
+                  // Find more Lottie files at https://lottiefiles.com/featured
+                  source={require("../../../assets/Lottie/Animation - 1704444696995.json")}
+                />
+              </View>
+            )}
+          />
+        </>
+      )}
+    </View>
     // </AppScreen>
   );
 };

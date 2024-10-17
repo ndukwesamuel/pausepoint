@@ -101,7 +101,13 @@ const ProductDetails = ({ navigation }) => {
           <Text style={styles.sellerTitle}>Seller Details</Text>
           <Text style={styles.sellerInfo}>
             <Icon name="user" size={20} color="black" />
-            <Text> Jide Kosoko </Text>
+            <Text
+              style={{
+                marginLeft: 10,
+              }}
+            >
+              {item?.seller?.name}
+            </Text>
           </Text>
           <Text style={styles.sellerInfo}>
             {/* <Icon name="home" size={20} color="black" /> */}
