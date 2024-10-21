@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 const VendorService = ({ navigation }) => {
   const item = useRoute().params?.item;
   console.log({
-    kaka2: item?._id,
+    ememe: item,
   });
 
   const dispatch = useDispatch();
@@ -96,7 +96,7 @@ const VendorService = ({ navigation }) => {
           <Text style={{ paddingTop: 10, fontWeight: "bold", fontSize: 20 }}>
             {item?.FullName}
           </Text>
-          <Text style={{}}>Builder</Text>
+          <Text style={{}}>{item?.about_me}</Text>
           <Text>{item?.years_of_experience} years of experience</Text>
         </View>
         <View
@@ -191,8 +191,8 @@ const VendorService = ({ navigation }) => {
           <Text style={{ fontSize: 20, fontWeight: "400", paddingBottom: 5 }}>
             Working Time
           </Text>
-          <Text>Monday-Friday 08:00am - 09:00pm</Text>
-          <Text>Weekends 09:00am - 08:00pm</Text>
+
+          <Text>{item?.opens}</Text>
         </View>
         <View>
           <TouchableOpacity

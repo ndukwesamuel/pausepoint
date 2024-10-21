@@ -100,33 +100,58 @@ const GuestsDetail = () => {
     }
   };
 
-  const copyAndShareAccessCode = async (code) => {
-    try {
-      // Copy to clipboard
-      await Clipboard.setStringAsync(code);
-      Toast.show({
-        type: "success",
-        text1: "Access code copied to clipboard!",
-      });
+  // const copyAndShareAccessCode = async (code) => {
+  //   try {
+  //     // Copy to clipboard
+  //     await Clipboard.setStringAsync(code);
+  //     Toast.show({
+  //       type: "success",
+  //       text1: "Access code copied to clipboard!",
+  //     });
 
-      // Share the code
+  //     // Share the code
+  //     const result = await Share.share({
+  //       message: `Here is the access code: ${code}`,
+  //     });
+  //     if (result.action === Share.sharedAction) {
+  //       if (result.activityType) {
+  //         console.log("Shared with activity type: ", result.activityType);
+  //       } else {
+  //         console.log("Shared successfully");
+  //       }
+  //     } else if (result.action === Share.dismissedAction) {
+  //       console.log("Share dismissed");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error sharing access code: ", error.message);
+  //   }
+  // };
+
+  const copyAndShareAccessCode = async (accessCode) => {
+    // Message to copy and share
+    const message = `Hi,\n\nHere is your one-time access code: ${accessCode}\n\nPowered by Pausepoint.net.`;
+
+    // Copy to clipboard
+    Clipboard.setString(message);
+
+    // Share message
+    try {
       const result = await Share.share({
-        message: `Here is the access code: ${code}`,
+        message: message,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
-          console.log("Shared with activity type: ", result.activityType);
+          // shared with activity type of result.activityType
         } else {
-          console.log("Shared successfully");
+          // shared
         }
       } else if (result.action === Share.dismissedAction) {
-        console.log("Share dismissed");
+        // dismissed
       }
     } catch (error) {
-      console.error("Error sharing access code: ", error.message);
+      console.log(error.message);
     }
   };
-
   const {
     user_data,
     user_isError,

@@ -26,7 +26,7 @@ import { Get_all_admin_Service__Fun } from "../../../Redux/Admin/AdminServiceSli
 const VendorListDetails = ({ navigation }) => {
   const item = useRoute().params?.item;
   console.log({
-    kaka2: item?._id,
+    kaka2: item,
   });
 
   const dispatch = useDispatch();
@@ -97,7 +97,8 @@ const VendorListDetails = ({ navigation }) => {
           <Text style={{ paddingTop: 10, fontWeight: "bold", fontSize: 20 }}>
             {item?.FullName}
           </Text>
-          <Text style={{}}>Builder</Text>
+          <Text style={{}}>{item?.about_me}</Text>
+
           <Text>{item?.years_of_experience} years of experience</Text>
         </View>
         <View
@@ -191,10 +192,9 @@ const VendorListDetails = ({ navigation }) => {
           }}
         >
           <Text style={{ fontSize: 20, fontWeight: "400", paddingBottom: 5 }}>
-            Working Time kaka
+            Working Time
           </Text>
-          <Text>Monday-Friday 08:00am - 09:00pm</Text>
-          <Text>Weekends 09:00am - 08:00pm</Text>
+          <Text>{item?.opens}</Text>
         </View>
 
         <View
