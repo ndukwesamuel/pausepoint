@@ -360,7 +360,7 @@ export default function AdminHome() {
                 ></Image>
               </TouchableOpacity>
 
-              <View style={{ flexDirection: "row", gap: 20 }}>
+              {/* <View style={{ flexDirection: "row", gap: 20 }}>
                 <AntDesign name="search1" size={24} color="black" />
 
                 <TouchableOpacity>
@@ -370,7 +370,7 @@ export default function AdminHome() {
                     color="black"
                   />
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
 
             <MediumFontText
@@ -432,7 +432,7 @@ export default function AdminHome() {
                     </View>
                   </View>
 
-                  <View>
+                  {/* <View>
                     <TouchableOpacity
                       style={{
                         flexDirection: "row",
@@ -449,7 +449,7 @@ export default function AdminHome() {
                         source={require("../../assets/images/shareVector.png")}
                       />
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
                 </View>
               </View>
 
@@ -615,7 +615,7 @@ export default function AdminHome() {
                     data="Announcements"
                     textstyle={{ fontSize: 18 }}
                   />
-                  <TouchableOpacity>
+                  {/* <TouchableOpacity>
                     <RegularFontText
                       data="See All"
                       textstyle={{
@@ -624,7 +624,7 @@ export default function AdminHome() {
                         textDecorationLine: "underline",
                       }}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
                 {/* <StaticForum /> */}
                 <Announcement />

@@ -193,7 +193,7 @@ const AdminMainEvent = () => {
       </CenterReuseModals>
 
       <View style={{ paddingHorizontal: 10, flex: 1 }}>
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "flex-end",
@@ -208,7 +208,7 @@ const AdminMainEvent = () => {
           >
             <Ionicons name="create" size={24} color="green" />
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <View
           style={{

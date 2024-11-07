@@ -122,7 +122,7 @@ const VendorListDetails = ({ navigation }) => {
               <Text>Reviews</Text>
             </Pressable>
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{ alignItems: "center" }}
             // onPress={() => Like_Mutation.mutate()}
           >
@@ -136,7 +136,7 @@ const VendorListDetails = ({ navigation }) => {
               {item?.servicelikes?.length}
               Likes
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Pressable
             style={{ alignItems: "center" }}
             onPress={() => {
