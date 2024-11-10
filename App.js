@@ -7,7 +7,6 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 import React, { useEffect, useState } from "react";
-import { Audio } from "expo-av";
 import io from "socket.io-client";
 
 import Constants from "expo-constants";
