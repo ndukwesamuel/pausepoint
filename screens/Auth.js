@@ -33,36 +33,6 @@ const Auth = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* <Button
-                title="Show Toast"
-                // onPress={() => Toast.show({
-                //     type: 'success',
-                //     text1: 'Hello World',
-                //     text2: 'Toast message',
-
-                // })}
-
-                // style={{ backgroundColor: 'red' }}
-                onPress={() => console.log("skdjskjd")}
-                color="red"
-
-            /> */}
-
-      {/* <TouchableOpacity
-                style={{ backgroundColor: 'red', marginTop: 100 }}
-                // onPress={() => console.log("skdjskjd")}
-
-                onPress={() => Toast.show({
-                    type: 'success',
-                    text1: 'best',
-                    text2: 'Toast message',
-
-                })}
-            >
-                <Text>sam</Text>
-
-            </TouchableOpacity> */}
-
       {userlogin === "LOGIN" && <LoginScreen />}
       {userlogin === "OTP" && <OTP />}
 

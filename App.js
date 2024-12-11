@@ -29,9 +29,6 @@ import Auth from "./screens/Auth";
 import Toast from "react-native-toast-message";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CreatePassword from "./screens/CreatePassword";
-import UserTabNavigation from "./navigation/User/UserTabNavigation";
-import AdminTabNavigation from "./navigation/Admin/AdminTabNavigation";
-import Adminnaviagetion from "./navigation/Admin/Adminnaviagetion";
 import { Usernaviagetion } from "./navigation/User/Usernaviagetion";
 import { UserProfile_data_Fun } from "./Redux/ProfileSlice";
 import { Get_User_Profle_Fun } from "./Redux/UserSide/UserProfileSlice";
@@ -214,26 +211,10 @@ export const MainScreen = ({}) => {
       initialRouteName="UserNavigation"
       screenOptions={{ headerShown: false }}
     >
-      {/* <Stack.Screen name="Welcome" component={Onboarding} />
-                <Stack.Screen name="Registraion" component={Registraion} />
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Forgotten" component={ForgottenPasswod} />
-                <Stack.Screen name="OTP" component={OTP} />
-                <Stack.Screen name="CreatePassword" component={CreatePassword} /> */}
-      {/* <Stack.Screen name="usertab" component={UserTabNavigation} />
-                <Stack.Screen name="PersonalInfo" component={EditPersonalInformation} />
-                <Stack.Screen name="notificationsettings" component={NotificatioSettings} />
-                <Stack.Screen name="ChangePassowrd" component={ChangePassowrd} />
-                <Stack.Screen name="DeleteAccount" component={DeleteAccount} /> */}
-      {/* 
-      {isAdmin ?
-        <Stack.Screen name="usertab" component={AdminTabNavigation} />
-        : <Stack.Screen name="usertab" component={UserTabNavigation} />
-      } */}
-      {userProfile_data?.AdmincurrentClanMeeting && (
+      {/* {userProfile_data?.AdmincurrentClanMeeting && (
         <Stack.Screen name="AdminTab" component={Adminnaviagetion} />
-      )}
-      {!userProfile_data?.AdmincurrentClanMeeting && (
+      )} */}
+      {userProfile_data && (
         <Stack.Screen name="UserNavigation" component={Usernaviagetion} />
       )}
       <Stack.Screen name="CreatePassword" component={CreatePassword} />
