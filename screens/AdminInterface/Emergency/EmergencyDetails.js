@@ -292,6 +292,7 @@ export default function EmergencyDetails({}) {
               paddingBottom: 10,
               flexDirection: "row",
               gap: 20,
+              flexWrap: "wrap",
             }}
           >
             <RegularFontText
@@ -300,6 +301,7 @@ export default function EmergencyDetails({}) {
 
               // address
             />
+
             <MediumFontText
               data={Admin_Get_Single_Emergency_Report?.report?.additionalInfo}
               textstyle={{ fontSize: 14 }}

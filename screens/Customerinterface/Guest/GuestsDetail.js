@@ -418,7 +418,7 @@ const GuestsDetail = () => {
             borderRadius: 10,
             elevation: 5,
             width: "90%",
-            height: "50%",
+            height: "60%",
           }}
         >
           <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -445,9 +445,6 @@ const GuestsDetail = () => {
                 alignItems: "center",
               }}
             >
-              {console.log({
-                sssdd: qrCodeValue,
-              })}
               <QRCode
                 value={qrCodeValue}
                 size={200}
@@ -460,28 +457,6 @@ const GuestsDetail = () => {
           <Text style={{ textAlign: "center", marginTop: 30, fontSize: 16 }}>
             Screen Short and send to Guest
           </Text>
-
-          {/* <TouchableOpacity
-            onPress={captureAndShare}
-            style={{
-              marginTop: 20,
-              backgroundColor: "#007AFF",
-              padding: 10,
-              borderRadius: 5,
-              alignSelf: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: "bold",
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              Share QR Code
-            </Text>
-          </TouchableOpacity> */}
         </View>
       </CenterReuseModals>
     </View>

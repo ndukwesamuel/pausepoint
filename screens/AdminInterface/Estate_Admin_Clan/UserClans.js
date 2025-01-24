@@ -253,9 +253,6 @@ const UserClans = () => {
         alignItems: "center",
       }}
     >
-      {console.log({
-        item,
-      })}
       <View style={{ width: "75%" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item?.name}</Text>
         <Text>{item?.description}</Text>
@@ -264,10 +261,6 @@ const UserClans = () => {
       </View>
 
       <TouchableOpacity
-        // onPress={() => {
-        //   setSelectedClan(item);
-        //   setIsModalVisible(true);
-        // }}
         style={{
           backgroundColor: "green",
           paddingHorizontal: 20,
@@ -293,19 +286,14 @@ const UserClans = () => {
               }
         }
       >
-        {SelectCLan_Mutation.isLoading ? (
-          <ActivityIndicator size="small" color="white" />
-        ) : (
-          <View>
-            {get_user_profile_data?.currentClanMeeting?._id === item?._id ? (
-              <Text style={{ color: "white" }}>Leave</Text>
-            ) : (
-              <Text style={{ color: "white" }}>Join</Text>
-            )}
-          </View>
-        )}
+        <View>
+          {get_user_profile_data?.currentClanMeeting?._id === item?._id ? (
+            <Text style={{ color: "white" }}>Leave</Text>
+          ) : (
+            <Text style={{ color: "white" }}>Join </Text>
+          )}
+        </View>
       </TouchableOpacity>
-      {/* Add more details as needed */}
     </View>
   );
 
@@ -323,9 +311,6 @@ const UserClans = () => {
         alignItems: "center",
       }}
     >
-      {console.log({
-        kk: item,
-      })}
       <View style={{ width: "75%" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item?.name}</Text>
         <Text>{item?.description}</Text>
@@ -334,10 +319,6 @@ const UserClans = () => {
       </View>
 
       <TouchableOpacity
-        // onPress={() => {
-        //   setSelectedClan(item);
-        //   setIsModalVisible(true);
-        // }}
         style={{
           backgroundColor: "green",
           paddingHorizontal: 20,
@@ -363,17 +344,13 @@ const UserClans = () => {
               }
         }
       >
-        {Estate_admin_SelectCLan_Mutation.isLoading ? (
-          <ActivityIndicator size="small" color="white" />
-        ) : (
-          <View>
-            {get_user_profile_data?.AdmincurrentClanMeeting === item?._id ? (
-              <Text style={{ color: "white" }}>Leave</Text>
-            ) : (
-              <Text style={{ color: "white" }}>Join</Text>
-            )}
-          </View>
-        )}
+        <View>
+          {get_user_profile_data?.AdmincurrentClanMeeting === item?._id ? (
+            <Text style={{ color: "white" }}>Leave</Text>
+          ) : (
+            <Text style={{ color: "white" }}>Join</Text>
+          )}
+        </View>
       </TouchableOpacity>
       {/* Add more details as needed */}
     </View>
@@ -636,7 +613,7 @@ const UserClans = () => {
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
-      {refreshing && <ActivityIndicator size="large" color="#0C1401" />}
+      {/* {refreshing && <ActivityIndicator size="large" color="#0C1401" />} */}
 
       <View
         style={{
@@ -710,6 +687,12 @@ const UserClans = () => {
           />
         </TouchableOpacity>
       </View>
+
+      {(refreshing ||
+        Estate_admin_SelectCLan_Mutation.isLoading ||
+        SelectCLan_Mutation.isLoading) && (
+        <ActivityIndicator size="large" color="#0C1401" />
+      )}
 
       {activeButton === "Member" && (
         <FlatList

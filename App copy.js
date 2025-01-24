@@ -8,7 +8,6 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-// import DeviceInfo from "react-native-device-info";
 
 import Constants from "expo-constants";
 import { useCallback } from "react";
@@ -40,7 +39,6 @@ import { notificationservicecode } from "./utils/notificationservice";
 const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
 
 import { setOnlineUser, setSocketConnection } from "./Redux/socketSlice";
-import { checkForUpdates } from "./utils/getInstalledVersion";
 
 const queryClient = new QueryClient();
 
@@ -320,14 +318,6 @@ export const NavigationScreen = () => {
     };
   }, []);
 
-  const [isAppBlocked, setIsAppBlocked] = useState(false); // Block app if forceUpgrade is true
-  useEffect(() => {
-    const platform = Platform.OS;
-    console.log({
-      nnn: platform,
-    });
-    checkForUpdates(platform);
-  }, []);
   // console.log({ user_data });
   return (
     <NavigationContainer>

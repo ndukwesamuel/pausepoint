@@ -134,7 +134,15 @@ const Registraion = ({}: {}) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-        <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+        <View
+          style={{
+            paddingHorizontal: 20,
+            paddingTop: 20,
+            // alignItems: "center",
+            justifyContent: "center",
+            flex: 1,
+          }}
+        >
           <RegistraionHeadersText data="Create Account" textStyle={{}} />
 
           <View style={{ flexDirection: "row", gap: 10, marginBottom: 30 }}>
