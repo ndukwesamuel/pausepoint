@@ -35,6 +35,7 @@ const CreateProduct = ({ navigation }) => {
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     dispatch(Market_Category_Fun());
@@ -60,6 +61,19 @@ const CreateProduct = ({ navigation }) => {
   console.log({
     formattedCategories: selectedCategory,
   });
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+
+  //   if (!result.canceled) {
+  //     setProfileImage(result.assets[0].uri);
+  //   }
+  // };
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -69,8 +83,12 @@ const CreateProduct = ({ navigation }) => {
     });
 
     if (!result.canceled) {
-      setProfileImage(result.assets[0].uri);
+      setImages((prevImages) => [...prevImages, result.assets[0].uri]);
     }
+  };
+
+  const removeImage = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
   const [open, setOpen] = useState(false);
@@ -90,6 +108,24 @@ const CreateProduct = ({ navigation }) => {
     id: userProfile_data?.currentClanMeeting?._id,
   });
 
+  // const handleSave = () => {
+  //   const formData = new FormData();
+  //   formData.append("name", name);
+  //   formData.append("price", price);
+  //   formData.append("quantity", quantity);
+  //   formData.append("description", description);
+  //   formData.append("contact", contact);
+  //   formData.append("clanId", userProfile_data?.currentClanMeeting?._id);
+
+  //   if (profileImage) {
+  //     const uri = profileImage;
+  //     const type = "image/jpeg";
+  //     const name = "photo.jpg";
+  //     formData.append("images", { uri, type, name });
+  //   }
+
+  //   CreateVendor_Mutation.mutate(formData);
+  // };
   const handleSave = () => {
     const formData = new FormData();
     formData.append("name", name);
@@ -99,12 +135,12 @@ const CreateProduct = ({ navigation }) => {
     formData.append("contact", contact);
     formData.append("clanId", userProfile_data?.currentClanMeeting?._id);
 
-    if (profileImage) {
-      const uri = profileImage;
+    images.forEach((imageUri, index) => {
+      const uri = imageUri;
       const type = "image/jpeg";
-      const name = "photo.jpg";
+      const name = `photo_${index}.jpg`;
       formData.append("images", { uri, type, name });
-    }
+    });
 
     CreateVendor_Mutation.mutate(formData);
   };
@@ -220,28 +256,63 @@ const CreateProduct = ({ navigation }) => {
             }}
           />
         </View>
-        <TouchableOpacity
-          onPress={pickImage}
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            borderWidth: 1,
-            borderColor: "gray",
-            borderRadius: 10,
-            padding: 10,
-            marginTop: 10,
-            marginBottom: 20,
-          }}
-        >
-          {profileImage ? (
-            <Image
-              source={{ uri: profileImage }}
-              style={{ width: 100, height: 100 }}
-            />
-          ) : (
-            <Text>Input Product Image</Text>
-          )}
-        </TouchableOpacity>
+
+        <View>
+          {/* Other form fields */}
+
+          <TouchableOpacity
+            onPress={pickImage}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              borderWidth: 1,
+              borderColor: "gray",
+              borderRadius: 10,
+              padding: 10,
+              marginTop: 10,
+              marginBottom: 20,
+            }}
+          >
+            <Text>Add Product Image</Text>
+          </TouchableOpacity>
+
+          <ScrollView
+            horizontal
+            style={{ flexDirection: "row", marginBottom: 15 }}
+          >
+            {images.map((imageUri, index) => (
+              <View
+                key={index}
+                style={{
+                  position: "relative",
+                  marginRight: 10,
+                }}
+              >
+                <Image
+                  source={{ uri: imageUri }}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: 10,
+                  }}
+                />
+                <TouchableOpacity
+                  onPress={() => removeImage(index)}
+                  style={{
+                    position: "absolute",
+                    top: 5,
+                    right: 5,
+                    backgroundColor: "rgba(0,0,0,0.6)",
+                    borderRadius: 50,
+                    padding: 5,
+                  }}
+                >
+                  <Text style={{ color: "white", fontSize: 12 }}>X</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
       </View>
       <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
         {CreateVendor_Mutation.isLoading ? (

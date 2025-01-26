@@ -9,6 +9,9 @@ const getInstalledVersion = () => {
   // Check if using EAS or classic manifest
   if (Constants.manifest2) {
     dataVersion = Constants.manifest2.extra?.expoClient?.version;
+    console.log({
+      ccc: dataVersion,
+    });
   } else if (Constants.manifest) {
     dataVersion = Constants.manifest.version; // Classic workflow
   } else {

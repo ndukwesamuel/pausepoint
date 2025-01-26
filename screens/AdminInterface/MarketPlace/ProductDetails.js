@@ -1,5 +1,5 @@
 import { useRoute } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -12,22 +12,20 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
 import { useMutation } from "react-query";
-const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
-
+import PagerView from "react-native-pager-view";
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminMarket_data_Fun } from "../../../Redux/Admin/AdminMarketSLice";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
 const ProductDetails = ({ navigation }) => {
   const { item } = useRoute().params;
   const dispatch = useDispatch();
+  const [activeIndex, setActiveIndex] = useState(0); // Track the active image index
 
   const { user_data } = useSelector((state) => state?.AuthSlice);
 
-  console.log({
-    ds: user_data?.token,
-    ewe: item?._id,
-  });
   const Aprove_Mutation = useMutation(
     (data_info) => {
       let url = `${API_BASEURL}market/product/status/${item?._id}`;
@@ -36,7 +34,6 @@ const ProductDetails = ({ navigation }) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          //   "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${user_data?.token}`,
         },
       };
@@ -47,44 +44,58 @@ const ProductDetails = ({ navigation }) => {
       onSuccess: (success) => {
         Toast.show({
           type: "success",
-          text1: " successfully ",
+          text1: "Successfully updated",
         });
         dispatch(AdminMarket_data_Fun());
-
         navigation.goBack();
-        // dispatch(Get_My_Clan_Forum_Fun());
-
-        // setTurnmodal(false);
       },
-
       onError: (error) => {
         console.log({
           error: error?.response?.data,
         });
         Toast.show({
           type: "error",
-          text1: `${error?.response?.data?.message} `,
-          //   text2: ` ${error?.response?.data?.errorMsg} `,
+          text1: `${error?.response?.data?.message}`,
         });
-
-        // dispatch(Get_User_Clans_Fun());
-        // dispatch(Get_User_Profle_Fun());
-        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
       },
     }
   );
+
   return (
     <>
       <ScrollView style={{ paddingVertical: 20 }}>
-        <Image
-          source={{
-            uri: item.images[0]?.url,
+        {/* PagerView for swiping images */}
+        <PagerView
+          style={styles.pagerView}
+          initialPage={0}
+          onPageSelected={(event) => {
+            setActiveIndex(event.nativeEvent.position); // Update active index on page change
           }}
-          style={{
-            width: "100%",
-            height: 250,
-          }}
-        />
+        >
+          {item?.images?.map((image, index) => (
+            <View key={index} style={styles.page}>
+              <Image
+                source={{ uri: image.url }}
+                style={styles.image}
+                resizeMode="cover"
+              />
+            </View>
+          ))}
+        </PagerView>
+
+        {/* Pagination Dots */}
+        <View style={styles.paginationContainer}>
+          {item?.images?.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.paginationDot,
+                activeIndex === index && styles.activeDot,
+              ]}
+            />
+          ))}
+        </View>
+
         <View style={styles.contentContainer}>
           <View style={styles.headerContainer}>
             <View>
@@ -97,21 +108,12 @@ const ProductDetails = ({ navigation }) => {
           </View>
           <Text style={styles.description}>{item?.description}</Text>
         </View>
+
         <View style={styles.downContainer}>
           <Text style={styles.sellerTitle}>Seller Details</Text>
           <Text style={styles.sellerInfo}>
             <Icon name="user" size={20} color="black" />
-            <Text
-              style={{
-                marginLeft: 10,
-              }}
-            >
-              {item?.seller?.name}
-            </Text>
-          </Text>
-          <Text style={styles.sellerInfo}>
-            {/* <Icon name="home" size={20} color="black" /> */}
-            {/* <Text> House 24, Tinubu estate</Text> */}
+            <Text style={{ marginLeft: 10 }}>{item?.seller?.name}</Text>
           </Text>
         </View>
 
@@ -152,8 +154,33 @@ const ProductDetails = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  pagerView: {
+    height: 250,
+    width: "100%",
+  },
+  page: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   image: {
     width: "100%",
+    height: "100%",
+  },
+  paginationContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  paginationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#ccc",
+    marginHorizontal: 4,
+  },
+  activeDot: {
+    backgroundColor: "#000", // Active dot color
   },
   contentContainer: {
     padding: 20,
@@ -175,10 +202,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
   },
-  productStock: {
-    fontSize: 18,
-    color: "gray",
-  },
   description: {
     marginTop: 10,
     fontSize: 14,
@@ -199,9 +222,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 5,
-  },
-  icon: {
-    marginRight: 10,
   },
   buttonContainer: {
     paddingHorizontal: 20,

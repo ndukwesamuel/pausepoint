@@ -1,6 +1,6 @@
 {
   "name": "pausepoint",
-  "version": "1.0.2",
+  "version": "1.1.1",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -61,7 +61,9 @@
     "react-query": "^3.39.3",
     "react-redux": "^8.1.1",
     "redux-persist": "^6.0.0",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "react-native-reanimated": "~3.3.0",
+    "react-native-pager-view": "6.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

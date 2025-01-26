@@ -33,13 +33,6 @@ import axios from "axios";
 import Toast from "react-native-toast-message";
 
 const Myclan = ({ navigation }) => {
-  const initialData = [
-    { id: 1, name: "John" },
-    { id: 2, name: "Alice" },
-    { id: 3, name: "Bob" },
-    // Add more objects to your initial data
-  ];
-
   const {
     user_data,
     user_isError,
@@ -48,21 +41,9 @@ const Myclan = ({ navigation }) => {
     user_message,
   } = useSelector((state) => state.AuthSlice);
 
-  const [filteredData, setFilteredData] = useState(initialData);
-
   const [formData, setFormData] = useState({
     search: "", // Initialize with empty values
   });
-
-  const handleInputChange = (inputName, text) => {
-    setFormData({ ...formData, [inputName]: text });
-
-    // Filter the data based on the search input
-    const filtered = initialData.filter((item) =>
-      item.name.toLowerCase().includes(text.toLowerCase())
-    );
-    setFilteredData(filtered);
-  };
 
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
@@ -93,9 +74,6 @@ const Myclan = ({ navigation }) => {
     },
     {
       onSuccess: (success) => {
-        console.log({
-          success,
-        });
         Toast.show({
           type: "success",
           text1: "Estate created successfully ",
@@ -107,30 +85,15 @@ const Myclan = ({ navigation }) => {
       },
 
       onError: (error) => {
-        console.log({
-          error: error?.response,
-        });
-
         setModalVisible(false);
 
-        // setModalVisible(false);
-        // setModalVisibility({});
         Toast.show({
           type: "error",
           text1: `${error?.response?.data?.error} `,
-          //   text2: ` ${error?.response?.data?.errorMsg} `,
         });
       },
     }
   );
-
-  const handleEstate = () => {
-    let data = {
-      name: name,
-      description: text,
-    };
-    Crate_Estate_Mutation.mutate(data);
-  };
 
   return (
     <AppScreen>
