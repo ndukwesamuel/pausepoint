@@ -222,10 +222,10 @@ const Chats = () => {
               gap: 10,
             }}
           >
-            <Image
+            {/* <Image
               source={require("../../assets/images/gallery.png")}
               style={{ width: 24, height: 24 }}
-            />
+            /> */}
             <TextInput
               style={{
                 flex: 1,

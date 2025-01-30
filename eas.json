@@ -14,15 +14,24 @@
       "developmentClient": true
     },
     "production": {
+      "ios": {},
       "env": {
         "EXPO_PUBLIC_API_URL": "https://pausepointbackend.onrender.com/"
       }
-    },    "test": {
+    },
+    "test": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://pausepointbackend.onrender.com/" 
-
+        "EXPO_PUBLIC_API_URL": "https://pausepointbackend.onrender.com/"
       }
     }
-
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "niniolaolabisis@gmail.com",
+        "ascAppId": "6739864683",
+        "appleTeamId": "D5V62T2GCF"
+      }
+    }
   }
 }

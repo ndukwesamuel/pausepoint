@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -9,26 +9,29 @@ import {
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useDispatch, useSelector } from "react-redux";
+import { All_serviceReview_data_Fun } from "../../Redux/UserSide/ServiceSlice";
+import { useRoute } from "@react-navigation/native";
 
 const Review = ({ navigation }) => {
-  const items = [
-    {
-      name: "James Laniser",
-      desc: "Lorem ipsum dolor sit amet consectetur, purus sed quisque lacacini venenatics. Egestas odio neque aliquet id",
-    },
-    {
-      name: "James Laniser",
-      desc: "Lorem ipsum dolor sit amet consectetur, purus sed quisque lacacini venenatics. Egestas odio neque aliquet id",
-    },
-    {
-      name: "James Laniser",
-      desc: "Lorem ipsum dolor sit amet consectetur, purus sed quisque lacacini venenatics. Egestas odio neque aliquet id",
-    },
-    {
-      name: "James Laniser",
-      desc: "Lorem ipsum dolor sit amet consectetur, purus sed quisque lacacini venenatics. Egestas odio neque aliquet idlake",
-    },
-  ];
+  const dispatch = useDispatch();
+  const { item } = useRoute().params;
+
+  let vendorId = item?._id;
+
+  console.log({
+    vendorId,
+  });
+
+  const { review_service__data } = useSelector((state) => state?.ServiceSlice);
+  console.log({
+    llll: review_service__data?.reviews[0],
+  });
+  useEffect(() => {
+    dispatch(All_serviceReview_data_Fun(item?._id));
+
+    return () => {};
+  }, []);
 
   return (
     <View
@@ -39,46 +42,51 @@ const Review = ({ navigation }) => {
       }}
     >
       <ScrollView>
-        {items.map((item, index) => (
+        {review_service__data?.reviews?.map((item, index) => (
           <View style={styles.container} key={index}>
-            <View style={styles.profile}>
-              <View style={styles.imgRow}>
-                <Image source={require("../../assets/sevImg/review.png")} />
-                <View>
-                  <View
-                    style={{
-                      justifyContent: "space-between",
-                      flexDirection: "row",
-                      marginBottom: 10,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={styles.nameText}>{item.name}</Text>
-                    <View
-                      style={{
-                        height: 25,
-                        width: 47,
-                        padding: 5,
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        borderColor: "#81CB9D",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        gap: 5,
-                      }}
-                    >
-                      <Text>
-                        <Icon name="star" size={15} color="#04973C" />
-                      </Text>
-
-                      <Text>5</Text>
-                    </View>
-                  </View>
-                  <View style={styles.textContent}>
-                    <Text style={styles.desText}>{item.desc}</Text>
-                  </View>
-                </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  gap: 10,
+                }}
+              >
+                {/* <Image source={require("../../assets/sevImg/review.png")} /> */}
+                <Text style={styles.nameText}>{item?.user?.name}</Text>
               </View>
+              <View
+                style={{
+                  height: 25,
+                  width: 47,
+                  padding: 5,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: "#81CB9D",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  gap: 5,
+                }}
+              >
+                <Text>
+                  <Icon name="star" size={15} color="#04973C" />
+                </Text>
+
+                <Text>{item?.rating}</Text>
+              </View>
+            </View>
+
+            <View
+              style={{
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.desText}>{item.comment}</Text>
             </View>
           </View>
         ))}
@@ -87,10 +95,12 @@ const Review = ({ navigation }) => {
         <TouchableOpacity
           style={styles.buttonContainer}
           onPress={() => {
-            navigation.navigate("vendorReview");
+            navigation.navigate("vendorReview", {
+              item: vendorId,
+            });
           }}
         >
-          <Text style={styles.text}>Create your Review</Text>
+          <Text style={styles.text}> Create your Review </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 20,
   },
-  
+
   profile: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -126,22 +136,20 @@ const styles = StyleSheet.create({
   },
   imgRow: {
     flexDirection: "row",
-   
+
     overflow: "visible",
     gap: 10,
     paddingRight: 70,
-  
   },
   desText: {
-    
     fontSize: 15,
     borderBottomWidth: 1,
     borderBottomColor: "#F6F6F6",
   },
   nameText: {
     fontSize: 16,
-    fontWeight: "600"
-  }
+    fontWeight: "600",
+  },
 });
 
 export default Review;

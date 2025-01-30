@@ -258,7 +258,7 @@ export default function AllUsers({ navigation }) {
 
         <View style={{ flex: 1, paddingHorizontal: 20 }}>
           <Forminput_Icon
-            placeholder="Search for user..."
+            placeholder="Search for user... "
             containerstyle={{
               // borderWidth: 1,
               padding: 10,

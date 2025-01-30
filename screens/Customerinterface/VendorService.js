@@ -8,15 +8,75 @@ import {
   Pressable,
   TouchableOpacity,
   Linking,
+  ScrollView,
 } from "react-native";
 import { Rating } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import LottieView from "lottie-react-native";
+import { useMutation } from "react-query";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
 
+import axios from "axios";
+import Toast from "react-native-toast-message";
+import { All_service__data_Fun } from "../../Redux/UserSide/ServiceSlice";
+import { useDispatch, useSelector } from "react-redux";
 const VendorService = ({ navigation }) => {
   const item = useRoute().params?.item;
   console.log({
-    item: item,
+    ememe: item,
   });
+
+  const dispatch = useDispatch();
+  const {
+    user_data,
+    user_isError,
+    user_isSuccess,
+    user_isLoading,
+    user_message,
+  } = useSelector((state) => state.AuthSlice);
+  const Like_Mutation = useMutation(
+    (data_info) => {
+      let url = `${API_BASEURL}services/vendors/like-dislike/${item?._id}`;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          //   "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${user_data?.token}`,
+        },
+      };
+
+      return axios.get(url, config);
+    },
+    {
+      onSuccess: (success) => {
+        Toast.show({
+          type: "success",
+          text1: " successfully ",
+        });
+        dispatch(All_service__data_Fun());
+
+        // setTurnmodal(false);
+      },
+
+      onError: (error) => {
+        console.log({
+          jjjL: error?.response,
+        });
+        Toast.show({
+          type: "error",
+
+          text1: `${error?.response?.data?.message} `,
+          //   text2: ` ${error?.response?.data?.errorMsg} `,
+        });
+
+        // dispatch(Get_User_Clans_Fun());
+        // dispatch(Get_User_Profle_Fun());
+        // dispatch(Get_all_clan_User_Is_adminIN_Fun());
+      },
+    }
+  );
 
   const makePhoneCall = () => {
     // Alert.alert("Call Support", "Are you sure you want to call support?");
@@ -26,7 +86,7 @@ const VendorService = ({ navigation }) => {
     Linking.openURL(`tel:${item?.phone_number}`);
   };
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.container}>
         <View style={styles.container1}>
           <Image
@@ -36,7 +96,7 @@ const VendorService = ({ navigation }) => {
           <Text style={{ paddingTop: 10, fontWeight: "bold", fontSize: 20 }}>
             {item?.FullName}
           </Text>
-          <Text style={{}}>Builder</Text>
+          <Text style={{}}>{item?.about_me}</Text>
           <Text>{item?.years_of_experience} years of experience</Text>
         </View>
         <View
@@ -49,7 +109,7 @@ const VendorService = ({ navigation }) => {
           <View>
             <Pressable
               onPress={() => {
-                navigation.navigate("review");
+                navigation.navigate("review", { item });
               }}
               style={{ alignItems: "center" }}
             >
@@ -57,26 +117,36 @@ const VendorService = ({ navigation }) => {
                 source={require("../../assets/sevImg/revIcon.png")}
                 style={{ marginBottom: 5 }}
               />
-              <Text style={{ paddingBottom: 5 }}>80%</Text>
               <Text>Reviews</Text>
             </Pressable>
           </View>
-          <View style={{ alignItems: "center" }}>
+          <TouchableOpacity
+            style={{ alignItems: "center" }}
+            onPress={() => Like_Mutation.mutate()}
+          >
             <Icon
               name="heart"
               size={20}
               color="#04973C"
               style={{ paddingBottom: 5 }}
             />
-            <Text style={{ paddingBottom: 5 }}>36</Text>
-            <Text>Likes</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
+            <Text>
+              {item?.servicelikes?.length}
+              Likes
+            </Text>
+          </TouchableOpacity>
+          <Pressable
+            style={{ alignItems: "center" }}
+            onPress={() => {
+              navigation.navigate("review", { item });
+            }}
+          >
             <Rating
               type="custom"
               ratingCount={5}
               imageSize={20}
               // startingValue={0}
+              startingValue={item?.avgRating} // Use item.avgRating for the rating value
               ratingBackgroundColor="white"
               ratingColor="green"
               value={3}
@@ -84,9 +154,15 @@ const VendorService = ({ navigation }) => {
               style={{ paddingBottom: 5 }}
             />
 
-            <Text style={{ paddingBottom: 5 }}>80%</Text>
+            {/* <Rating
+              readonly
+              startingValue={item?.avgRating} // Use item.avgRating for the rating value
+              imageSize={17}
+              fractions={5}
+            /> */}
+
             <Text>Rating</Text>
-          </View>
+          </Pressable>
         </View>
       </View>
       <View style={{ padding: 30, height: "50%" }}>
@@ -115,8 +191,8 @@ const VendorService = ({ navigation }) => {
           <Text style={{ fontSize: 20, fontWeight: "400", paddingBottom: 5 }}>
             Working Time
           </Text>
-          <Text>Monday-Friday 08:00am - 09:00pm</Text>
-          <Text>Weekends 09:00am - 08:00pm</Text>
+
+          <Text>{item?.opens}</Text>
         </View>
         <View>
           <TouchableOpacity
@@ -128,14 +204,14 @@ const VendorService = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F3FFF3",
-    height: "52%",
+    // height: "52%",
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
   },
@@ -159,6 +235,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     marginTop: 40,
+    paddingBottom: 20,
   },
   icon: {
     marginRight: 10,

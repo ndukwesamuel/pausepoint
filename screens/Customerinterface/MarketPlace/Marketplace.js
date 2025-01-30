@@ -12,6 +12,8 @@ import {
   RefreshControl,
   FlatList,
 } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   Market_data_Fun,
@@ -29,13 +31,21 @@ const MarketPlace = () => {
 
   const animation = useRef(null);
 
+  console.log({
+    fkfkf: MyProduct_data?.products[0]?.name,
+  });
+
   useEffect(() => {
     dispatch(Market_data_Fun());
     dispatch(myProductFun());
 
     return () => {};
   }, [dispatch]);
+  const [search, setSearch] = useState("");
 
+  const handleSearch = (text) => {
+    setSearch(text);
+  };
   const navigation = useNavigation();
 
   const [refreshing, setRefreshing] = useState(false);
@@ -151,10 +161,39 @@ const MarketPlace = () => {
         </TouchableOpacity>
       </View>
 
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          borderRadius: 9,
+          paddingHorizontal: 10,
+          margin: 10,
+          backgroundColor: "#F6F8FA",
+        }}
+      >
+        <Icon name="search" size={20} color="#777" style={styles.icon} />
+        <TextInput
+          placeholder="Search by name or service..."
+          style={{
+            flex: 1,
+            paddingVertical: 18,
+            paddingLeft: 1,
+            color: "#333",
+          }}
+          placeholderTextColor="#777"
+          value={search}
+          onChangeText={handleSearch}
+        />
+      </View>
+
       {productType === "myproduct" ? (
         <View>
           <FlatList
-            data={MyProduct_data?.products}
+            // data={MyProduct_data?.products}
+            data={MyProduct_data?.products?.filter(
+              (data) => data?.name.toLowerCase().includes(search.toLowerCase())
+              // user?.about_me?.toLowerCase().includes(search.toLowerCase())
+            )}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
             ListEmptyComponent={renderEmptyList}
@@ -177,7 +216,12 @@ const MarketPlace = () => {
         </View>
       ) : (
         <FlatList
-          data={Market_data?.products}
+          // data={Market_data?.products}
+
+          data={Market_data?.products?.filter(
+            (data) => data?.name.toLowerCase().includes(search.toLowerCase())
+            // user?.about_me?.toLowerCase().includes(search.toLowerCase())
+          )}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={renderEmptyList}

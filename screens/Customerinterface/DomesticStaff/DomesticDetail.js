@@ -5,9 +5,19 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import AppScreen from "../../../components/shared/AppScreen";
 import { formatDate } from "../../../utils/DateTime";
+
+import { useMutation } from "react-query";
+const API_BASEURL = process.env.EXPO_PUBLIC_API_URL;
+
+import axios from "axios";
+import Toast from "react-native-toast-message";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { Get_All_Domestic_Fun } from "../../../Redux/UserSide/GuestSlice";
 
 const DomesticDetail = ({ route }) => {
   const {
@@ -24,12 +34,54 @@ const DomesticDetail = ({ route }) => {
     updatedAt,
   } = route?.params?.itemdata;
 
+  const { user_data } = useSelector((state) => state.AuthSlice);
+  const navigation = useNavigation();
+
+  const dispatch = useDispatch();
   // const { itemdata } = route.params;
 
   // Format the dates to a readable format
 
+  const Delete_Mutation = useMutation(
+    (data_info) => {
+      let url = `${API_BASEURL}domesticstaff/${_id}`;
+
+      console.log({
+        fff: url,
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${user_data?.token}`,
+        },
+      };
+
+      return axios.delete(url, config);
+    },
+    {
+      onSuccess: () => {
+        Toast.show({
+          type: "success",
+          text1: "Staff Deleted successfully",
+        });
+        dispatch(Get_All_Domestic_Fun());
+
+        navigation.goBack();
+      },
+
+      onError: (error) => {
+        Toast.show({
+          type: "error",
+          text1: `${error?.response?.data?.message}`,
+        });
+      },
+    }
+  );
+
   return (
-    <AppScreen>
+    // <AppScreen>
       <ScrollView contentContainerStyle={styles.container}>
         {/* <View style={styles.item}>
           <Text style={styles.label}>Staff ID:</Text>
@@ -86,6 +138,7 @@ const DomesticDetail = ({ route }) => {
             flexDirection: "row",
             justifyContent: "center",
             gap: 10,
+            paddingTop:30
           }}
         >
           <TouchableOpacity
@@ -106,26 +159,31 @@ const DomesticDetail = ({ route }) => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{
-              backgroundColor: "red",
-              width: "40%",
-              paddingVertical: 5,
-              borderRadius: 5,
-            }}
-          >
-            <Text
+          {Delete_Mutation?.isLoading ? (
+            <ActivityIndicator size="small" color="green" />
+          ) : (
+            <TouchableOpacity
               style={{
-                textAlign: "center",
-                color: "white",
+                backgroundColor: "red",
+                width: "40%",
+                paddingVertical: 5,
+                borderRadius: 5,
               }}
+              onPress={() => Delete_Mutation.mutate()}
             >
-              Delete
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: "white",
+                }}
+              >
+                Delete
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </ScrollView>
-    </AppScreen>
+    // </AppScreen>
   );
 };
 
@@ -134,7 +192,7 @@ export default DomesticDetail;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 40,
   },
   item: {
     marginBottom: 15,

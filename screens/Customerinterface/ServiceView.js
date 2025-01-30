@@ -22,46 +22,24 @@ const ServiceView = ({ navigation }) => {
   const animation = useRef(null);
 
   const { all_service__data } = useSelector((state) => state.ServiceSlice);
+
   useEffect(() => {
     dispatch(All_service__data_Fun());
 
     return () => {};
   }, [dispatch]);
-  console.log({
-    emeka: all_service__data?.vendors[0],
-  });
-  const [filteredUsers, setFilteredUsers] = useState(
-    all_service__data?.vendors
-  );
+
   const [search, setSearch] = useState("");
 
   const handleSearch = (text) => {
     setSearch(text);
-    if (text) {
-      const filtered = all_service__data?.vendors?.filter((user) =>
-        user?.FullName.toLowerCase().includes(text.toLowerCase())
-      );
-      setFilteredUsers(filtered);
-    } else {
-      setFilteredUsers(all_service__data?.vendors);
-    }
   };
 
   const [refreshing, setRefreshing] = useState(false);
 
-  // const onRefresh = () => {
-  //   // Set the refreshing state to true
-  //   setRefreshing(true);
-  //   dispatch(All_service__data_Fun());
-
-  //   // Wait for 2 seconds
-  //   setRefreshing(false);
-  // };
-
   const onRefresh = () => {
     setRefreshing(true);
     dispatch(All_service__data_Fun());
-
     setRefreshing(false);
   };
 
@@ -71,6 +49,11 @@ const ServiceView = ({ navigation }) => {
         navigation.navigate("vendorService", { item: item });
       }}
       key={item?.id}
+      style={{
+        flex: 1, // Take equal space
+        marginBottom: 10,
+        padding: 5, // Add some padding to avoid overlap
+      }}
     >
       <View style={styles.cards}>
         <View style={styles.cardImage}>
@@ -90,19 +73,19 @@ const ServiceView = ({ navigation }) => {
           <Text style={{ paddingBottom: 10 }}>
             <Rating
               readonly
-              startingValue="rating"
+              startingValue={item?.avgRating} // Use item.avgRating for the rating value
               imageSize={17}
-              fractions={1}
+              fractions={5}
             />
           </Text>
 
           <Text style={styles.cardName}>{item?.FullName}</Text>
-          <Text style={styles.cardSubtitle}>{item.category?.name}</Text>
-          {/* <Text style={styles.cardDescription}>{item.desc}</Text> */}
+          <Text style={styles.cardSubtitle}>{item.about_me}</Text>
         </View>
       </View>
     </Pressable>
   );
+
   const renderEmptyList = () => (
     <ScrollView
       contentContainerStyle={{
@@ -120,13 +103,10 @@ const ServiceView = ({ navigation }) => {
         style={{
           width: 200,
           height: 200,
-          // backgroundColor: "#eee",
         }}
-        // Find more Lottie files at https://lottiefiles.com/featured
         source={require("../../assets/Lottie/Animation - 1704444696995.json")}
       />
     </ScrollView>
-    // <Text style={styles.emptyText}>No products available.</Text>
   );
 
   return (
@@ -137,11 +117,10 @@ const ServiceView = ({ navigation }) => {
         backgroundColor: "white",
       }}
     >
-      {/* <Text style={styles.text1}>Category:Engineering/Mechanical</Text> */}
       <View style={styles.inputs}>
         <Icon name="search" size={20} color="#777" style={styles.icon} />
         <TextInput
-          placeholder="Search by name..."
+          placeholder="Search by name or service..."
           style={styles.input}
           placeholderTextColor="#777"
           value={search}
@@ -149,25 +128,36 @@ const ServiceView = ({ navigation }) => {
         />
       </View>
 
-      {/* <ScrollView> */}
       <View
         style={{
-          justifyContent: "space-evenly",
-          flexDirection: "row",
-          flexWrap: "wrap",
+          // justifyContent: "space-evenly",
+          // flexDirection: "row",
+          // flexWrap: "wrap",
+          flex: 1,
         }}
       >
         <FlatList
-          data={filteredUsers}
+          // data={all_service__data?.vendors?.filter((user) =>
+          //   user?.FullName.toLowerCase().includes(search.toLowerCase())
+          // )}
+
+          data={all_service__data?.vendors?.filter(
+            (user) =>
+              user?.FullName.toLowerCase().includes(search.toLowerCase()) ||
+              user?.about_me?.toLowerCase().includes(search.toLowerCase())
+          )}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={renderEmptyList}
+          numColumns={2}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          columnWrapperStyle={{
+            justifyContent: "space-between", // Ensure even spacing
+          }}
         />
       </View>
-      {/* </ScrollView> */}
     </View>
   );
 };
@@ -204,12 +194,6 @@ const styles = StyleSheet.create({
     color: "#333",
     marginBottom: 5,
   },
-  cardDescription: {
-    fontSize: 14,
-    fontWeight: "200",
-    paddingBottom: 15,
-    paddingTop: 5,
-  },
   inputs: {
     flexDirection: "row",
     alignItems: "center",
@@ -226,14 +210,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-  },
-  text1: {
-    paddingTop: 10,
-    paddingBottom: 15,
-    paddingLeft: 10,
-    color: "rgba(0, 0, 0, 0.5)",
-    fontSize: 15,
-    fontWeight: "bold",
   },
 });
 

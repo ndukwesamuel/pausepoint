@@ -107,10 +107,13 @@ export default function AdminHome() {
   const dpi = 160;
   const screeninchis = screenHeight / dpi;
 
-  const approvedPercentage = (approvedCount / totalUsers) * 100;
-  const suspendPercentage = (suspendCount / totalUsers) * 100;
-  const pendingPercentage = (pendingCount / totalUsers) * 100;
+  // const approvedPercentage = (approvedCount / totalUsers) * 100;
+  // const suspendPercentage = (suspendCount / totalUsers) * 100;
+  // const pendingPercentage = (pendingCount / totalUsers) * 100;
 
+  const approvedPercentage = ((approvedCount / totalUsers) * 100).toFixed(1);
+  const suspendPercentage = ((suspendCount / totalUsers) * 100).toFixed(1);
+  const pendingPercentage = ((pendingCount / totalUsers) * 100).toFixed(1);
   const offsetValue = useRef(new Animated.Value(0)).current;
   // Scale Intially must be One...
   const scaleValue = useRef(new Animated.Value(1)).current;
@@ -360,7 +363,7 @@ export default function AdminHome() {
                 ></Image>
               </TouchableOpacity>
 
-              <View style={{ flexDirection: "row", gap: 20 }}>
+              {/* <View style={{ flexDirection: "row", gap: 20 }}>
                 <AntDesign name="search1" size={24} color="black" />
 
                 <TouchableOpacity>
@@ -370,7 +373,7 @@ export default function AdminHome() {
                     color="black"
                   />
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
 
             <MediumFontText
@@ -417,7 +420,7 @@ export default function AdminHome() {
                   }}
                 >
                   <View>
-                    <MediumFontText data="ACTIVE USERS" />
+                    <MediumFontText data="ACTIVE Users" />
                     <View
                       style={{ flexDirection: "row", alignItems: "center" }}
                     >
@@ -432,7 +435,7 @@ export default function AdminHome() {
                     </View>
                   </View>
 
-                  <View>
+                  {/* <View>
                     <TouchableOpacity
                       style={{
                         flexDirection: "row",
@@ -449,7 +452,7 @@ export default function AdminHome() {
                         source={require("../../assets/images/shareVector.png")}
                       />
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
                 </View>
               </View>
 
@@ -495,7 +498,7 @@ export default function AdminHome() {
                     }}
                   >
                     <View>
-                      <MediumFontText data="Suspended USERS" />
+                      <MediumFontText data="Suspended Users" />
                       <View
                         style={{ flexDirection: "row", alignItems: "center" }}
                       >
@@ -546,7 +549,7 @@ export default function AdminHome() {
                     }}
                   >
                     <View>
-                      <MediumFontText data="PENDING USERS" />
+                      <MediumFontText data="PENDING Users" />
                       <View
                         style={{ flexDirection: "row", alignItems: "center" }}
                       >
@@ -615,7 +618,7 @@ export default function AdminHome() {
                     data="Announcements"
                     textstyle={{ fontSize: 18 }}
                   />
-                  <TouchableOpacity>
+                  {/* <TouchableOpacity>
                     <RegularFontText
                       data="See All"
                       textstyle={{
@@ -624,7 +627,7 @@ export default function AdminHome() {
                         textDecorationLine: "underline",
                       }}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
                 {/* <StaticForum /> */}
                 <Announcement />

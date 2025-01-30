@@ -44,6 +44,8 @@ import ProductDetails from "../../screens/AdminInterface/MarketPlace/ProductDeta
 import DomesticStaff from "../../screens/AdminInterface/Domestic/DomesticStaff";
 import DomesticDetail from "../../screens/AdminInterface/Domestic/DomesticDetail";
 import Amenities from "../../screens/AdminInterface/Amentities/Amenities";
+import VendorListDetails from "../../screens/AdminInterface/Service/VendorListDetails";
+import VendortDetailsReview from "../../screens/AdminInterface/Service/VendortDetailsReview";
 
 const Stack = createStackNavigator();
 
@@ -95,6 +97,22 @@ const Adminnaviagetion = () => {
           "domestic",
           DomesticStaff,
           "Domestic Staff"
+        )}
+      />
+
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "vendorServiceDetails",
+          VendorListDetails,
+          "Details"
+        )}
+      />
+
+      <Stack.Screen
+        {...SingleScreenWithBackButton(
+          "VendortDetailsReview",
+          VendortDetailsReview,
+          "All Review"
         )}
       />
 

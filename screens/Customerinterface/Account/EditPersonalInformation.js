@@ -7,7 +7,7 @@ import {
   Image,
   Touchable,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import {
@@ -118,9 +118,11 @@ const EditPersonalInformation = () => {
   );
   return (
     // <AppScreen>
-      <View style={{
-        paddingBottom:30,
-      }}>
+    <View
+      style={{
+        paddingBottom: 30,
+      }}
+    >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <TouchableOpacity
           onPress={pickImage}
@@ -209,8 +211,8 @@ const EditPersonalInformation = () => {
             isLoading={Update_Mutation.isLoading}
           />
         </View>
-        </ScrollView>
-      </View>
+      </ScrollView>
+    </View>
     // </AppScreen>
   );
 };

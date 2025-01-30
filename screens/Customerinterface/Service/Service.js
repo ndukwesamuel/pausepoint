@@ -10,7 +10,10 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
-import { All_service_category_data_Fun } from "../../../Redux/UserSide/ServiceSlice";
+import {
+  All_service__data_Fun,
+  All_service_category_data_Fun,
+} from "../../../Redux/UserSide/ServiceSlice";
 
 const Service = ({ navigation }) => {
   dispatch = useDispatch();
@@ -103,7 +106,10 @@ const Service = ({ navigation }) => {
   const filteredImages = tab !== "engineering" ? images : engineering;
 
   useEffect(() => {
-    dispatch(All_service_category_data_Fun());
+    console.log({
+      jjj: "djfkdfkj",
+    });
+    dispatch(All_service__data_Fun());
 
     return () => {};
   }, []);

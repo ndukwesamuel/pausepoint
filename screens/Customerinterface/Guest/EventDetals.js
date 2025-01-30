@@ -313,9 +313,6 @@ const GuestsDetail = () => {
                 alignItems: "center",
               }}
             >
-              {console.log({
-                sssdd: qrCodeValue,
-              })}
               <QRCode
                 value={qrCodeValue}
                 size={200}

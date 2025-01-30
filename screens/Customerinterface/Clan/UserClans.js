@@ -73,9 +73,6 @@ const UserClans = () => {
 
   const SelectCLan_Mutation = useMutation(
     (data_info) => {
-      console.log({
-        data_info,
-      });
       let url = `${API_BASEURL}clan/select_user_clan/${data_info?.id}`;
 
       const config = {
@@ -195,11 +192,12 @@ const UserClans = () => {
       <View style={{ width: "75%" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item?.name}</Text>
         <Text>{item?.description}</Text>
-        <Text>Creator: {item?.creator._id}</Text>
+        {/* <Text>Creator: {item?.creator._id}</Text> */}
         <Text>Status: {item?.status}</Text>
-        <Text>Status: {item?._id}</Text>
+        <Text>Email: {item?.email}</Text>
+        {/* <Text>Status: {item?._id}</Text> */}
 
-        <Text>Status: {get_user_profile_data?.currentClanMeeting?._id}</Text>
+        {/* <Text>Status: {get_user_profile_data?.currentClanMeeting?._id}</Text> */}
       </View>
 
       <TouchableOpacity
@@ -261,10 +259,11 @@ const UserClans = () => {
       <View style={{ width: "75%" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item?.name}</Text>
         <Text>{item?.description}</Text>
-        <Text>Creator: {item?.creator._id}</Text>
+        {/* <Text>Creator: {item?.creator._id}</Text> */}
         <Text>Status: {item?.status}</Text>
-        <Text>Status: {item?._id}</Text>
-        <Text>Status: {get_user_profile_data?.AdmincurrentClanMeeting}</Text>
+        <Text>Email: {item?.email}</Text>
+        {/* <Text>Status: {item?._id}</Text> */}
+        {/* <Text>Status: {get_user_profile_data?.AdmincurrentClanMeeting}</Text> */}
       </View>
 
       <TouchableOpacity
@@ -297,28 +296,24 @@ const UserClans = () => {
               }
         }
       >
-        {Estate_admin_SelectCLan_Mutation.isLoading ? (
-          <ActivityIndicator size="small" color="white" />
-        ) : (
-          <View>
-            {get_user_profile_data?.AdmincurrentClanMeeting === item?._id ? (
-              <Text style={{ color: "white" }}>Leave</Text>
-            ) : (
-              <Text style={{ color: "white" }}>Join</Text>
-            )}
-          </View>
-        )}
+        <View>
+          {get_user_profile_data?.AdmincurrentClanMeeting === item?._id ? (
+            <Text style={{ color: "white" }}>Leave</Text>
+          ) : (
+            <Text style={{ color: "white" }}>Join</Text>
+          )}
+        </View>
       </TouchableOpacity>
-      {/* Add more details as needed */}
     </View>
   );
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
-      {refreshing ||
-        (SelectCLan_Mutation.isLoading && (
-          <ActivityIndicator size="large" color="#0C1401" />
-        ))}
+      {(refreshing ||
+        SelectCLan_Mutation.isLoading ||
+        Estate_admin_SelectCLan_Mutation.isLoading) && (
+        <ActivityIndicator size="large" color="#0C1401" />
+      )}
 
       <View
         style={{
