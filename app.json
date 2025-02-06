@@ -3,7 +3,7 @@
     "name": "PausePoint",
     "slug": "PausePoint",
     "orientation": "default",
-    "version": "1.0.3",
+    "version": "1.1.2",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "plugins": [
       [
         "expo-barcode-scanner",
@@ -21,8 +19,7 @@
           "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
         }
       ],
-      "expo-build-properties",
-      "react-native-vision-camera"
+      "expo-build-properties"
     ],
     "ios": {
       "supportsTablet": false,
@@ -31,19 +28,18 @@
         "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone",
         "UIBackgroundModes": []
       },
-      "bundleIdentifier": "com.pause.point"
+      "bundleIdentifier": "com.pause.point",
+      "buildNumber": "2"
     },
     "android": {
-      "versionCode": 11,
+      "versionCode": 13,
       "targetSdkVersion": 34,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.pause_point.PausePoint",
-      "permissions": [
-        "android.permission.CAMERA"
-      ]
+      "permissions": ["android.permission.CAMERA"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
