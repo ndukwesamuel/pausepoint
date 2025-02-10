@@ -148,7 +148,7 @@ const CreatePassword = ({ navigation }) => {
 
           <RegistraionParagraphText data={otpemail} color="#8E8E8F" />
 
-          <View style={{ flex: 1, marginTop: 20 }}>
+          <View style={{ flex: 1, marginTop: 20, b }}>
             <View style={{ marginBottom: 15 }}>
               <FormLabel data="OTP " />
               <Forminput
