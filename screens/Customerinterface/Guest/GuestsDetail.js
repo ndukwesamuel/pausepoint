@@ -48,7 +48,7 @@ import {
 import { formatDateandTime } from "../../../utils/DateTime";
 import * as Sharing from "expo-sharing";
 
-import QRCode from "react-native-qrcode-svg";
+// import QRCode from "react-native-qrcode-svg";
 import ViewShot from "react-native-view-shot";
 // import Share from "react-nat
 import { CenterReuseModals } from "../../../components/shared/ReuseModals";
@@ -445,12 +445,14 @@ const GuestsDetail = () => {
                 alignItems: "center",
               }}
             >
-              <QRCode
+              {/* <QRCode
                 value={qrCodeValue}
                 size={200}
                 color="black"
                 backgroundColor="white"
-              />
+              /> */}
+
+              <Text>Qrcode</Text>
             </View>
           )}
 

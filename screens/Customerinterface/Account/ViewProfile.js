@@ -36,7 +36,7 @@ import { userFile } from "../../../utils/fakedata";
 import { Admin_Get_Single_User_Fun } from "../../../Redux/Admin/UserSlice";
 import { HalfScreenModal } from "../../../components/shared/ReuseableModal";
 import { Get_Single_clan } from "../../../Redux/UserSide/ClanSlice";
-import QRCode from "react-native-qrcode-svg";
+// import QRCode from "react-native-qrcode-svg";
 export default function ViewProfile({ navigation }) {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -291,12 +291,14 @@ export default function ViewProfile({ navigation }) {
                   alignItems: "center",
                 }}
               >
-                <QRCode
+                {/* <QRCode
                   value={jsonString}
                   size={200}
                   color="black"
                   backgroundColor="white"
-                />
+                /> */}
+
+                <Text> Qrcode </Text>
               </View>
             )}
           </View>
